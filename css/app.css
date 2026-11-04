@@ -267,3 +267,6 @@ body[data-pet=xiaosha] .pet-xiaosha,body[data-pet=tiaotiao] .pet-tiaotiao,body[d
 .panel{min-width:0;max-width:100%}
 @media (max-width:760px){.gal .th{grid-template-columns:repeat(4,1fr)}}
 .tblw:has(table.spec){overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+
+/* 商店頁面連動 */
+.st.s-shop{background:#FFD9E6;color:var(--ink)}

@@ -23,7 +23,8 @@ T.save=save;
 T.shopKey=function(){return S.shop};
 T.setShop=function(k){if(RAW[k]){S.shop=k;save()}};
 T.D=function(k){k=k||S.shop;if(!S.shops[k]){S.shops[k]=realize(RAW[k]);save()}return S.shops[k]};
-T.reset=function(){try{localStorage.removeItem(KEY);localStorage.removeItem(SEQ);sessionStorage.removeItem('theme')}catch(e){}S={ver:1,shop:S.shop,shops:{}};save()};
+T.reload=function(){load()};
+T.reset=function(){try{localStorage.removeItem(KEY);localStorage.removeItem(SEQ);localStorage.removeItem('tx-cart-v1');localStorage.removeItem('tx-member-v1');sessionStorage.removeItem('theme')}catch(e){}S={ver:1,shop:S.shop,shops:{}};save()};
 T.shops=function(){return Object.keys(RAW).map(function(k){return {key:k,name:RAW[k].name,acc:RAW[k].acc}})};
 T.THEMES={fresh:{acc:'#4BD1A0',d:'#2BA57A',soft:'#D3F5E7'},beauty:{acc:'#FF7AA5',d:'#D9507D',soft:'#FFDCE8'},fashion:{acc:'#FFC93F',d:'#D99C14',soft:'#FFF0BF'}};
 /* ---------- 小工具 ---------- */
@@ -142,4 +143,83 @@ T.report=function(days){var D=T.D(),from=T.dayStart(Date.now()-(days-1)*DAY),row
   return {rows:rows,rev:rev,ord:ord,avg:ord?rev/ord:0,newc:newc,cust:Math.round(ord*.82),top:top,cat:cat}};
 T.csv=function(rows){return '\ufeff'+rows.map(function(r){return r.map(function(c){c=String(c==null?'':c);return /[",\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c}).join(',')}).join('\r\n')};
 T.download=function(name,text,mime){var b=new Blob([text],{type:mime||'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)};
+
+/* ======================================================================
+   商店頁面（顧客看到的）共用邏輯。和後台用同一份資料：後台改商品／價格／庫存／網店設定，商店頁面馬上跟著變；
+   商店頁面下單，後台「訂單」馬上多一筆。購物車與會員登入存在另外兩個 localStorage 鍵，按「重設示範資料」會一起清掉。
+   ====================================================================== */
+var CART='tx-cart-v1',MEM='tx-member-v1';
+T.digits=function(s){return String(s||'').replace(/\D/g,'')};
+T.vkeys=function(p){return Object.keys(p.variants||{})};
+T.vlabel=function(vk){return vk?String(vk).replace('|','／'):''};
+T.vOf=function(p,vk){return vk&&p.variants?p.variants[vk]:null};
+T.vprice=function(p,vk){var v=T.vOf(p,vk);if(v)return v.sale!==''&&v.sale!=null?+v.sale:+v.price;return T.price(p)};
+T.vorig=function(p,vk){var v=T.vOf(p,vk);return v?+v.price:+p.price};
+T.vstock=function(p,vk){var v=T.vOf(p,vk);if(v)return v.on===false?0:(+v.stock||0);return +p.stock||0};
+T.liveKeys=function(p){return T.vkeys(p).filter(function(k){return p.variants[k].on!==false})};
+T.priceRange=function(p){var ks=T.liveKeys(p);if(!ks.length)return {lo:T.price(p),hi:T.price(p),orig:+p.price,sale:T.price(p)<+p.price};
+  var pr=ks.map(function(k){return T.vprice(p,k)}),or=ks.map(function(k){return T.vorig(p,k)});var lo=Math.min.apply(null,pr),hi=Math.max.apply(null,pr);
+  return {lo:lo,hi:hi,orig:Math.min.apply(null,or),sale:pr.some(function(x,i){return x<or[i]})}};
+T.shopProducts=function(){return T.D().products.filter(function(p){return p.status==='on'})};
+T.soldOut=function(p){return T.stockOf(p)<=0};
+T.maxQty=function(p,vk){var s=T.vstock(p,vk),m=+p.maxBuy||0;return m>0?Math.min(s,m):s};
+/* 購物車（每家店各一台） */
+function cartAll(){try{return JSON.parse(localStorage.getItem(CART))||{}}catch(e){return {}}}
+T.cart=function(){var l=cartAll()[S.shop];return Array.isArray(l)?l:[]};
+T.cartSave=function(l){var a=cartAll();a[S.shop]=l;try{localStorage.setItem(CART,JSON.stringify(a))}catch(e){}};
+T.cartCount=function(){return T.cart().reduce(function(a,i){return a+i.qty},0)};
+T.cartAdd=function(pid,vk,qty){var p=T.product(pid);if(!p||p.status!=='on')return {ok:false,msg:'這個商品已經下架了'};
+  if(T.vkeys(p).length&&!T.vOf(p,vk))return {ok:false,msg:'請先選好規格'};
+  var max=T.maxQty(p,vk);if(max<=0)return {ok:false,msg:'這個款式暫時缺貨'};
+  var l=T.cart(),it=l.filter(function(x){return x.pid===pid&&x.vk===(vk||'')})[0],have=it?it.qty:0,want=have+(+qty||1),msg='';
+  if(want>max){want=max;msg=(+p.maxBuy>0&&max===+p.maxBuy)?'這個商品每人最多買 '+max+' 件':'庫存只剩 '+max+' 件，已幫你放進最大數量'}
+  if(it)it.qty=want;else l.push({pid:pid,vk:vk||'',qty:want});T.cartSave(l);return {ok:true,msg:msg,qty:want}};
+T.cartSet=function(i,q){var l=T.cart();if(!l[i])return;q=Math.floor(+q||0);if(q<=0)l.splice(i,1);else{var p=T.product(l[i].pid);var m=p?T.maxQty(p,l[i].vk):0;l[i].qty=Math.max(1,Math.min(q,m||1))}T.cartSave(l)};
+T.cartClear=function(){T.cartSave([])};
+T.cartLines=function(){return T.cart().map(function(it,i){var p=T.product(it.pid),ok=!!p&&p.status==='on',st=ok?T.vstock(p,it.vk):0,bad='';
+  if(!p||p.status!=='on')bad='這個商品已下架';else if(T.vkeys(p).length&&!T.vOf(p,it.vk))bad='這個規格已經沒有了';else if(st<=0)bad='缺貨中';else if(it.qty>st)bad='庫存只剩 '+st+' 件';
+  return {i:i,pid:it.pid,vk:it.vk,qty:it.qty,p:p,price:p?T.vprice(p,it.vk):0,orig:p?T.vorig(p,it.vk):0,stock:st,bad:bad}})};
+/* 物流與付款（後台「設定」裡開關什麼，這裡就出現什麼） */
+T.shipOpts=function(){var s=T.D().settings;return [{k:'7-11 超商取貨',on:s.seven,fee:+s.cvsFee,cvs:true},{k:'全家 超商取貨',on:s.family,fee:+s.cvsFee,cvs:true},{k:'黑貓宅配',on:s.home,fee:+s.homeFee,cvs:false}].filter(function(x){return x.on})};
+T.payOpts=function(logi){var s=T.D().settings,cvs=/超商/.test(logi||''),home=logi==='黑貓宅配',r=[];
+  if(s.payCard)r.push({k:'信用卡（綠界）',d:'任何金額都能刷，不加收手續費（示範：不會真的刷卡）',status:'待處理',pay:'已付款'});
+  if(s.payAtm)r.push({k:'ATM 轉帳',d:'下單後轉帳，收到款項才出貨',status:'等待付款',pay:'待付款'});
+  if(s.payCvs&&cvs)r.push({k:'超商取貨付款',d:'到店取貨時再付錢',status:'待處理',pay:'貨到付款待收款'});
+  if(s.payCod&&home)r.push({k:'貨到付款',d:'宅配送到時再付錢',status:'待處理',pay:'貨到付款待收款'});
+  return r};
+T.todayStr=function(){return T.fmtDay(Date.now())};
+T.findCoupon=function(code){code=String(code||'').trim().toUpperCase();if(!code)return null;return T.D().coupons.filter(function(c){return String(c.code).toUpperCase()===code})[0]||null};
+T.couponCheck=function(c,sub){if(!c)return '找不到這組折扣碼';if(!c.active)return '這組折扣碼已停用';var t=T.todayStr();if(c.start&&t<c.start)return '這組折扣碼還沒開始';if(c.end&&t>c.end)return '這組折扣碼已過期';if(c.limit&&c.used>=c.limit)return '這組折扣碼已被領完';if(sub<c.min)return '再買 '+T.money(c.min-sub)+' 就能用這組折扣碼（滿 '+T.money(c.min)+'）';return ''};
+T.member=function(){try{var m=JSON.parse(localStorage.getItem(MEM));return m&&m.shop===S.shop?m:null}catch(e){return null}};
+T.memberSet=function(m){try{if(m)localStorage.setItem(MEM,JSON.stringify(Object.assign({shop:S.shop},m)));else localStorage.removeItem(MEM)}catch(e){}};
+T.customerByPhone=function(ph){var d=T.digits(ph);if(!d)return null;return T.D().customers.filter(function(c){return T.digits(c.phone)===d})[0]||null};
+T.levelOff=function(cust){if(!cust)return 0;var l=T.D().levels.filter(function(x){return x.name===cust.level})[0];return l?+l.off:0};
+/* 試算：小計、活動折扣、折扣碼、會員折扣、運費 */
+T.quote=function(lines,o){o=o||{};var D=T.D(),S2=D.settings,good=lines.filter(function(l){return !l.bad});
+  var sub=good.reduce(function(a,l){return a+l.price*l.qty},0),qty=good.reduce(function(a,l){return a+l.qty},0),parts=[],msg='';
+  var camp=D.campaigns.filter(function(c){return c.active&&c.type==='任選優惠'})[0];
+  if(camp&&qty>=3){parts.push({k:camp.name,v:Math.floor(sub*.1)})}
+  var c=o.code?T.findCoupon(o.code):null,cm='';
+  if(o.code){cm=T.couponCheck(c,sub);if(!cm){parts.push({k:'折扣碼 '+c.code,v:c.type==='percent'?Math.floor(sub*c.value/100):Math.min(sub,+c.value),code:c.id})}}
+  var off=T.levelOff(o.cust);if(off)parts.push({k:o.cust.level+' 會員 '+off+'% 折扣',v:Math.floor(sub*off/100)});
+  var disc=Math.min(sub,parts.reduce(function(a,x){return a+x.v},0));
+  var lg=T.shipOpts().filter(function(x){return x.k===o.logi})[0],fee=0,free=sub>=+S2.freeOver;if(lg&&!free&&sub>0)fee=lg.fee;
+  return {sub:sub,qty:qty,parts:parts,disc:disc,fee:fee,free:free,total:Math.max(0,sub-disc)+fee,couponMsg:cm,gapFree:Math.max(0,+S2.freeOver-sub),camp:camp}};
+/* 在商店頁面下單：建立一筆後台看得到的訂單，扣庫存；回傳 {ok,order} 或 {ok:false,msg} */
+T.placeOrder=function(f){var D=T.D(),lines=T.cartLines();
+  if(!lines.length)return {ok:false,msg:'購物車是空的'};
+  var bad=lines.filter(function(l){return l.bad});if(bad.length)return {ok:false,msg:'「'+(bad[0].p?bad[0].p.name:'有商品')+'」'+bad[0].bad+'，請回購物車調整'};
+  var cust=T.customerByPhone(f.phone);
+  var q=T.quote(lines,{logi:f.logi,code:f.code,cust:cust}),pay=T.payOpts(f.logi).filter(function(x){return x.k===f.pay})[0];
+  if(!pay)return {ok:false,msg:'請選一個付款方式'};
+  if(!cust){cust={id:T.uid('fc'),name:f.name,phone:f.phone,email:f.email,level:'一般',points:0,credit:0,joined:Date.now(),joinedDays:0,tags:['商店頁面新會員'],note:''};D.customers.unshift(cust)}
+  var ids=D.orders.map(function(o){return +o.id.replace(/\D/g,'')}),nid='T'+(Math.max.apply(null,ids)+1);
+  var items=lines.map(function(l){return {pid:l.pid,name:l.p.name,variant:l.vk,qty:l.qty,price:l.price,returned:0}});
+  var o={id:nid,t:Date.now(),cid:cust.id,cname:f.name,phone:f.phone,email:f.email,items:items,sub:q.sub,fee:q.fee,disc:q.disc,discNote:q.parts.map(function(x){return x.k}).join('、'),total:q.total,pay:pay.k,payStatus:pay.pay,logi:f.logi,dest:f.dest,status:pay.status,code:'',printed:false,note:f.note?'顧客備註：'+f.note:'',returned:0,ret:null,src:'shop',hist:[{t:Date.now(),text:'訂單成立（商店頁面下單）'}]};
+  if(pay.status==='等待付款')o.hist.push({t:Date.now(),text:'等待顧客轉帳'});
+  D.orders.unshift(o);
+  lines.forEach(function(l){var p=l.p;if(l.vk&&p.variants&&p.variants[l.vk])p.variants[l.vk].stock=Math.max(0,(+p.variants[l.vk].stock||0)-l.qty);else p.stock=Math.max(0,(+p.stock||0)-l.qty);if(p.variants&&Object.keys(p.variants).length)p.stock=T.stockOf(p);p.sold30=(+p.sold30||0)+l.qty});
+  q.parts.forEach(function(x){if(x.code){var c=D.coupons.filter(function(c){return c.id===x.code})[0];if(c)c.used=(+c.used||0)+1}});
+  T.save();T.cartClear();T.memberSet({phone:f.phone,name:f.name,email:f.email});return {ok:true,order:o}};
+T.ordersOfPhone=function(ph){var d=T.digits(ph);if(!d)return [];return T.D().orders.filter(function(o){return T.digits(o.phone)===d})};
 })();

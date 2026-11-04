@@ -16,7 +16,13 @@ APP.route=function(re,sec,fn){APP.routes.push({re:re,sec:sec,fn:fn})};
 function path(){var p=(location.hash||'').replace(/^#/,'');return p||'/orders'}
 APP.go=function(p){location.hash=p};
 APP.pet=function(text){var k=PET[APP.cur&&APP.cur.sec]||'lili';C.say&&C.say(k,text)};
+function shopLink(sec){var m=(APP.cur&&APP.cur.path||'').match(/^\/product\/([^/]+)$/);
+  if(m&&m[1]!=='new')return '<a class="btn pk sm" data-go="shop.html#/p/'+m[1]+'" data-cur="商店">在商店頁面看這個商品</a>';
+  if(sec==='shop'||sec==='products')return '<a class="btn pk sm" data-go="shop.html" data-cur="商店">看商店頁面</a>';
+  if(sec==='orders'&&/^\/orders(\/|$)/.test(APP.cur&&APP.cur.path||''))return '<a class="btn pk sm" data-go="shop.html" data-cur="商店">去商店頁面下一單</a>';
+  return ''}
 APP.page=function(sec,title,sub,right,body,activePath){ /* 標準頁首＋次選單 */
+  right=(right||'')+shopLink(sec);
   var t=TX.todo(),subs=(SUBS[sec]||[]),ap=activePath||path();
   var best=-1,bl=-1;subs.forEach(function(s,i){if(ap===s[1]){best=i;bl=999}else if(ap.indexOf(s[1]+'/')===0&&s[1].length>bl){best=i;bl=s[1].length}});if(best<0&&subs.length)best=0;
   var tabs=subs.length?'<nav class="sub" aria-label="次選單">'+subs.map(function(s,i){var b=s[2]==='unread'?t.unread:s[2]==='returns'?t.returns:s[2]==='ship'?t.ship:0;return '<a href="#'+s[1]+'" class="'+(i===best?'on':'')+'" data-cur="'+h(s[0])+'"'+(i===best?' aria-current="page"':'')+'>'+h(s[0])+(b?' <em>'+b+'</em>':'')+'</a>'}).join('')+'</nav>':'';
