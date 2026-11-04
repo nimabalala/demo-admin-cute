@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>示範後台｜棠序問策股份有限公司建置</title>
+<link rel="stylesheet" href="css/base.css"><link rel="stylesheet" href="css/home.css"><link rel="stylesheet" href="css/chrome.css"></head>
+<body class="home" data-section="home">
+<div id="cursor"><div class="b"></div></div>
+<canvas id="confetti"></canvas>
+<div id="chrome"></div>
+
+<section class="hero-wrap" id="heroWrap">
+ <div class="hero" id="hero">
+  <div class="blobs"><i class="bl b1"></i><i class="bl b2"></i><i class="bl b3"></i></div>
+  <div class="dots"></div>
+  <i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i>
+  <div class="stickers" id="stickers">
+   <img class="stk" src="" data-x="150" data-y="215" data-w="190" data-br="50%" data-r="-8" alt="">
+   <img class="stk" src="" data-x="1290" data-y="210" data-w="170" data-br="42% 58% 55% 45% / 50% 45% 55% 50%" data-r="9" alt="">
+   <img class="stk" src="" data-x="95" data-y="520" data-w="150" data-br="30%" data-r="7" alt="">
+   <img class="stk" src="" data-x="1345" data-y="440" data-w="140" data-br="50%" data-r="-6" alt="">
+   <img class="stk" src="" data-x="310" data-y="735" data-w="200" data-br="55% 45% 40% 60% / 50% 55% 45% 50%" data-r="6" alt="">
+   <img class="stk" src="" data-x="640" data-y="760" data-w="165" data-br="50%" data-r="-9" alt="">
+   <img class="stk" src="" data-x="900" data-y="790" data-w="130" data-br="34%" data-r="10" alt="">
+  </div>
+  <div class="hero-center" id="heroCenter">
+   <div class="kick"><span class="tag"><i></i>近 7 天營收</span></div>
+   <h1 class="hl" id="hl"><span>今</span><span>天</span><span>也</span><span>賣</span><span>得</span><span class="hi">超</span><span class="hi">好</span><span>！</span></h1>
+   <div class="bignum" id="bignum"></div>
+   <div class="meta" id="meta"></div>
+   <div class="btns"><a class="btn mag" data-go="app.html#/orders/ship" data-cur="GO" id="shipBtn">批次出貨</a><a class="btn w mag" data-go="app.html#/orders">看全部訂單</a></div>
+  </div>
+  <div class="hamwrap" id="hamwrap">
+   <div class="balloons" id="balloons"><span class="bal" style="--c:#FF8DAA;--x:-95px;--h:230px"></span><span class="bal" style="--c:#FFD45E;--x:-30px;--h:290px"></span><span class="bal" style="--c:#86C8FF;--x:40px;--h:250px"></span><span class="bal" style="--c:#7BDDB5;--x:105px;--h:205px"></span></div>
+   <div class="ham-l" data-ham="lili" id="heroHam"></div>
+  </div>
+  <div class="mound"></div>
+  <div class="scroll-cue" id="cue"><span>往下滑</span><i></i></div>
+  <div class="toast" id="toast"></div>
+ </div>
+</section>
+
+<section class="sec stats" id="stats" style="--sec:#FFDDE6">
+ <i class="scal"></i>
+ <div class="sec-top"><h2>今天的四件事</h2><span class="tag"><i></i><span id="today">今天</span>・即時更新</span></div>
+ <div class="grid4">
+  <a class="cell" style="--c:#8CCBFF" data-go="app.html#/customers/inbox"><div class="face"><i></i><i></i><u></u></div><div class="no num" id="n-unread" data-n="0">0</div><div class="lb">客服未讀</div><small id="t-unread"></small></a>
+  <a class="cell" style="--c:#FFD45E" data-go="app.html#/orders/ship"><div class="face"><i></i><i></i><u></u></div><div class="no num" id="n-ship" data-n="0">0</div><div class="lb">待出貨</div><small>17:00 前出貨，隔天到</small></a>
+  <a class="cell" style="--c:#7BDDB5" data-go="app.html#/orders"><div class="face"><i></i><i></i><u></u></div><div class="no num" id="n-trans" data-n="0">0</div><div class="lb">運送中</div><small id="t-trans"></small></a>
+  <a class="cell" style="--c:#FF8DAA" data-go="app.html#/products/stock"><div class="face"><i></i><i></i><u></u></div><div class="no num" id="n-low" data-n="0">0</div><div class="lb">庫存偏低</div><small id="t-low"></small></a>
+ </div>
+</section>
+
+<section class="sec garland" id="garland" style="--sec:#FFF4E2">
+ <i class="scal"></i>
+ <div class="gl" id="gl"></div>
+</section>
+
+<section class="sec missions" id="missions" style="--sec:#D9EEFF">
+ <i class="scal"></i>
+ <div class="mh"><h2>開店任務<span class="u">第 1 單元</span></h2><div class="ham-m" data-ham="tiaotiao"></div></div>
+ <div class="mscroll" id="mscroll"><div class="mcards" id="mcards"></div></div>
+</section>
+
+<section class="sec wall-sec" id="wallSec" style="--sec:#FFEFC0">
+ <i class="scal"></i>
+ <div class="wh"><h2>熱賣商品</h2><div class="pills" id="pills"></div><div class="ham-w" data-ham="xiaosha"></div></div>
+ <div class="wall" id="wall"></div>
+</section>
+
+<section class="sec cta" id="cta" style="--sec:var(--acc-soft)">
+ <i class="scal"></i>
+ <h2>換成你的品牌，<br>就是你的後台</h2>
+ <p class="sub">店名、主色、商品、訂單，一鍵整套替換。選一個試試看：</p>
+ <div class="themes" id="themes">
+  <button class="sw on" data-theme="fresh" data-cur="選我"><i style="--c:#4BD1A0"></i>生鮮蔬果</button>
+  <button class="sw" data-theme="beauty" data-cur="選我"><i style="--c:#FF7AA5"></i>美妝保養</button>
+  <button class="sw" data-theme="fashion" data-cur="選我"><i style="--c:#FFC93F"></i>服飾穿搭</button>
+ </div>
+ <a class="btn lg mag" data-line="cta-bottom"><svg viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.6 1.1-.5 5.8-3.4 7.9-5.8C21.4 13.6 22 12.4 22 11c0-4.4-4.5-8-10-8z"/></svg>用 LINE 聊聊你的後台</a>
+ <div class="foot">示範資料皆為虛構・示範後台｜棠序問策股份有限公司建置・<a data-go="app.html#/orders" style="text-decoration:underline">進入完整後台</a></div>
+ <div class="trio"><div class="t1" data-ham="tiaotiao"></div><div class="t2" data-ham="lili"></div><div class="t3" data-ham="xiaosha"></div></div>
+</section>
+
+<script src="vendor/gsap.min.js"></script><script src="vendor/ScrollTrigger.min.js"></script><script src="vendor/lenis.min.js"></script>
+<script src="config.js"></script><script src="data/data.js"></script><script src="js/store.js"></script><script src="js/art.js"></script><script src="js/common.js"></script><script src="js/chrome.js"></script><script src="js/track.js"></script><script src="js/home.js"></script>
+</body></html>

@@ -1,0 +1,63 @@
+@font-face{font-family:"GenSen";src:url("../fonts/GenSen-M.woff2") format("woff2");font-weight:300 600}
+@font-face{font-family:"GenSen";src:url("../fonts/GenSen-H.woff2") format("woff2");font-weight:700 900}
+@font-face{font-family:"Fredoka";src:url("../fonts/Fredoka-VF.ttf");font-weight:300 700;font-stretch:75% 125%}
+:root{
+  --cream:#FFF4E2;--cream2:#FFE9C8;--ink:#4B2E22;--mut:#8B6A58;--line:#F2DDC0;--white:#fff;
+  --pink:#FF8DAA;--rose:#FF5E7E;--mint:#7BDDB5;--butter:#FFD45E;--sky:#86C8FF;--peach:#FFB48A;
+  --acc:#4BD1A0;--acc-d:#2BA57A;--acc-soft:#D3F5E7;
+  --shadow:#EBD3B0;
+  --disp:"Fredoka","GenSen",sans-serif;--body:"GenSen","Fredoka",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--cream)}
+body{background:var(--cream);color:var(--ink);font-family:var(--body);font-weight:500;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+b,strong,h1,h2,h3{font-weight:900}
+.num{font-family:var(--disp);font-weight:700;font-variant-numeric:tabular-nums}
+/* 糖果按鈕：厚度＋按下下沉 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:54px;padding:0 28px;border-radius:999px;background:var(--acc);color:var(--ink);font-weight:900;font-size:17px;white-space:nowrap;box-shadow:0 6px 0 var(--acc-d);transition:box-shadow .15s,background .4s;cursor:pointer;position:relative;top:0}
+.btn:hover{top:-2px;box-shadow:0 8px 0 var(--acc-d)}
+.btn:active{top:6px;box-shadow:0 0 0 var(--acc-d)}
+.btn.w{background:#fff;box-shadow:0 6px 0 var(--shadow)}
+.btn.w:hover{box-shadow:0 8px 0 var(--shadow)}.btn.w:active{box-shadow:0 0 0 var(--shadow)}
+.btn.pk{background:var(--pink);box-shadow:0 6px 0 #E0668A}
+.btn.sm{height:42px;padding:0 18px;font-size:14.5px;box-shadow:0 4px 0 var(--acc-d)}
+.btn.sm.w{box-shadow:0 4px 0 var(--shadow)}
+.btn.lg{height:64px;padding:0 38px;font-size:20px}
+.btn svg{width:20px;height:20px;fill:currentColor}
+.tag{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 15px;border-radius:999px;background:#fff;box-shadow:0 3px 0 var(--shadow);font-size:12.5px;font-weight:900;color:var(--ink);white-space:nowrap}
+.tag i{width:9px;height:9px;border-radius:50%;background:var(--butter);box-shadow:0 0 0 3px #FFF0B8}
+.chip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:900;background:var(--k);color:var(--ink)}
+/* 游標夥伴 */
+#cursor{position:fixed;left:0;top:0;z-index:9999;pointer-events:none}
+#cursor .b{position:absolute;left:-17px;top:-17px;width:34px;height:34px;border-radius:50%;background:var(--rose);box-shadow:0 4px 0 #D94566;display:grid;place-items:center;font:900 12px/1 var(--body);color:var(--ink);transition:width .25s cubic-bezier(.3,1.6,.5,1),height .25s cubic-bezier(.3,1.6,.5,1),left .25s cubic-bezier(.3,1.6,.5,1),top .25s cubic-bezier(.3,1.6,.5,1),background .2s}
+#cursor .b:before,#cursor .b:after{content:"";position:absolute;top:36%;width:5px;height:7px;border-radius:50%;background:#3A2218;transition:opacity .2s}
+#cursor .b:before{left:28%}#cursor .b:after{right:28%}
+#cursor.big .b{width:78px;height:78px;left:-39px;top:-39px;background:var(--butter);box-shadow:0 5px 0 #E0AE2A}
+#cursor.big .b:before,#cursor.big .b:after{opacity:0}
+/* 倉鼠元件：PNG 無眼睛，眼睛是疊上去的元素（所以沒有描邊、沒有白邊） */
+.ham{position:relative;aspect-ratio:1;user-select:none;transform-origin:50% 100%}
+.ham .bd{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+.ham .eye{position:absolute;width:var(--ed);aspect-ratio:1;margin:calc(var(--ed)/-2) 0 0 calc(var(--ed)/-2);border-radius:50%;background:#2A1810}
+.ham .eye:after{content:"";position:absolute;left:50%;top:12%;width:34%;height:34%;border-radius:50%;background:#FFF8EC}
+.ham .say{position:absolute;left:50%;bottom:96%;transform:translateX(-50%) scale(0);transform-origin:50% 100%;background:#fff;color:var(--ink);font-weight:900;font-size:15px;padding:9px 16px;border-radius:18px;white-space:nowrap;box-shadow:0 4px 0 var(--shadow);z-index:3}
+.ham .say:after{content:"";position:absolute;left:50%;bottom:-6px;width:13px;height:13px;background:#fff;transform:translateX(-50%) rotate(45deg);border-radius:0 0 4px 0}
+.star{position:fixed;width:20px;height:20px;z-index:9000;pointer-events:none;background:var(--butter);clip-path:polygon(50% 0,62% 36%,100% 38%,70% 60%,80% 100%,50% 76%,20% 100%,30% 60%,0 38%,38% 36%)}
+/* 轉場：栗栗推著捲成一捲的地毯，由左滾到右 */
+#roll{position:fixed;inset:0;z-index:9500;pointer-events:none;overflow:hidden;visibility:hidden}
+#roll .rug{position:absolute;left:0;top:0;width:100%;height:100%;background:radial-gradient(circle at 20px 20px,rgba(255,255,255,.55) 0 7px,transparent 8px) 0 0/40px 40px,var(--acc);will-change:transform}
+#roll .tube{position:absolute;left:-110px;top:-4vh;width:220px;height:108vh;border-radius:110px;background:repeating-linear-gradient(55deg,var(--cream) 0 26px,var(--acc) 26px 52px);will-change:transform;box-shadow:0 0 0 6px rgba(255,255,255,.0)}
+#roll .tube:after{content:"";position:absolute;inset:0;border-radius:110px;background:linear-gradient(90deg,rgba(60,30,10,.28),rgba(255,255,255,.28) 28%,rgba(255,255,255,0) 52%,rgba(60,30,10,.22))}
+#roll .ham{position:absolute;left:0;bottom:36px;width:300px;will-change:transform}
+.mk{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--acc);box-shadow:0 3px 0 var(--acc-d);transition:background .4s}
+.mk svg{width:20px;height:20px}
+/* 導覽列：圓角白色浮條 */
+.nav{position:fixed;left:18px;right:18px;top:14px;z-index:900;height:64px;padding:0 14px 0 14px;border-radius:999px;background:#fff;box-shadow:0 6px 0 var(--shadow);display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:900;font-size:20px}
+.brand em{font-style:normal;color:var(--mut);font-size:15px;margin-left:-6px;font-weight:700}
+.links{flex:1;display:flex;gap:4px;justify-content:center}
+.lk{height:40px;padding:0 16px;border-radius:999px;display:inline-flex;align-items:center;font-weight:900;font-size:14.5px;color:var(--mut);transition:background .2s,color .2s,transform .3s cubic-bezier(.3,1.8,.5,1)}
+.lk:hover{background:var(--cream2);color:var(--ink);transform:translateY(-3px) rotate(-2deg)}
+.lk.on{background:var(--acc-soft);color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
