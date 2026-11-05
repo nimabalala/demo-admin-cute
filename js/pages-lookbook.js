@@ -14,10 +14,15 @@ function plug(tab){var lb=LB.get(),upd=LB.hasUpdate(),act=LB.active();
   var tabs=[['list','穿搭列表','/shop/lookbook'],['set','設定','/shop/lookbook/settings'],['lic','授權與更新','/shop/lookbook/license']];
   var warn=act?'':'<div class="note w">'+U.icon.info+'<div><b>授權'+(lb.lic.state==='expired'?'已到期':'尚未啟用')+'。</b>前台的穿搭輪盤照常顯示、加入購物車照常運作；已建立的穿搭仍可編輯與刪除。目前無法新增穿搭或匯入示範資料，也不會收到外掛更新。<a class="lnk" href="#/shop/lookbook/license">去啟用授權</a></div></div>';
   var up=upd?'<div class="note lbupd">'+U.icon.spark+'<div><b>有新版本：v'+h(lb.newVer)+'（目前 v'+h(lb.ver)+'）</b>'+h(LB.CHANGELOG[0])+'。<span class="lbupa"><button class="act" type="button" data-a="lbupdate">立即更新</button><a class="lnk" href="#/shop/lookbook/license">看更新內容</a></span></div></div>':'';
-  return '<div class="lbplug"><div class="pi">'+ICON+'</div><div class="pm"><h2>'+h(LB.NAME)+' <span class="ver">v'+h(lb.ver)+'</span><span class="diy">棠序自製外掛</span></h2><p class="by">作者：'+h(LB.AUTHOR)+'</p><p class="d">在網站放一個可以左右拖曳旋轉的「模特兒穿搭輪盤」，顧客點模特兒，右側就滑出這套穿搭的單品；照片上有編號熱點，可以單件或整套加入購物車。</p></div><div class="ps">'+licChip()+'<a class="btn sm pk" data-line="lookbook-admin">想要這個外掛？LINE 問棠序</a></div></div>'+up+warn+
+  return '<div class="lbplug"><div class="pi">'+ICON+'</div><div class="pm"><h2>'+h(LB.NAME)+' <span class="ver">v'+h(lb.ver)+'</span><span class="diy">棠序自製外掛</span></h2><p class="by">作者：'+h(LB.AUTHOR)+'</p><p class="d">在網站放一個可以左右拖曳旋轉的「模特兒穿搭輪盤」，顧客點模特兒，右側就滑出這套穿搭的單品；照片上有編號熱點，可以單件或整套加入購物車。</p></div><div class="ps">'+licChip()+'<a class="btn sm w" href="#/settings/plugins">外掛開關</a><a class="btn sm pk" data-line="lookbook-admin">想要這個外掛？LINE 問棠序</a></div></div>'+up+warn+
    '<div class="chips2 lbtabs" role="tablist">'+tabs.map(function(t){return '<a role="tab" class="chipa'+(tab===t[0]?' on':'')+'" href="#'+t[2]+'" aria-selected="'+(tab===t[0])+'">'+t[1]+'</a>'}).join('')+'</div>'}
+/* 外掛沒開：穿搭管理頁一律顯示「外掛未開啟」，不顯示空白列表 */
+function offPage(){var body='<div class="board plgoff"><div class="pi">'+ICON+'</div><div class="tx"><h2>外掛未開啟</h2><p>「'+h(LB.NAME)+'」目前是關閉的，商店頁面不會顯示穿搭輪盤。打開之後，6 套示範穿搭、18 件單品會自動準備好，你也可以在這裡新增、編輯自己的穿搭。</p><div class="acts"><button class="btn pk lg" type="button" data-a="plgon">開啟外掛</button><a class="btn w" href="#/settings/plugins">到外掛頁</a></div></div></div>';
+  return {html:A.page('shop','模特兒穿搭輪盤','網店','',body,'/shop/lookbook'),mount:function(){A.pet&&A.pet('這個外掛還沒打開喔，按一下就好！')}}}
+function route(re,sec,fn){A.route(re,sec,function(m,o){return LB.on()?fn(m,o):offPage()})}
 /* ================= 穿搭列表 ================= */
-A.route(/^\/shop\/lookbook$/,'shop',function(){var lb=LB.get(),D=TX.D(),fash=TX.shopKey()==='fashion',demoN=lb.looks.filter(function(l){return l.demo}).length,show=Math.max(1,+lb.set.show||6);
+
+route(/^\/shop\/lookbook$/,'shop',function(){var lb=LB.get(),D=TX.D(),fash=TX.shopKey()==='fashion',demoN=lb.looks.filter(function(l){return l.demo}).length,show=Math.max(1,+lb.set.show||6);
   var right='<button class="btn sm" type="button" data-a="lbnew">＋ 新增穿搭</button>';
   var rows=lb.looks.map(function(l,i){var res=l.items.map(LB.res),lk=res.filter(function(r){return r.linked}).length,pins=l.items.filter(function(it){return it.x!=null&&it.x!==''}).length,vis=!l.hide&&i<show&&lb.looks.slice(0,i).filter(function(x){return !x.hide}).length<show;
     var vc=lb.looks.filter(function(x,k){return !x.hide&&k<=i}).length,on=!l.hide&&vc<=show;
@@ -47,7 +52,7 @@ function itemCard(E,it,i){var P=TX.D().products,pr=it.pid?LB.res(it):null;
     '<div class="row2"><label class="fld"><span>單品名稱 <i>*</i></span><input data-i="lbf" data-n="'+i+'" data-f="name" value="'+h(it.name)+'" maxlength="40"></label><label class="fld"><span>價格（NT$）<i>*</i></span><input data-i="lbf" data-n="'+i+'" data-f="price" inputmode="numeric" value="'+h(it.price)+'"></label></div><small class="lbsm">手動輸入的單品只顯示名稱和價格，還不能加入購物車。</small>';
   var pin=(it.x!=null&&it.x!=='')?'熱點在 '+(+it.x).toFixed(0)+'%、'+(+it.y).toFixed(0)+'%':'還沒標熱點';
   return '<div class="lbit'+(E._act===i?' on':'')+'" data-n="'+i+'"><div class="hd"><span class="nm">'+(i+1)+'</span>'+seg+'<span class="pn">'+pin+'</span></div>'+f+'<label class="fld"><span>備註（選填，例如：可選顏色）</span><input data-i="lbf" data-n="'+i+'" data-f="note" value="'+h(it.note||'')+'" maxlength="40"></label><div class="acts"><button class="act'+(E._act===i?'':' g')+'" type="button" data-a="lbpinsel" data-n="'+i+'">'+(E._act===i?'請點左邊照片放熱點':'標示熱點')+'</button><button class="act g" type="button" data-a="lbpinclr" data-n="'+i+'"'+((it.x==null||it.x==='')?' disabled':'')+'>清除熱點</button><button class="act d" type="button" data-a="lbitdel" data-n="'+i+'">刪除單品</button></div></div>'}
-A.route(/^\/shop\/lookbook\/edit\/([^/]+)$/,'shop',function(m){var id=decodeURIComponent(m[1]),E=draftOf(id);
+route(/^\/shop\/lookbook\/edit\/([^/]+)$/,'shop',function(m){var id=decodeURIComponent(m[1]),E=draftOf(id);
   if(!E){return A.page('shop','找不到這套穿搭','網店','','<div class="empty"><b>這套穿搭不見了</b><a class="btn sm" href="#/shop/lookbook" style="margin-top:14px">回穿搭列表</a></div>','/shop/lookbook')}
   var pick=LB.IMGS.map(function(src,i){return '<button type="button" class="lbpick'+(E.img===src?' on':'')+'" data-a="lbimg" data-src="'+h(src)+'" aria-label="模特兒照片 '+(i+1)+'" aria-pressed="'+(E.img===src)+'"><img src="'+h(src)+'" alt="" loading="lazy"></button>'}).join('');
   var left='<div class="panel lbleft"><h2><span class="l"><em>1</em>模特兒照片與熱點</span></h2><p class="hint">'+(E._act>=0&&E.items[E._act]?'現在要放第 '+(E._act+1)+' 件的熱點：直接點照片上的位置。熱點可以拖曳微調。':'先在右邊選一件單品，按「標示熱點」，再點照片。')+'</p>'+stageHtml(E)+'<div class="fld" style="margin-top:12px"><span>換一張模特兒照片（這是提供的 6 張）</span><div class="lbpicks">'+pick+'</div></div></div>';
@@ -87,9 +92,37 @@ A.act.lbsave=function(t){var E=ui.draft;if(!E)return;var er=[];
   if(!out.key)delete out.key;
   if(E._new)lb.looks.push(out);else{var i=lb.looks.findIndex(function(l){return l.id===E.id});if(i>-1)lb.looks[i]=out}
   if(E._new&&TX.D().menu.indexOf('穿搭輪盤')<0&&lb.looks.length===1){TX.D().menu.push('穿搭輪盤');lb.menu=1}
+  if(LB.on())LB.ensureMenu();
   TX.save();ui.draft=null;A.confetti(t,40);U.toast('已儲存「'+out.title+'」','商店頁面的穿搭輪盤馬上就會更新');location.hash='/shop/lookbook'};
+
+/* ================= 設定 → 外掛：棠序自製外掛清單與開關 ================= */
+function qs(){var hs=location.hash||'',i=hs.indexOf('?');return new URLSearchParams(i<0?'':hs.slice(i+1))}
+window.addEventListener('hashchange',function(){ui.just=null});
+A.route(/^\/settings\/plugins(?:\?.*)?$/,'settings',function(){
+  var lb=LB.get(),on=LB.on(),fash=TX.shopKey()==='fashion',hint=qs().get('hint')==='1',st=lb.lic.state,j=ui.just,nvis=LB.visible().length,total=lb.looks.length;
+  var items=lb.looks.reduce(function(n,l){return n+l.items.length},0);
+  var licTx=st==='active'?'授權有效・已綁定這個網站・有效至 '+h(lb.lic.exp)+'（示範）':st==='expired'?'授權已到期：前台照常顯示，但不能新增穿搭、也收不到更新':'授權尚未啟用：請先輸入授權碼';
+  var sw='<div class="plgswrap"><button type="button" class="plgsw'+(on?' on':'')+'" role="switch" aria-checked="'+on+'" aria-label="模特兒穿搭輪盤外掛開關" data-a="plgtoggle"><span class="trk"><i class="knob"></i><b>'+(on?'已開啟':'已關閉')+'</b></span></button>'+
+    (on?'':'<div class="plghint'+(hint?' big':'')+'" role="note"><b>'+(hint?'就是這個！按一下打開外掛':'按一下，打開這個外掛')+'</b><span>商店頁面馬上多一個穿搭輪盤</span></div>')+'</div>';
+  var done='';
+  if(on){var jmsg=j?'<h3>外掛已開啟！</h3><p>'+(j.sw?'示範穿搭是服飾款，已經幫你換到「北風衣櫥」。':'')+(j.res&&j.res.looks?'6 套穿搭、18 件單品已經自動準備好（北風衣櫥新增了 '+j.res.prods+' 個商品）。':total?'目前有 '+total+' 套穿搭、'+items+' 件單品。':'')+'商店頁面首頁和選單「穿搭輪盤」都已經出現。</p>':'<h3>外掛運作中</h3><p>商店頁面首頁有穿搭輪盤區塊，選單也有「穿搭輪盤」；目前前台顯示 '+nvis+' 套（共 '+total+' 套、'+items+' 件單品）。</p>';
+    if(j&&j.res&&j.res.note)jmsg+='<p class="warn">'+h(j.res.note)+'</p>';
+    done='<div class="plgdone'+(j?' fresh':'')+'">'+jmsg+'<div class="acts"><a class="btn pk lg" data-go="shop.html#/lookbook" data-cur="商店">去商店頁面看看</a><a class="btn w" data-go="shop.html#/" data-cur="商店">看商店首頁區塊</a><a class="btn w" href="#/shop/lookbook">管理穿搭</a><a class="btn w" href="#/shop/lookbook/settings">外掛設定</a></div></div>'}
+  var card='<section class="plgcard'+(on?' on':'')+'" aria-label="'+h(LB.NAME)+'"><div class="plgtop"><div class="pi">'+ICON+'</div><div class="pm"><h2>'+h(LB.NAME)+' <span class="ver">v'+h(lb.ver)+'</span><span class="diy">棠序自製外掛</span></h2><p class="by">作者：'+h(LB.AUTHOR)+'</p><p class="d">在商店頁面放一個可以左右拖曳旋轉的模特兒輪盤。顧客點一位模特兒，右側滑出這套穿搭的單品，照片上有編號熱點，可以單件、也可以整套加入購物車。</p><ul class="plgul"><li>後台點照片標熱點、連到商品，不用寫程式</li><li>改價格、庫存，輪盤馬上跟著變</li><li>手機是下方彈出面板，可以滑動</li></ul></div></div>'+
+    '<div class="plgctl"><div class="plglic"><span class="st '+(LICL[st]||LICL.none)[1]+'">授權'+(LICL[st]||LICL.none)[0]+'</span><div><b>'+licTx+'</b>'+(st==='active'?'<small>授權碼 '+h(LB.mask(lb.lic.key))+'</small>':'')+'<a class="lnk" href="#/shop/lookbook/license">授權與更新</a></div></div>'+sw+'</div>'+
+    (on?'':'<p class="plgnote">'+(fash?'打開後，6 套示範穿搭會自動準備好，不用再按匯入。':'示範穿搭是服飾款：打開時會自動帶你到「北風衣櫥」，並把 6 套穿搭準備好。')+'</p>')+done+'</section>';
+  var more='<section class="plgmore"><div><b>想要別的功能？</b><p>我們也接客製外掛與網站功能。告訴我們你的店需要什麼，我們幫你做成可以開關的外掛。</p></div><a class="btn pk sm" data-line="plugins-more">LINE 問棠序</a></section>';
+  var body='<div class="note plgintro">'+U.icon.info+'<div>這裡是<b>棠序自製外掛</b>的清單。外掛裝好之後，店長可以自己決定要不要開；打開或關閉，商店頁面馬上跟著變。</div></div>'+card+more;
+  return {html:A.page('settings','外掛','設定','',body,'/settings/plugins'),mount:function(){A.pet&&A.pet(on?'外掛開著呢，去商店頁面看看吧！':'把大開關按下去，看看商店頁面會發生什麼事！')}}});
+function turnOn(t){var sw=TX.shopKey()!=='fashion';A.confetti(t,100);
+  if(sw){C.setTheme('fashion');if(C.chromeMark)C.chromeMark()}
+  var r=LB.setOn(1);ui.just={sw:sw,res:r};
+  U.toast('外掛已開啟',(r.looks?'6 套穿搭、18 件單品已經準備好；':'')+'商店頁面馬上看得到');
+  A.pet&&A.pet('開啟囉！商店頁面現在有穿搭輪盤了');A.refresh()}
+A.act.plgtoggle=function(t){if(LB.on()){LB.setOn(0);ui.just=null;U.toast('外掛已關閉','商店頁面的穿搭輪盤和選單已經收起來（穿搭資料保留，再打開就回來）');A.pet&&A.pet('外掛關掉了，前台的輪盤也收起來囉');A.refresh();return}turnOn(t)};
+A.act.plgon=function(t){turnOn(t)};
 /* ================= 設定 ================= */
-A.route(/^\/shop\/lookbook\/settings$/,'shop',function(){var lb=LB.get(),s=lb.set,cur=String(s.accent||'#4B2E22');
+route(/^\/shop\/lookbook\/settings$/,'shop',function(){var lb=LB.get(),s=lb.set,cur=String(s.accent||'#4B2E22');
   var sw='<div class="swatches" role="group" aria-label="主題色">'+SWC.map(function(c){return '<button type="button" data-a="lbacc" data-c="'+c[0]+'" style="background:'+c[0]+'" class="'+(cur.toLowerCase()===c[0].toLowerCase()?'on':'')+'" aria-label="'+c[1]+'" title="'+c[1]+'"></button>'}).join('')+'<input type="color" value="'+h(cur)+'" data-i="lbacc" aria-label="自選顏色"></div>';
   var tg=function(k,label,sub){return '<div class="sw-row"><div>'+label+'<small>'+sub+'</small></div>'+U.tg(!!+s[k],'data-a="lbtg" data-k="'+k+'" aria-label="'+h(label)+'"')+'</div>'};
   var body=plug('set')+'<div class="grid2 o"><div><div class="panel"><h2>外觀</h2><div class="fld"><span>主題色（熱點、分頁、按鈕）</span>'+sw+'</div><label class="fld"><span>前台區塊標題</span><input data-i="lbset" data-k="title" value="'+h(s.title)+'" maxlength="24"></label><label class="fld"><span>前台區塊說明</span><input data-i="lbset" data-k="sub" value="'+h(s.sub)+'" maxlength="40"></label><label class="fld"><span>右側面板小標題</span><input data-i="lbset" data-k="eyebrow" value="'+h(s.eyebrow)+'" maxlength="30"></label><label class="fld"><span>右側面板底部提醒文字</span><input data-i="lbset" data-k="note" value="'+h(s.note)+'" maxlength="60"></label></div>'+

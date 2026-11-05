@@ -155,11 +155,17 @@ SH.act.lball=function(t,e){e.stopPropagation();var look=LB.look(t.dataset.look);
   t.querySelector('.t').textContent='整套已加入 ✓';setTimeout(function(){var q=t.querySelector('.t');if(q)q.textContent='整套加入購物車'},2200);var vc=$('.mlb-viewcart',pn);if(vc)vc.classList.add('show')};
 SH.act.lbimport=function(t){var r=LB.importDemo();if(!r.ok){U.toast(r.msg);return}U.toast('已匯入 '+r.looks+' 套穿搭、'+r.items+' 件單品','新增了 '+r.prods+' 個北風衣櫥商品');if(!RM&&C.burst){var b=t.getBoundingClientRect();C.burst(b.left+b.width/2,b.top+b.height/2,60)}ST.cur=0;ST.open=false;SH.refresh()};
 /* ---------- 專屬頁面 #/lookbook ---------- */
+var PLUG_URL='app.html#/settings/plugins?shop=fashion&hint=1';
 SH.route('lookbook',/^\/lookbook$/,function(m,H,o){var lb=LB.get();
-  if(H.q.get('demo')==='1'){var visible=LB.visible().length;if(!visible&&T_isFashion()){var r=LB.importDemo();if(r.ok){setTimeout(function(){U.toast('已先幫你匯入示範穿搭','這是後台功能，正式站由店長自己在後台匯入或新增')},700)}}history.replaceState(null,'','#/lookbook')}
+  /* 外掛還沒開：從示範連結（demo=1）進來就帶去後台外掛頁；自己點進來則說明外掛沒開 */
+  if(!LB.on()){
+    if(H.q.get('demo')==='1'){history.replaceState(null,'','#/lookbook');setTimeout(function(){if(C.go)C.go(PLUG_URL);else location.href=PLUG_URL},350);
+      return {html:'<div class="pg lb-page">'+SH.empty('正在帶你去後台打開外掛…','模特兒穿搭輪盤是店長在後台「外掛」頁打開的功能，打開之後商店頁面才會出現。','<a class="btn" data-go="'+PLUG_URL+'" data-cur="後台">直接前往</a>')+'</div>'}}
+    return {html:'<div class="pg lb-page"><div class="lb-off rvl">'+SH.ham('tiaotiao','','mascot')+'<span class="lb-kick">LOOKBOOK <i>棠序自製外掛</i></span><h1 class="sec-t">模特兒穿搭輪盤外掛還沒開啟</h1><p>這是棠序問策自製的外掛。店長到後台「設定 → 外掛」打開開關，這裡就會出現可以拖曳旋轉的模特兒穿搭輪盤，顧客點模特兒就能看到整套單品、一鍵加入購物車。</p><div class="go"><a class="btn pk lg" data-go="'+PLUG_URL+'" data-cur="後台">去後台打開外掛</a><a class="btn w lg" data-go="shop.html#/">回商店首頁</a></div></div></div>',admin:'app.html#/settings/plugins',edit:'app.html#/settings/plugins',editLabel:'去後台打開外掛'}}
+  if(H.q.get('demo')==='1')history.replaceState(null,'','#/lookbook');
   var looks=LB.visible(),d=SH.D();
   var cta='<section class="lb-cta rvl">'+SH.ham('tiaotiao','','mascot')+'<div><span class="lb-kick">棠序自製功能</span><h2>這個穿搭輪盤，是棠序問策自己做的外掛</h2><p>做在 WordPress／WooCommerce 上，店長在後台點一點照片、標好商品，顧客就能在商店頁面一鍵整套加入購物車。這個示範站是靜態的假資料，但操作手感跟正式版一樣。</p><div class="go"><a class="btn" data-go="app.html#/shop/lookbook" data-cur="後台">到後台改這個輪盤</a><a class="btn pk" data-line="lookbook-cta">'+SH.LINE+'我也想要・LINE 問棠序</a></div></div></section>';
-  if(!looks.length){return {html:'<div class="pg lb-page">'+SH.lookbookHead(true)+SH.empty('穿搭輪盤還沒有內容','這是店長在後台建立的穿搭。示範站可以先一鍵匯入 6 套穿搭、18 件單品，看看顧客端的樣子。',(T_isFashion()?'<button class="btn" type="button" data-a="lbimport">一鍵匯入示範穿搭</button>':'<button class="btn" type="button" data-shop="fashion">先換到北風衣櫥</button>')+' <a class="btn w" data-go="app.html#/shop/lookbook">去後台看看</a>')+cta+'</div>',admin:'app.html#/shop/lookbook'}}
+  if(!looks.length){return {html:'<div class="pg lb-page">'+SH.lookbookHead(true)+SH.empty('穿搭輪盤還沒有內容','外掛已經開啟，店長到後台「模特兒穿搭輪盤」新增一套穿搭（選模特兒照片、點照片標熱點、連到商品），這裡就會出現。',(T_isFashion()?'':'<button class="btn" type="button" data-shop="fashion">先換到北風衣櫥</button> ')+'<a class="btn w" data-go="app.html#/shop/lookbook">去後台新增穿搭</a>')+cta+'</div>',admin:'app.html#/shop/lookbook'}}
   return {html:'<div class="pg lb-page">'+SH.crumbs([['穿搭輪盤']])+SH.lookbookHead(true)+SH.lookbookHtml({page:true})+cta+'</div>',admin:'app.html#/shop/lookbook',edit:'app.html#/shop/lookbook',editLabel:'去後台改這個輪盤',mount:function(root){SH.lookbookMount(root,!(SH.cur&&SH.cur.name==='lookbook'))}}});
 function T_isFashion(){return TX.shopKey()==='fashion'}
 })();

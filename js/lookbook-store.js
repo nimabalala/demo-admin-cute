@@ -4,22 +4,33 @@
 'use strict';
 var T=window.TX,LB=T.LB={};
 var DEMO=[{"t":"日系駝色長大衣穿搭","s":"LOOK 01","i":[{"n":"羊毛長大衣（駝色）","p":6980,"d":"經典直筒版型的羊毛長大衣，柔軟親膚不扎人，單穿或疊穿都有質感。","x":64,"y":36,"c":"外套","z":["S","M","L"]},{"n":"高領羅紋針織衫（奶油白）","p":1880,"d":"微高領設計的羅紋針織衫，奶油白色調溫柔百搭，內搭外穿皆宜。","x":44,"y":27,"c":"上衣","z":["S","M","L"]},{"n":"直筒羊毛西裝褲（炭灰）","p":2380,"d":"筆直剪裁的羊毛混紡西裝褲，修飾腿型，通勤與日常都適合。","x":38,"y":56,"c":"褲裙","z":["28","30","32"]}]},{"t":"韓系卡其風衣穿搭","s":"LOOK 02","i":[{"n":"棉質雙排釦風衣（卡其）","p":4980,"d":"雙排釦經典風衣，防風防潑水棉質布料，秋冬換季好搭配。","x":50,"y":38,"c":"外套","z":["S","M","L"]},{"n":"直筒長褲（深藍）","p":1980,"d":"俐落直筒版型長褲，深藍色穩重耐看，上班與休閒都百搭。","x":56,"y":74,"c":"褲裙","z":["28","30","32"]},{"n":"皮革德比鞋（黑）","p":3680,"d":"傳統德比鞋型，質感皮革鞋面，正式與日常穿搭皆宜。","x":66,"y":94,"c":"配件","z":["41","42","43"]}]},{"t":"燕麥針織裙裝穿搭","s":"LOOK 03","i":[{"n":"麻花粗針織毛衣（燕麥色）","p":2780,"d":"立體麻花紋粗針織毛衣，燕麥色溫暖柔和，寬鬆版型好穿搭。","x":58,"y":36,"c":"上衣","z":["S","M","L"]},{"n":"百褶中長裙（橄欖綠）","p":1980,"d":"細緻壓褶的中長版百褶裙，橄欖綠有層次，行走時裙擺飄逸。","x":50,"y":66,"c":"褲裙","z":["S","M","L"]},{"n":"皮革樂福鞋（深棕）","p":3280,"d":"經典樂福鞋型，深棕色皮革質感，通勤休閒兩相宜。","x":49,"y":94,"c":"配件","z":["37","38","39"]}]},{"t":"炭灰西裝穿搭","s":"LOOK 04","i":[{"n":"單排釦西裝外套（炭灰）","p":5980,"d":"單排釦修身西裝外套，炭灰色挺版布料，商務與正式場合都合適。","x":72,"y":40,"c":"外套","z":["S","M","L"]},{"n":"直筒西裝褲（炭灰）","p":2680,"d":"直筒剪裁西裝褲，與外套同色系可成套穿搭，也能單獨混搭。","x":36,"y":65,"c":"褲裙","z":["28","30","32"]},{"n":"棉質襯衫（白）","p":1580,"d":"純棉質地襯衫，白色基本款，領型挺立、好整理。","x":50,"y":25,"c":"上衣","z":["S","M","L"]}]},{"t":"丹寧休閒穿搭","s":"LOOK 05","i":[{"n":"丹寧外套（中藍）","p":3280,"d":"水洗中藍色丹寧外套，休閒不失俐落，四季都能輕鬆搭配。","x":38,"y":30,"c":"外套","z":["S","M","L"]},{"n":"直筒牛仔褲（靛藍）","p":2480,"d":"直筒版型靛藍牛仔褲，舒適彈性、不易變形，日常必備。","x":48,"y":62,"c":"褲裙","z":["28","30","32"]},{"n":"低筒帆布鞋（米白）","p":1880,"d":"低筒帆布鞋，米白色簡約百搭，輕盈好走。","x":17,"y":88,"c":"配件","z":["41","42","43"]}]},{"t":"燈芯絨長裙穿搭","s":"LOOK 06","i":[{"n":"針織開襟衫（奶油白）","p":2280,"d":"柔軟針織開襟衫，奶油白溫柔氣質，可單穿或當外套披肩。","x":61,"y":30,"c":"上衣","z":["S","M","L"]},{"n":"A字燈芯絨長裙（咖啡棕）","p":2380,"d":"A 字版型燈芯絨長裙，咖啡棕復古質感，行走自在有弧度。","x":52,"y":66,"c":"褲裙","z":["S","M","L"]},{"n":"真皮短靴（黑）","p":3980,"d":"真皮短靴，黑色簡約俐落，搭配裙裝或長褲都好看。","x":50,"y":90,"c":"配件","z":["37","38","39"]}]}];
+/* 從連結帶 shop=fashion 進來（首頁亮點、示範連結）：先換到北風衣櫥 */
+(function(){var hs=location.hash||'',i=hs.indexOf('?');if(i<0)return;var k=new URLSearchParams(hs.slice(i+1)).get('shop');if(k&&k!==T.shopKey()){try{T.setShop(k)}catch(e){}}})();
 LB.VER='1.2.0';LB.NEWVER='1.2.1';LB.AUTHOR='棠序問策股份有限公司';LB.NAME='Model Lookbook 模特兒穿搭輪盤';
 LB.CHANGELOG=['手機版：穿搭輪盤可以用手指左右滑動，單品面板可以往下滑關閉','整套加入購物車時，缺貨或沒連結商品的單品會自動略過並說明','授權到期後，前台輪盤照常顯示、加入購物車照常運作'];
 LB.IMGS=[1,2,3,4,5,6].map(function(i){return 'img/lookbook/look'+i+'.webp'});
 LB.DEMO_KEYS={ok:'MLB-K67Q-TBR9-6WPT-HQX9',expired:'MLB-EXPD-0000-0000-0001',used:'MLB-USED-0000-0000-0002'};
 LB.MSG={locked_new:'目前無法新增穿搭：授權尚未啟用或已到期。已建立的穿搭仍可編輯，前台與加入購物車不受影響。',locked_demo:'目前無法匯入示範資料：授權尚未啟用或已到期。',notfashion:'示範穿搭是服飾款，請先換到「北風衣櫥」再匯入。'};
-LB.defaults=function(){return {ver:LB.VER,newVer:LB.NEWVER,looks:[],menu:0,
+LB.defaults=function(){return {ver:LB.VER,newVer:LB.NEWVER,on:0,looks:[],menu:0,
   set:{accent:'#4B2E22',eyebrow:'穿搭單品 SHOP THE LOOK',note:'價格、規格與販售狀態以商品頁為準。',title:'跟著模特兒穿一套',sub:'點一位模特兒看看穿了什麼，喜歡就整套帶回家',show:6,spacing:1.3,autoplay:1,interval:4400,price:1},
   lic:{state:'active',key:LB.DEMO_KEYS.ok,site:LB.host(),exp:'2027-10-31',last:Date.now()}}};
 LB.host=function(){return location.hostname||'demo-site.example'};
-LB.get=function(){var D=T.D();if(!D.lb)D.lb=LB.defaults();else{var d=LB.defaults();Object.keys(d.set).forEach(function(k){if(D.lb.set[k]==null)D.lb.set[k]=d.set[k]});if(!D.lb.lic)D.lb.lic=d.lic}return D.lb};
+LB.get=function(){var D=T.D();if(!D.lb)D.lb=LB.defaults();else{var d=LB.defaults();Object.keys(d.set).forEach(function(k){if(D.lb.set[k]==null)D.lb.set[k]=d.set[k]});if(!D.lb.lic)D.lb.lic=d.lic}if(D.lb.on==null)D.lb.on=D.lb.looks.length?1:0;return D.lb};
+/* 外掛開關：關閉時商店頁面完全不顯示穿搭輪盤（區塊、選單、專屬頁都消失），資料保留 */
+LB.on=function(){return !!LB.get().on};
+LB.ensureMenu=function(){var D=T.D(),lb=LB.get();if(D.menu.indexOf('穿搭輪盤')<0){var at=D.menu.indexOf('關於我們');if(at<0)D.menu.push('穿搭輪盤');else D.menu.splice(at,0,'穿搭輪盤')}lb.menu=1};
+LB.dropMenu=function(){var D=T.D(),lb=LB.get();D.menu=D.menu.filter(function(m){return m!=='穿搭輪盤'});lb.menu=0};
+LB.setOn=function(v){var lb=LB.get(),res={ok:true,on:v?1:0,looks:0,items:0,prods:0,note:''};
+  if(!v){lb.on=0;LB.dropMenu();T.save();return res}
+  lb.on=1;
+  if(!lb.looks.length){if(T.shopKey()!=='fashion')res.note=LB.MSG.notfashion;else if(!LB.active())res.note=LB.MSG.locked_demo;else{var r=LB.importDemo();if(r.ok){res.looks=r.looks;res.items=r.items;res.prods=r.prods}else res.note=r.msg}}
+  LB.ensureMenu();T.save();return res};
 LB.save=function(){T.save()};
 LB.active=function(){return LB.get().lic.state==='active'};
 LB.canCreate=function(){return LB.active()};
 LB.look=function(id){return LB.get().looks.filter(function(l){return l.id===id})[0]};
 /* 前台會顯示的穿搭：沒有隱藏、有模特兒照片，最多顯示「顯示幾套」套 */
-LB.visible=function(){var lb=LB.get();return lb.looks.filter(function(l){return !l.hide&&l.img}).slice(0,Math.max(1,+lb.set.show||6))};
+LB.visible=function(){var lb=LB.get();if(!lb.on)return [];return lb.looks.filter(function(l){return !l.hide&&l.img}).slice(0,Math.max(1,+lb.set.show||6))};
 /* 單品：有連到商店商品就即時讀商品的名稱、價格、庫存（後台改了馬上變）；沒連就用手動填的 */
 LB.res=function(it){var p=it.pid?T.product(it.pid):null,on=!!p&&p.status==='on',r={it:it,p:p,linked:on,gone:!!it.pid&&!on};
   r.name=p?p.name:(it.name||'未命名單品');

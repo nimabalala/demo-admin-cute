@@ -8,7 +8,7 @@ var SUBS={
  customers:[['客服訊息','/customers/inbox','unread'],['顧客名單','/customers'],['會員等級與點數','/customers/levels']],
  marketing:[['折價券','/marketing'],['優惠活動','/marketing/campaigns']],
  shop:[['外觀與首頁','/shop'],['頁面','/shop/pages'],['網站選單','/shop/menu'],['模特兒穿搭輪盤','/shop/lookbook','diy']],
- settings:[['店家資料','/settings'],['運費與出貨','/settings/shipping'],['付款','/settings/payment'],['通知','/settings/notify'],['帳號與權限','/settings/accounts']],
+ settings:[['店家資料','/settings'],['運費與出貨','/settings/shipping'],['付款','/settings/payment'],['通知','/settings/notify'],['帳號與權限','/settings/accounts'],['外掛','/settings/plugins','diy']],
  reports:[]
 };
 var PET={orders:'xiaosha',reports:'xiaosha',products:'tiaotiao',shop:'tiaotiao',customers:'lili',marketing:'lili',settings:'lili'};
@@ -17,7 +17,7 @@ function path(){var p=(location.hash||'').replace(/^#/,'');return p||'/orders'}
 APP.go=function(p){location.hash=p};
 APP.pet=function(text){var k=PET[APP.cur&&APP.cur.sec]||'lili';C.say&&C.say(k,text)};
 function shopLink(sec){var m=(APP.cur&&APP.cur.path||'').match(/^\/product\/([^/]+)$/);
-  if(/^\/shop\/lookbook/.test(APP.cur&&APP.cur.path||''))return '<a class="btn pk sm" data-go="shop.html#/lookbook" data-cur="商店">看穿搭輪盤（商店頁面）</a>';
+  if(/^\/shop\/lookbook/.test(APP.cur&&APP.cur.path||''))return !(TX.LB&&TX.LB.on())?'':'<a class="btn pk sm" data-go="shop.html#/lookbook" data-cur="商店">看穿搭輪盤（商店頁面）</a>';
   if(m&&m[1]!=='new')return '<a class="btn pk sm" data-go="shop.html#/p/'+m[1]+'" data-cur="商店">在商店頁面看這個商品</a>';
   if(sec==='shop'||sec==='products')return '<a class="btn pk sm" data-go="shop.html" data-cur="商店">看商店頁面</a>';
   if(sec==='orders'&&/^\/orders(\/|$)/.test(APP.cur&&APP.cur.path||''))return '<a class="btn pk sm" data-go="shop.html" data-cur="商店">去商店頁面下一單</a>';
@@ -26,7 +26,7 @@ APP.page=function(sec,title,sub,right,body,activePath){ /* 標準頁首＋次選
   right=(right||'')+shopLink(sec);
   var t=TX.todo(),subs=(SUBS[sec]||[]),ap=activePath||path();
   var best=-1,bl=-1;subs.forEach(function(s,i){if(ap===s[1]){best=i;bl=999}else if(ap.indexOf(s[1]+'/')===0&&s[1].length>bl){best=i;bl=s[1].length}});if(best<0&&subs.length)best=0;
-  var tabs=subs.length?'<nav class="sub" aria-label="次選單">'+subs.map(function(s,i){var b=s[2]==='unread'?t.unread:s[2]==='returns'?t.returns:s[2]==='ship'?t.ship:s[2]==='diy'?'棠序自製':0;return '<a href="#'+s[1]+'" class="'+(i===best?'on':'')+'" data-cur="'+h(s[0])+'"'+(i===best?' aria-current="page"':'')+'>'+h(s[0])+(b?' <em'+(s[2]==='diy'?' class="diy"':'')+'>'+b+'</em>':'')+'</a>'}).join('')+'</nav>':'';
+  var tabs=subs.length?'<nav class="sub" aria-label="次選單">'+subs.map(function(s,i){var b=s[2]==='unread'?t.unread:s[2]==='returns'?t.returns:s[2]==='ship'?t.ship:s[2]==='diy'?(s[1]==='/shop/lookbook'&&TX.LB&&!TX.LB.on()?'未開啟':'棠序自製'):0;return '<a href="#'+s[1]+'" class="'+(i===best?'on':'')+'" data-cur="'+h(s[0])+'"'+(i===best?' aria-current="page"':'')+'>'+h(s[0])+(b?' <em'+(s[2]==='diy'?' class="diy"':'')+'>'+b+'</em>':'')+'</a>'}).join('')+'</nav>':'';
   return '<div class="h1"><h1><small>'+h(sub)+'</small><span class="sm">'+h(title)+'</span></h1><div class="ha">'+(right||'')+'</div></div>'+tabs+body};
 function find(p){for(var i=0;i<APP.routes.length;i++){var m=p.match(APP.routes[i].re);if(m)return {r:APP.routes[i],m:m}}return null}
 var first=true,busy=false;
