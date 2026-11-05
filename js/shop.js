@@ -29,7 +29,7 @@ S.empty=function(title,body,btn){return '<div class="empty">'+S.ham('xiaosha','w
 S.crumbs=function(arr){return '<nav class="crumbs" aria-label="路徑"><a href="#/">首頁</a>'+arr.map(function(a){return '<i>›</i>'+(a[1]?'<a href="'+a[1]+'">'+h(a[0])+'</a>':'<span>'+h(a[0])+'</span>')}).join('')+'</nav>'};
 S.route=function(name,re,fn){S.routes.push({name:name,re:re,fn:fn})};
 S.admin=function(h2){var b=$('#backadmin');if(b)b.setAttribute('data-go',h2)};
-S.editLink=function(href){var e=$('#editadmin');if(!e)return;if(href){e.hidden=false;e.setAttribute('data-go',href)}else e.hidden=true};
+S.editLink=function(href,label){var e=$('#editadmin');if(!e)return;if(href){e.hidden=false;e.setAttribute('data-go',href);var sp=e.querySelector('span');if(sp)sp.textContent=label||'去後台改這個商品'}else e.hidden=true};
 S.toast=function(t,s){U.toast(t,s)};
 /* 讓右下角的栗栗說話（倉鼠在畫面上才會說） */
 S.say=function(text){var el=$('#pethint .pet');var L=C.hams.filter(function(x){return x.el===el})[0];if(L&&L.el.offsetParent)C.jump(L,text)};
@@ -37,7 +37,7 @@ S.say=function(text){var el=$('#pethint .pet');var L=C.hams.filter(function(x){r
 S.menuLink=function(label){var d=D();if(label==='首頁')return '#/';if(label==='全部商品')return '#/list';
   if(d.cats.indexOf(label)>-1)return '#/list?cat='+encodeURIComponent(label);
   var pg=d.pages.filter(function(p){return p.status==='發布'&&p.title===label})[0];if(pg)return '#/page/'+pg.slug;
-  if(/聯絡|客服/.test(label))return '#/page/contact';if(/訂單|會員|查詢/.test(label))return '#/member';return '#/list?q='+encodeURIComponent(label)};
+  if(/穿搭|輪盤|Lookbook/i.test(label))return '#/lookbook';if(/聯絡|客服/.test(label))return '#/page/contact';if(/訂單|會員|查詢/.test(label))return '#/member';return '#/list?q='+encodeURIComponent(label)};
 S.slideLink=function(l){return l==='/sale'?'#/list?sale=1':l==='/new'?'#/list?sort=new':'#/list'};
 /* ---------- 頁首、頁尾、跑馬燈 ---------- */
 function shopPick(cls){return TX.shops().map(function(s){return '<button type="button" data-shop="'+s.key+'" class="'+(s.key===TX.shopKey()?'on':'')+'"><i style="background:'+TX.THEMES[s.key].acc+'"></i>'+h(s.name)+'</button>'}).join('')}
@@ -94,7 +94,7 @@ function initHams(root){C.hams=C.hams.filter(function(L){return document.body.co
 function render(opts){opts=opts||{};var f=resolve(),main=$('#sf');if(!f){location.replace('#/');return}
   var name=f.r.name,sy=window.scrollY;
   var swap=function(){var res=f.r.fn(f.m,f.H,{first:first})||{};main.innerHTML=typeof res==='string'?res:res.html;
-    document.body.classList.toggle('pdp-on',name==='pdp');var ph=$('#pethint');if(ph)ph.classList.toggle('quiet',name==='cart'||name==='checkout');S.admin(res.admin||'app.html#/shop');S.editLink(res.edit||null);
+    document.body.classList.toggle('pdp-on',name==='pdp');document.body.classList.toggle('lb-on',name==='lookbook');document.body.classList.remove('lb-sheet');var ph=$('#pethint');if(ph)ph.classList.toggle('quiet',name==='cart'||name==='checkout'||name==='lookbook');S.admin(res.admin||'app.html#/shop');S.editLink(res.edit||null,res.editLabel);
     head();foot();marquee();initHams(document.body);document.title='商店頁面｜'+D().name+'｜示範後台・棠序問策股份有限公司建置';
     if(opts.keep||(name==='list'&&cur.name==='list'))window.scrollTo(0,sy);else window.scrollTo(0,0);
     if(res.mount)res.mount(main,f.m,f.H);

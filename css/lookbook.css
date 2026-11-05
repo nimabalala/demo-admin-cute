@@ -1,0 +1,153 @@
+/* 商店頁面：模特兒穿搭輪盤（棠序自製外掛）。類別名稱沿用外掛的 mlb- 開頭；外殼是 v5 可愛風，舞台是秀場風。 */
+.lb-sec{margin-bottom:64px}
+.lb-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px}
+.lb-head p{color:var(--mut);font-weight:700;font-size:15px;margin-top:6px}
+.lb-head .more{font-size:14px;background:#fff;border-radius:999px;padding:9px 18px;box-shadow:0 3px 0 var(--shadow);font-weight:900;white-space:nowrap}
+.lb-kick{display:inline-flex;align-items:center;gap:10px;font:700 13px var(--disp);letter-spacing:.2em;color:var(--mut);margin-bottom:6px}
+.lb-kick i{font:900 12px var(--body);letter-spacing:.04em;font-style:normal;background:var(--pink);color:var(--ink);border-radius:999px;padding:3px 11px;box-shadow:0 2px 0 #E0668A}
+h1.sec-t{font-size:40px;line-height:1.15}
+.lb-page .crumbs{margin-bottom:12px}
+
+.mlb-runway.lbx{--mlb-accent:#4B2E22;--mlb-on:#fff;--mlb-h:clamp(600px,82vh,760px);--mlb-actor-h:520px;--mlb-line:#F2DDC0;position:relative;width:100%;height:var(--mlb-h);overflow:hidden;isolation:isolate;border-radius:46px;color:var(--ink);line-height:1.5;
+  background:radial-gradient(ellipse at 50% 34%,#FFFFFF 0%,#FFF1D9 48%,#FFDDB0 100%);box-shadow:0 10px 0 var(--shadow)}
+.lbx.is-page{--mlb-h:clamp(620px,calc(100vh - 150px),820px)}
+.lbx.is-compact{--mlb-h:min(700px,calc(100svh - 120px));min-height:560px;border-radius:34px}
+.lbx *,.lbx *::before,.lbx *::after{box-sizing:border-box}
+.lbx button{font:inherit;color:inherit}
+.lbx [hidden]{display:none!important}
+/* 舞台背景：糖果色聚光燈、大字、飄浮星星 */
+.lbx .mlb-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.lbx .sp{position:absolute;top:-12%;width:52%;height:118%;clip-path:polygon(44% 0,56% 0,100% 100%,0 100%);transform-origin:50% 0;animation:lb-sway 7s ease-in-out infinite alternate}
+.lbx .sp1{left:-12%;background:linear-gradient(180deg,rgba(255,141,170,.5),rgba(255,141,170,0) 78%);transform:rotate(-14deg)}
+.lbx .sp2{right:-12%;background:linear-gradient(180deg,rgba(134,200,255,.5),rgba(134,200,255,0) 78%);transform:rotate(14deg);animation-delay:-3.5s}
+@keyframes lb-sway{from{transform:rotate(-14deg)}to{transform:rotate(-7deg)}}
+.lbx .sp2{animation-name:lb-sway2}@keyframes lb-sway2{from{transform:rotate(14deg)}to{transform:rotate(7deg)}}
+.lbx .ghost{position:absolute;left:50%;top:5%;transform:translateX(-50%);font:700 clamp(96px,17vw,240px)/1 var(--disp);letter-spacing:.03em;color:rgba(75,46,34,.055);white-space:nowrap}
+.lbx .st{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--butter);animation:lb-bob 4.4s ease-in-out infinite}
+.lbx .st1{left:11%;top:22%}.lbx .st2{right:13%;top:30%;background:var(--mint);width:12px;height:12px;animation-delay:-1.4s}.lbx .st3{left:20%;bottom:34%;background:var(--pink);width:11px;height:11px;animation-delay:-2.6s}
+@keyframes lb-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.lbx .mlb-floor{position:absolute;left:-10%;right:-10%;bottom:128px;height:120px;border-radius:50%;background:radial-gradient(ellipse at 50% 30%,rgba(255,255,255,.9),rgba(255,255,255,0) 70%);pointer-events:none;z-index:0}
+/* 模特兒 */
+.lbx .mlb-stage{position:absolute;left:0;right:0;top:18px;bottom:200px;z-index:1;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.lbx.is-dragging .mlb-stage{cursor:grabbing}
+.lbx .mlb-actors{position:absolute;inset:0;transform-origin:50% 100%;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.lbx .mlb-actor{position:absolute;left:50%;bottom:0;margin:0;padding:0;height:var(--mlb-actor-h);aspect-ratio:var(--mlb-ratio,.4);max-width:92%;transform-origin:50% 100%;will-change:transform,opacity;transition:opacity .4s ease}
+.lbx .mlb-actor::after{content:'';position:absolute;left:8%;right:8%;bottom:-8px;height:16px;border-radius:50%;z-index:-1;filter:blur(5px);background:radial-gradient(ellipse at 50% 50%,rgba(75,46,34,.34),rgba(75,46,34,0) 70%)}
+.lbx .mlb-actor.is-faded{pointer-events:none}
+.lbx.is-detail .mlb-actor:not(.is-open){opacity:0!important;pointer-events:none}
+.lbx .mlb-portrait{display:block;width:100%;height:100%;margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;cursor:pointer;-webkit-tap-highlight-color:transparent;transform-origin:50% 100%}
+.lbx .mlb-portrait img{display:block;width:100%;height:100%;max-width:none;object-fit:contain;pointer-events:none;-webkit-user-drag:none;user-select:none}
+.lbx .mlb-portrait:focus-visible,.lbx button:focus-visible,.lbx a:focus-visible,.lbx select:focus-visible{outline:3px solid var(--mlb-accent);outline-offset:3px;border-radius:12px}
+.lbx .mlb-actor.is-front:not(.is-open) .mlb-portrait{filter:drop-shadow(0 18px 24px rgba(75,46,34,.18))}
+.lbx .mlb-label,.lbx .mlb-bar{transition:opacity .3s ease}
+.lbx.is-detail .mlb-label,.lbx.is-detail .mlb-bar{opacity:0;pointer-events:none}
+/* 熱點 */
+.lbx .mlb-pins{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s ease .35s}
+.lbx .mlb-actor.is-open .mlb-pins{opacity:1}
+.lbx .mlb-pin{position:absolute;width:32px;height:32px;margin:0;padding:0;transform:translate(-50%,-50%);border:3px solid var(--mlb-accent);border-radius:50%;background:#fff;color:var(--mlb-accent);font:700 14px/1 var(--disp);cursor:pointer;display:flex;align-items:center;justify-content:center;pointer-events:none;box-shadow:0 3px 0 rgba(75,46,34,.25);transition:background .2s,color .2s,transform .35s cubic-bezier(.3,1.8,.5,1)}
+.lbx .mlb-actor.is-open .mlb-pin{pointer-events:auto}
+.lbx .mlb-pin::after{content:'';position:absolute;inset:-8px;border-radius:50%;border:3px solid var(--mlb-accent);opacity:0;animation:lb-pulse 2s ease-out infinite}
+.lbx .mlb-pin.is-active{background:var(--mlb-accent);color:var(--mlb-on);transform:translate(-50%,-50%) scale(1.25)}
+.lbx .mlb-pin.is-active::after{animation:none}
+@keyframes lb-pulse{0%{transform:scale(.7);opacity:.7}80%,100%{transform:scale(1.5);opacity:0}}
+/* 標題與控制列 */
+.lbx .mlb-label{position:absolute;left:0;right:0;bottom:74px;z-index:30;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;padding:0 16px;pointer-events:none}
+.lbx .mlb-label>*{pointer-events:auto}
+.lbx .mlb-label__num{font:700 13px/1 var(--disp);letter-spacing:.24em;color:var(--mut)}
+.lbx .mlb-label__title{margin:6px 0 0;font:900 clamp(22px,2.6vw,32px)/1.15 var(--body);color:var(--ink)}
+.lbx .mlb-label__sub{font-size:14px;font-weight:700;color:var(--mut)}
+.lbx .mlb-discover{margin-top:10px;height:46px;padding:0 24px;cursor:pointer;border:0;border-radius:999px;background:var(--mlb-accent);color:var(--mlb-on);font-weight:900;font-size:15px;box-shadow:0 5px 0 rgba(0,0,0,.28);transition:transform .25s cubic-bezier(.3,1.8,.5,1),box-shadow .2s}
+.lbx .mlb-discover i{font-style:normal;margin-left:4px}
+.lbx .mlb-discover:hover{transform:translateY(-3px);box-shadow:0 8px 0 rgba(0,0,0,.28)}
+.lbx .mlb-discover:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.28)}
+.lbx .mlb-bar{position:absolute;left:0;right:0;bottom:0;height:68px;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 22px}
+.lbx .mlb-bar__right{display:flex;align-items:center;gap:10px}
+.lbx .mlb-hint{font:700 12px/1 var(--body);letter-spacing:.08em;color:var(--mut)}
+.lbx .mlb-arrow,.lbx .mlb-play{width:44px;height:44px;padding:0;cursor:pointer;border-radius:50%;border:0;background:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;box-shadow:0 4px 0 var(--shadow);transition:transform .25s cubic-bezier(.3,1.8,.5,1),box-shadow .2s}
+.lbx .mlb-arrow:hover,.lbx .mlb-play:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--shadow)}
+.lbx .mlb-arrow:active,.lbx .mlb-play:active{transform:translateY(3px);box-shadow:0 1px 0 var(--shadow)}
+.lbx .mlb-play:disabled{opacity:.4;cursor:default}
+.lbx .mlb-tabs{display:flex;gap:6px;max-width:58%;overflow-x:auto;padding:6px 4px;scrollbar-width:none}
+.lbx .mlb-tabs::-webkit-scrollbar{display:none}
+.lbx .mlb-tab{min-width:38px;height:32px;padding:0 8px;cursor:pointer;flex:0 0 auto;border:0;border-radius:999px;background:rgba(255,255,255,.7);font:700 13px/1 var(--disp);color:var(--mut);transition:background .2s,color .2s,transform .3s cubic-bezier(.3,1.8,.5,1)}
+.lbx .mlb-tab:hover{background:#fff;color:var(--ink)}
+.lbx .mlb-tab[aria-pressed=true]{background:var(--mlb-accent);color:var(--mlb-on);transform:scale(1.08)}
+/* 右側單品面板（手機改成底部面板） */
+.lbx .mlb-sheet{position:absolute;z-index:50;top:14px;right:14px;bottom:14px;width:min(430px,calc(100% - 28px));display:flex;flex-direction:column;background:#fff;color:var(--ink);border-radius:32px;box-shadow:0 8px 0 var(--shadow),0 24px 60px rgba(75,46,34,.22);transform:translateX(118%);visibility:hidden;transition:transform .6s cubic-bezier(.34,1.3,.5,1),visibility 0s linear .6s}
+.lbx .mlb-sheet.is-open{transform:none;visibility:visible;transition-delay:0s}
+.lbx .mlb-grip{display:none;touch-action:none;justify-content:center;padding:10px 0 2px;cursor:grab}
+.lbx .mlb-grip i{display:block;width:46px;height:5px;border-radius:99px;background:var(--line)}
+.lbx .mlb-sheet__top{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 6px}
+.lbx .mlb-eyebrow{font:700 12px/1 var(--disp);letter-spacing:.16em;color:var(--mut)}
+.lbx .mlb-close{width:38px;height:38px;padding:0;cursor:pointer;border:0;border-radius:50%;background:var(--cream);font-size:24px;line-height:1;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 3px 0 var(--shadow)}
+.lbx .mlb-close:hover{background:var(--cream2)}
+.lbx .mlb-sheet__body{flex:1 1 auto;overflow-y:auto;padding:0 22px 12px;overscroll-behavior:contain}
+.lbx .mlb-panel__title{margin:4px 0 0;font:900 24px/1.2 var(--body)}
+.lbx .mlb-panel__sub{margin:3px 0 14px;font-weight:700;color:var(--mut);font-size:14px}
+.lbx .mlb-panel__empty{color:var(--mut);font-weight:700}
+.lbx .mlb-items{list-style:none;margin:0;padding:0}
+.lbx .mlb-item{position:relative;display:grid;grid-template-columns:92px minmax(0,1fr);gap:14px;margin:0;padding:14px 8px;border-top:2px dashed var(--line);border-radius:20px;transition:background .3s}
+.lbx .mlb-item:first-child{border-top:0}
+.lbx .mlb-item.is-active{background:var(--acc-soft,#FFF0BF);border-top-color:transparent}
+.lbx .mlb-item__num{position:absolute;left:2px;top:8px;z-index:1;width:26px;height:26px;border-radius:50%;background:var(--mlb-accent);color:var(--mlb-on);font:700 13px var(--disp);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 rgba(0,0,0,.2)}
+.lbx .mlb-item__img{width:92px;aspect-ratio:3/4;background:var(--cream);border-radius:20px;overflow:hidden}
+.lbx .mlb-item__img img{display:block;width:100%;height:100%;object-fit:cover}
+.lbx .mlb-item__name{margin:0;font:900 16px/1.35 var(--body)}
+.lbx .mlb-item__price{margin:3px 0 0;font:700 19px var(--disp);display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.lbx .mlb-item__price s{font-size:13px;color:var(--mut)}
+.lbx .mlb-item__price b{font-weight:700;color:var(--ink)}
+.lbx .mlb-item__low{margin:2px 0 0;font-size:12.5px;font-weight:900;color:#D2603A}
+.lbx .mlb-item__note{margin:2px 0 0;font-size:13px;font-weight:700;color:var(--mut)}
+.lbx .mlb-sel{display:flex;align-items:center;gap:8px;margin-top:8px}
+.lbx .mlb-sel span{font-size:12.5px;font-weight:900;color:var(--mut)}
+.lbx .mlb-sel select{height:34px;border:0;border-radius:14px;background:var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%238B6A58' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 8px center/16px;appearance:none;padding:0 30px 0 12px;font:700 14px var(--body);color:var(--ink);cursor:pointer}
+.lbx .mlb-item__acts{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}
+.lbx .mlb-item__acts .btn.sm{height:38px;padding:0 16px;font-size:14px}
+.lbx .btn.done{background:var(--mint);box-shadow:0 4px 0 #4DB98F}
+.lbx .btn:disabled{opacity:.45;pointer-events:none}
+.lbx .mlb-item__link{font-size:13px;font-weight:900;color:var(--mut);text-decoration:underline;text-underline-offset:3px}
+.lbx .mlb-nolink{font-size:13px;font-weight:900;color:var(--mut);background:var(--cream);border-radius:999px;padding:6px 12px}
+.lbx .mlb-allbox{padding:12px 22px 0;border-top:2px dashed var(--line)}
+.lbx .mlb-all__btn{width:100%;height:56px;font-size:17px;justify-content:space-between;padding:0 24px}
+.lbx .mlb-all__btn b{font:700 15px var(--disp);background:rgba(255,255,255,.55);border-radius:999px;padding:4px 12px}
+.lbx .mlb-viewcart{display:none;text-align:center;margin-top:10px;font-weight:900;font-size:14px;text-decoration:underline;text-underline-offset:3px}
+.lbx .mlb-viewcart.show{display:block}
+.lbx .mlb-sheet__foot{padding:8px 24px 16px;font-size:12.5px}
+.lbx .mlb-sheet__foot p{margin:0 0 6px;font-weight:700;color:var(--mut)}
+.lbx .mlb-back{padding:0;border:0;background:none;cursor:pointer;font-size:13px;font-weight:900;text-decoration:underline;text-underline-offset:3px}
+/* 窄版：底部面板，可以往下滑關閉、往上拉高 */
+.lbx.is-compact .mlb-hint{display:none}
+.lbx.is-compact .mlb-bar{padding:0 12px}
+.lbx.is-compact .mlb-tabs{max-width:52%}
+.lbx.is-compact .mlb-label{bottom:72px}
+.lbx.is-compact .mlb-sheet{top:auto;left:0;right:0;bottom:0;width:100%;height:56%;border-radius:30px 30px 0 0;transform:translateY(110%);box-shadow:0 -10px 40px rgba(75,46,34,.22);transition:transform .6s cubic-bezier(.34,1.3,.5,1),height .4s cubic-bezier(.16,1,.3,1),visibility 0s linear .6s}
+.lbx.is-compact .mlb-sheet.is-open{transform:none}
+.lbx.is-compact .mlb-sheet.is-tall{height:88%}
+.lbx.is-compact .mlb-grip{display:flex}
+.lbx.is-compact .mlb-sheet__top{padding:4px 16px 4px;touch-action:none}
+.lbx.is-compact .mlb-sheet__body{padding:0 16px 8px}
+.lbx.is-compact .mlb-allbox{padding:8px 16px 0}.lbx.is-compact .mlb-all__btn{height:50px;font-size:16px}
+.lbx.is-compact .mlb-panel__title{font-size:20px}
+.lbx.is-compact .mlb-item{grid-template-columns:72px minmax(0,1fr);gap:12px;padding:12px 4px}
+.lbx.is-compact .mlb-item__img{width:72px;border-radius:16px}
+.lbx.is-compact .mlb-sheet__foot{padding:6px 16px 10px}
+.lbx.is-compact .mlb-sheet__foot p{display:none}
+.lbx.no-anim *{transition:none!important;animation:none!important}
+/* 專屬頁面下方的說明卡 */
+.lb-cta{position:relative;margin-top:44px;display:grid;grid-template-columns:150px minmax(0,1fr);gap:26px;align-items:center;background:#fff;border-radius:40px;box-shadow:0 10px 0 var(--shadow);padding:30px 40px}
+.lb-cta .ham{width:150px}
+.lb-cta h2{font-size:26px;margin:2px 0 8px}
+.lb-cta p{font-weight:700;color:var(--mut);max-width:640px;margin-bottom:16px}
+.lb-cta .go{display:flex;gap:12px;flex-wrap:wrap}
+.lb-cta .btn svg{width:18px;height:18px}
+@media (max-width:760px){
+ .lb-head{flex-direction:column;align-items:flex-start}
+ h1.sec-t{font-size:30px}
+ .mlb-runway.lbx{border-radius:30px}
+ .lb-cta{grid-template-columns:1fr;padding:24px;border-radius:32px;gap:10px}.lb-cta .ham{width:110px}
+ .lb-sec{margin-bottom:44px}
+}
+@media (prefers-reduced-motion:reduce){.lbx *,.lbx *::before,.lbx *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+@media (max-width:760px){body.lb-on .editadmin,body.lb-sheet .backadmin{display:none}body.lb-on .backadmin{height:46px;padding:0 16px 0 10px;font-size:15px;left:10px;bottom:10px}}
+body.lb-sheet #pethint{display:none}

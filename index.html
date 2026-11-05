@@ -66,6 +66,20 @@
  <div class="wall" id="wall"></div>
 </section>
 
+<section class="sec lbhl" id="lbhl" style="--sec:#E7DCFF">
+ <i class="scal"></i>
+ <div class="lbh-in">
+  <div class="lbh-tx">
+   <span class="lbh-tag">棠序自製功能</span>
+   <h2>模特兒穿搭輪盤</h2>
+   <p class="lbh-sub">顧客在商店頁面左右拖曳模特兒，點一位，右邊就滑出這套穿搭的單品。照片上有編號熱點，可以單件、也可以整套一次加入購物車。</p>
+   <ul class="lbh-ul"><li><b>店長自己會用</b>在後台點照片、標熱點、連到商品，不用寫程式</li><li><b>跟商品同步</b>改價格、庫存，輪盤馬上跟著變</li><li><b>有授權與更新</b>一組授權碼一個網站，後台會提醒新版本</li></ul>
+   <div class="lbh-go"><a class="btn pk lg mag" data-go="shop.html#/lookbook?shop=fashion&demo=1" data-cur="試試" id="ctaLook">看穿搭輪盤</a><a class="btn w lg mag" data-go="app.html#/shop/lookbook" data-cur="後台" id="ctaLookAdmin">看後台怎麼設定</a></div>
+  </div>
+  <div class="lbh-pic" aria-hidden="true"><i class="bl"></i><img class="m1" src="img/lookbook/look3.webp" alt="" loading="lazy"><img class="m2" src="img/lookbook/look1.webp" alt="" loading="lazy"><img class="m3" src="img/lookbook/look5.webp" alt="" loading="lazy"><span class="pn p1">1</span><span class="pn p2">2</span><span class="pn p3">3</span></div>
+ </div>
+</section>
+
 <section class="sec cta" id="cta" style="--sec:var(--acc-soft)">
  <i class="scal"></i>
  <h2>換成你的品牌，<br>就是你的後台</h2>
@@ -82,4 +96,5 @@
 
 <script src="vendor/gsap.min.js"></script><script src="vendor/ScrollTrigger.min.js"></script><script src="vendor/lenis.min.js"></script>
 <script src="config.js"></script><script src="data/data.js"></script><script src="js/store.js"></script><script src="js/art.js"></script><script src="js/common.js"></script><script src="js/chrome.js"></script><script src="js/track.js"></script><script src="js/home.js"></script>
+<script>(function(){['ctaLook','ctaLookAdmin'].forEach(function(id){var b=document.getElementById(id);if(b)b.addEventListener('click',function(){try{TX.setShop('fashion')}catch(e){}},true)})})()</script>
 </body></html>

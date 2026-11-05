@@ -59,6 +59,29 @@
 - **綠界規則**：付款選項只有「信用卡（綠界）／ATM 轉帳／超商取貨付款／貨到付款」，沒有任何手續費欄位，也沒有最低刷卡金額，結帳頁用白話寫明；頁面上明確標示「這是示範，不會真的收錢」，沒有任何卡號輸入欄。
 - 動畫：開場由上掉下彈跳、往下捲由下彈起（果凍）、商品卡懸停果凍、加入購物車飛進購物車、換頁左到右糖果條紋掃過（栗栗推著跑）、訂單完成撒彩帶。系統開「減少動態」時全部自動簡化（內容照常顯示，跑馬燈不動）。
 
+## 棠序自製外掛：Model Lookbook 模特兒穿搭輪盤 v1.2.0　← 2026-11-05 新增
+示範我們自己做的外掛：商店首頁與專屬頁面有一個**圓形模特兒輪盤**，點模特兒、右側（手機是下方）滑出這套穿搭的單品，照片上的編號熱點和單品一一對應，可單件或「整套加入購物車」。**資料全是虛構、存在 localStorage，和後台、商店頁面共用同一份資料**；作者標示為棠序問策股份有限公司，介面上有「棠序自製外掛」徽章。
+
+| 入口 | 網址 |
+|---|---|
+| 首頁「棠序自製功能」亮點 | `index.html`（往下捲到「模特兒穿搭輪盤」，按「看穿搭輪盤」） |
+| 商店頁面專屬頁（北風衣櫥） | `shop.html#/lookbook?shop=fashion&demo=1`（沒有穿搭時會自動換到北風衣櫥並匯入示範穿搭） |
+| 商店首頁區塊 | `shop.html#/`（北風衣櫥，匯入示範穿搭後出現「跟著模特兒穿一套」區塊與選單「穿搭輪盤」） |
+| 後台：穿搭列表／編輯／設定／授權 | `app.html#/shop/lookbook`、`#/shop/lookbook/edit/<編號或 new>`、`#/shop/lookbook/settings`、`#/shop/lookbook/license` |
+
+**商店頁面**：輪盤可左右拖曳／滑動、點兩側模特兒切換、自動輪播（可暫停）、鍵盤左右鍵；點中間模特兒開面板，點照片熱點會讓對應單品亮起；單品選尺寸後「加入購物車」（飛入購物車、用現有購物車，NT$），「整套加入」一次放進這套的所有有貨單品，缺貨或手動輸入的單品會說明沒加入的原因；面板可「看商品頁」。手機：面板變下方彈出，握把往下滑關閉、往上滑拉高，面板內左右滑換下一套。系統開「減少動態」時不旋轉、不彈跳、不自動輪播。
+
+**後台**（網店→「模特兒穿搭輪盤」，分頁有「棠序自製」徽章）：
+- 穿搭列表：上下排序、編輯、隱藏／顯示、刪除；**一鍵匯入示範穿搭**（6 套、18 件，同時新增 18 個北風衣櫥商品 `fl01–fl18`，含兩個庫存邊界：`fl05` 尺寸 32 缺貨、`fl09` 尺碼 37 剩 4 件）與**一鍵刪除示範穿搭**（連同示範商品與購物車內對應品項）。
+- 編輯穿搭：從 6 張模特兒照片挑一張、**點照片放熱點**（可拖曳微調）、每個熱點連結到店內現有商品，或手動輸入名稱與價格（手動輸入的不能加入購物車）。連結商品的名稱、價格、庫存、規格直接讀商店資料。
+- 設定：主題色、面板標題與文字、顯示幾套、間距、自動輪播與秒數、是否顯示價格；有即時預覽與還原預設。
+- 授權（**模擬**）：三種狀態「有效／已過期／未啟用」，一個序號只能啟用一個網站；示範序號 `MLB-K67Q-TBR9-6WPT-HQX9`（有效）、`MLB-EXPD-0000-0000-0001`（過期）、`MLB-USED-0000-0000-0002`（已被別站使用）。未啟用或過期時不能新增穿搭、不能匯入示範，已建立的穿搭仍可編輯、商店頁面照常顯示。「有更新」提示可更新到 v1.2.1。
+
+**連動**：後台改熱點位置、換照片、新增穿搭、改商品價格或庫存、改設定，商店頁面（同一瀏覽器的另一個分頁）會自動更新；把穿搭加入購物車→結帳→後台訂單裡有這些品項與尺寸，並標示「商店頁面下單」。
+
+檔案：`js/lookbook-store.js`（資料層 `TX.LB`）、`js/shop-lookbook.js`（輪盤與商店頁面路由）、`css/lookbook.css`、`js/pages-lookbook.js`＋`css/lookbook-admin.css`（後台）、`img/lookbook/`（模特兒 6 張＋單品 18 張，WebP 約 600KB）。
+測試：`python3 tools/lookbook_flow.py`（桌機 1440、手機 390、減少動態，共 64 項檢查，截圖 `_qa/lookbook_*.png`、結果 `_qa/lookbook_flow_results.json`）；導覽影片 `python3 tools/lookbook_tour.py` → `_qa/lookbook_tour.mp4`（約 35 秒）。
+
 ## 填入你的 LINE、GA4、Meta Pixel（`config.js`）
 ```js
 window.DEMO_CONFIG = {
@@ -77,8 +100,10 @@ window.DEMO_CONFIG = {
 ## 重新產生示範資料
 `python3 tools/gen_data.py`（產生 `data/*.json` 與 `data/data.js`；`data.js` 是為了雙擊開檔也能讀到資料）。改字後可 `python3 tools/subset.py` 重新子集化字型。
 
-## 部署（尚未部署，只是準備好）
-整個資料夾就是靜態網站，丟到任何靜態主機即可（Cloudflare Pages、Netlify、GitHub Pages、Render Static Site、一般虛擬主機）。**上傳時請排除 `_qa/`（截圖與影片）與 `tools/`**；其餘約 4MB。首頁是 `index.html`，商店頁面是 `shop.html`。
+## 部署
+- 已部署在 GitHub Pages：`https://nimabalala.github.io/demo-admin-cute/`（repo `nimabalala/demo-admin-cute`，main 分支根目錄）。穿搭輪盤：`https://nimabalala.github.io/demo-admin-cute/shop.html#/lookbook?shop=fashion&demo=1`。
+- 更新方式：把整個資料夾複製到 repo，**排除 `_qa/`（截圖與影片）與 `tools/`**，commit 後 push 到 main，等 Pages 建置完成。
+- 其他靜態主機（Cloudflare Pages、Netlify、Render Static Site、一般虛擬主機）也可，同樣排除 `_qa/` 與 `tools/`；其餘約 5MB。首頁是 `index.html`，商店頁面是 `shop.html`。
 
 ## 授權
 - 字型：源泉圓體 TW、Fredoka，皆 SIL OFL 1.1（`fonts/OFL-GenSenRounded.txt`）。
@@ -99,3 +124,12 @@ window.DEMO_CONFIG = {
 `desktop_*.png`（1440 寬）、`mobile_*.png`（390 寬）每頁截圖，`op_*.png` 實際操作截圖，`tour.mp4` 約 60 秒導覽影片。檢查腳本在 `tools/`（`smoke.py`、`qa_all.py`、`ops.py`、`home_ops.py`、`tour.py`）。
 
 商店頁面：`shop_*.png`（桌機 1440、手機 `shop_mobile_*.png` 390）、`shop_tour.mp4`（約 45 秒：首頁→商店→選規格→飛入購物車→結帳→完成→後台看到訂單→後台改價格→商店頁面變了）、`shop_flow_results.json`（連動測試結果）。腳本：`tools/shop_smoke.py`（每頁開一遍抓錯）、`tools/shop_flow.py`（連動、手機、減少動態的完整檢查）、`tools/shop_tour.py`（錄影）。
+
+穿搭輪盤：`lookbook_*.png`（桌機 1440、手機 `lookbook_mobile_*.png` 390）、`lookbook_tour.mp4`、`lookbook_flow_results.json`；上線後截圖 `live_lookbook_desktop.png`、`live_lookbook_mobile.png`。
+
+### 穿搭輪盤已知不足
+- 靜態假資料；授權與更新都是**模擬**，不連網路、不驗證真實序號。
+- 後台編輯器只能從內建 6 張模特兒照片挑，沒有上傳功能；示範單品圖是同一批模特兒圖裁切。
+- 示範穿搭只能匯入「北風衣櫥」；其他店會提示先換店。
+- 連動需同一瀏覽器、同一網址來源；手機只用 Chromium 390 寬模擬（含觸控），沒有實機。
+- 上線前仍須確認 GSAP 授權。

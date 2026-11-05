@@ -182,3 +182,26 @@ body.home{padding-top:0}
  .trio{height:170px;bottom:-60px}.trio>div{width:140px}
  .t1{left:calc(50% - 215px)}.t2{left:calc(50% - 90px);width:170px!important}.t3{left:calc(50% + 75px)}
 }
+
+/* 棠序自製功能：模特兒穿搭輪盤 */
+.lbhl{padding:120px 30px 150px;overflow:hidden}
+.lbh-in{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;align-items:center}
+.lbh-tag{display:inline-flex;align-items:center;height:34px;padding:0 16px;border-radius:999px;background:var(--pink);font-weight:900;font-size:13.5px;box-shadow:0 3px 0 #E0668A}
+.lbhl h2{font-size:clamp(38px,5vw,64px);line-height:1.1;margin:16px 0 14px}
+.lbh-sub{font-size:18px;font-weight:700;color:var(--mut);max-width:520px;margin-bottom:22px}
+.lbh-ul{list-style:none;display:grid;gap:10px;margin-bottom:28px}
+.lbh-ul li{background:#fff;border-radius:22px;padding:12px 18px;font-weight:700;font-size:14.5px;color:var(--mut);box-shadow:0 4px 0 var(--shadow)}
+.lbh-ul b{display:block;color:var(--ink);font-size:16px}
+.lbh-go{display:flex;gap:14px;flex-wrap:wrap}
+.lbh-pic{position:relative;height:540px}
+.lbh-pic .bl{position:absolute;left:8%;right:8%;top:6%;bottom:2%;border-radius:50% 50% 44% 44%;background:radial-gradient(ellipse at 50% 30%,#fff,#FFE9F0 70%)}
+.lbh-pic img{position:absolute;bottom:0;height:88%;width:auto;filter:drop-shadow(0 16px 20px rgba(75,46,34,.18))}
+.lbh-pic .m1{left:0;height:74%;opacity:.9;transform:rotate(-4deg)}
+.lbh-pic .m3{right:0;height:74%;opacity:.9;transform:rotate(4deg)}
+.lbh-pic .m2{left:50%;transform:translateX(-50%);height:94%;animation:lbh-bob 4.5s ease-in-out infinite}
+@keyframes lbh-bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-12px)}}
+.lbh-pic .pn{position:absolute;width:32px;height:32px;border-radius:50%;background:#fff;border:3px solid var(--ink);display:grid;place-items:center;font:700 14px var(--disp);box-shadow:0 3px 0 rgba(75,46,34,.25);z-index:3;animation:lbh-pulse 2s ease-in-out infinite}
+.lbh-pic .p1{left:57%;top:35%}.lbh-pic .p2{left:44%;top:26%;animation-delay:-.7s}.lbh-pic .p3{left:41%;top:55%;animation-delay:-1.4s}
+@keyframes lbh-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+@media (max-width:760px){.lbhl{padding:80px 16px 90px}.lbh-in{grid-template-columns:1fr;gap:24px}.lbh-pic{height:380px}.lbh-sub{font-size:16px}.lbh-go .btn{width:100%}}
+@media (prefers-reduced-motion:reduce){.lbh-pic .m2,.lbh-pic .pn{animation:none}.lbh-pic .m2{transform:translateX(-50%)}}
