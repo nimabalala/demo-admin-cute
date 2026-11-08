@@ -1,0 +1,3005 @@
+{
+ "key": "alley",
+ "name": "巷尾選物",
+ "slogan": "深夜還亮著的選物店",
+ "acc": "alley",
+ "logo": "alley",
+ "cats": [
+  "外套",
+  "上衣",
+  "褲裙",
+  "鞋款"
+ ],
+ "banner": [
+  "年終出清 全館最低 5 折",
+  "滿 NT$1,500 免運",
+  "每晚 21:00 新品上架"
+ ],
+ "ship": {
+  "home": 120,
+  "cvs": 65,
+  "free": 1500,
+  "bigfree": 1500
+ },
+ "payNote": "",
+ "hero": [
+  {
+   "img": "img/alley/a13.webp"
+  },
+  {
+   "img": "img/alley/a01.webp"
+  },
+  {
+   "img": "img/alley/a03.webp"
+  },
+  {
+   "img": "img/alley/a07.webp"
+  },
+  {
+   "img": "img/alley/a18.webp"
+  },
+  {
+   "img": "img/alley/a14.webp"
+  },
+  {
+   "img": "img/alley/a10.webp"
+  }
+ ],
+ "mission": [
+  "新增第一個商品",
+  "設定運費",
+  "出第一筆貨"
+ ],
+ "store": {
+  "email": "hello@alley27-demo.example",
+  "phone": "02-0000-0027",
+  "addr": "台北市示範路 27 巷（虛構）"
+ },
+ "products": [
+  {
+   "id": "a01",
+   "name": "落肩駝色長大衣",
+   "cat": "外套",
+   "price": 6980,
+   "sale": 5580,
+   "stock": 83,
+   "sku": "AL01",
+   "status": "on",
+   "img": "img/alley/a01.webp",
+   "art": null,
+   "desc": "落肩寬版剪裁，長度過膝，疊帽T也不卡。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "駝色",
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "S",
+      "M",
+      "L",
+      "XL"
+     ]
+    }
+   },
+   "variants": {
+    "駝色|S": {
+     "sku": "AL01-01",
+     "price": 6980,
+     "sale": 5580,
+     "stock": 0,
+     "on": true
+    },
+    "駝色|M": {
+     "sku": "AL01-02",
+     "price": 6980,
+     "sale": 5580,
+     "stock": 6,
+     "on": true
+    },
+    "駝色|L": {
+     "sku": "AL01-03",
+     "price": 6980,
+     "sale": 5580,
+     "stock": 15,
+     "on": true
+    },
+    "駝色|XL": {
+     "sku": "AL01-04",
+     "price": 6980,
+     "sale": 5580,
+     "stock": 22,
+     "on": true
+    },
+    "黑|S": {
+     "sku": "AL01-05",
+     "price": 6980,
+     "sale": 5580,
+     "stock": 15,
+     "on": true
+    },
+    "黑|M": {
+     "sku": "AL01-06",
+     "price": 6980,
+     "sale": 5580,
+     "stock": 15,
+     "on": true
+    },
+    "黑|L": {
+     "sku": "AL01-07",
+     "price": 6980,
+     "sale": 5580,
+     "stock": 2,
+     "on": true
+    },
+    "黑|XL": {
+     "sku": "AL01-08",
+     "price": 6980,
+     "sale": 5580,
+     "stock": 8,
+     "on": true
+    }
+   },
+   "sold30": 38,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a02",
+   "name": "炭灰直筒寬褲",
+   "cat": "褲裙",
+   "price": 1880,
+   "sale": "",
+   "stock": 112,
+   "sku": "AL02",
+   "status": "on",
+   "img": "img/alley/a02.webp",
+   "art": null,
+   "desc": "高腰直筒，褲管自然垂墜，配板鞋剛好。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "炭灰",
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "S",
+      "M",
+      "L",
+      "XL"
+     ]
+    }
+   },
+   "variants": {
+    "炭灰|S": {
+     "sku": "AL02-01",
+     "price": 1880,
+     "sale": "",
+     "stock": 18,
+     "on": true
+    },
+    "炭灰|M": {
+     "sku": "AL02-02",
+     "price": 1880,
+     "sale": "",
+     "stock": 8,
+     "on": true
+    },
+    "炭灰|L": {
+     "sku": "AL02-03",
+     "price": 1880,
+     "sale": "",
+     "stock": 15,
+     "on": true
+    },
+    "炭灰|XL": {
+     "sku": "AL02-04",
+     "price": 1880,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "黑|S": {
+     "sku": "AL02-05",
+     "price": 1880,
+     "sale": "",
+     "stock": 26,
+     "on": true
+    },
+    "黑|M": {
+     "sku": "AL02-06",
+     "price": 1880,
+     "sale": "",
+     "stock": 15,
+     "on": true
+    },
+    "黑|L": {
+     "sku": "AL02-07",
+     "price": 1880,
+     "sale": "",
+     "stock": 30,
+     "on": true
+    },
+    "黑|XL": {
+     "sku": "AL02-08",
+     "price": 1880,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    }
+   },
+   "sold30": 64,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a03",
+   "name": "白色厚底板鞋",
+   "cat": "鞋款",
+   "price": 2480,
+   "sale": 1980,
+   "stock": 199,
+   "sku": "AL03",
+   "status": "on",
+   "img": "img/alley/a03.webp",
+   "art": null,
+   "desc": "4 公分厚底，增高不顯笨重。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "白",
+      "黑白"
+     ]
+    },
+    "s2": {
+     "name": "尺碼",
+     "opts": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41",
+      "42"
+     ]
+    }
+   },
+   "variants": {
+    "白|36": {
+     "sku": "AL03-01",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 0,
+     "on": true
+    },
+    "白|37": {
+     "sku": "AL03-02",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 15,
+     "on": true
+    },
+    "白|38": {
+     "sku": "AL03-03",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 0,
+     "on": true
+    },
+    "白|39": {
+     "sku": "AL03-04",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 30,
+     "on": true
+    },
+    "白|40": {
+     "sku": "AL03-05",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 18,
+     "on": true
+    },
+    "白|41": {
+     "sku": "AL03-06",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 18,
+     "on": true
+    },
+    "白|42": {
+     "sku": "AL03-07",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 22,
+     "on": true
+    },
+    "黑白|36": {
+     "sku": "AL03-08",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 30,
+     "on": true
+    },
+    "黑白|37": {
+     "sku": "AL03-09",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 2,
+     "on": true
+    },
+    "黑白|38": {
+     "sku": "AL03-10",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 30,
+     "on": true
+    },
+    "黑白|39": {
+     "sku": "AL03-11",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 8,
+     "on": true
+    },
+    "黑白|40": {
+     "sku": "AL03-12",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 4,
+     "on": true
+    },
+    "黑白|41": {
+     "sku": "AL03-13",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 0,
+     "on": true
+    },
+    "黑白|42": {
+     "sku": "AL03-14",
+     "price": 2480,
+     "sale": 1980,
+     "stock": 22,
+     "on": true
+    }
+   },
+   "sold30": 91,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a04",
+   "name": "卡其雙排扣風衣",
+   "cat": "外套",
+   "price": 4980,
+   "sale": "",
+   "stock": 5,
+   "sku": "AL04",
+   "status": "on",
+   "img": "img/alley/a04.webp",
+   "art": null,
+   "desc": "防潑水面料，附可拆腰帶。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "卡其",
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "S",
+      "M",
+      "L",
+      "XL"
+     ]
+    }
+   },
+   "variants": {
+    "卡其|S": {
+     "sku": "AL04-01",
+     "price": 4980,
+     "sale": "",
+     "stock": 1,
+     "on": true
+    },
+    "卡其|M": {
+     "sku": "AL04-02",
+     "price": 4980,
+     "sale": "",
+     "stock": 1,
+     "on": true
+    },
+    "卡其|L": {
+     "sku": "AL04-03",
+     "price": 4980,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "卡其|XL": {
+     "sku": "AL04-04",
+     "price": 4980,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "黑|S": {
+     "sku": "AL04-05",
+     "price": 4980,
+     "sale": "",
+     "stock": 1,
+     "on": true
+    },
+    "黑|M": {
+     "sku": "AL04-06",
+     "price": 4980,
+     "sale": "",
+     "stock": 1,
+     "on": true
+    },
+    "黑|L": {
+     "sku": "AL04-07",
+     "price": 4980,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "黑|XL": {
+     "sku": "AL04-08",
+     "price": 4980,
+     "sale": "",
+     "stock": 1,
+     "on": true
+    }
+   },
+   "sold30": 27,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a06",
+   "name": "黑色德比皮鞋",
+   "cat": "鞋款",
+   "price": 3280,
+   "sale": "",
+   "stock": 75,
+   "sku": "AL05",
+   "status": "on",
+   "img": "img/alley/a06.webp",
+   "art": null,
+   "desc": "牛皮鞋面，配寬褲或西裝褲都好看。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺碼",
+     "opts": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41",
+      "42"
+     ]
+    }
+   },
+   "variants": {
+    "黑|36": {
+     "sku": "AL05-01",
+     "price": 3280,
+     "sale": "",
+     "stock": 4,
+     "on": true
+    },
+    "黑|37": {
+     "sku": "AL05-02",
+     "price": 3280,
+     "sale": "",
+     "stock": 12,
+     "on": true
+    },
+    "黑|38": {
+     "sku": "AL05-03",
+     "price": 3280,
+     "sale": "",
+     "stock": 15,
+     "on": true
+    },
+    "黑|39": {
+     "sku": "AL05-04",
+     "price": 3280,
+     "sale": "",
+     "stock": 26,
+     "on": true
+    },
+    "黑|40": {
+     "sku": "AL05-05",
+     "price": 3280,
+     "sale": "",
+     "stock": 6,
+     "on": true
+    },
+    "黑|41": {
+     "sku": "AL05-06",
+     "price": 3280,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "黑|42": {
+     "sku": "AL05-07",
+     "price": 3280,
+     "sale": "",
+     "stock": 12,
+     "on": true
+    }
+   },
+   "sold30": 22,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a07",
+   "name": "麻花粗針織毛衣",
+   "cat": "上衣",
+   "price": 2280,
+   "sale": 1680,
+   "stock": 101,
+   "sku": "AL06",
+   "status": "on",
+   "img": "img/alley/a07.webp",
+   "art": null,
+   "desc": "粗針麻花，寬鬆落肩版型。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "燕麥",
+      "黑",
+      "灰"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "S",
+      "M",
+      "L",
+      "XL"
+     ]
+    }
+   },
+   "variants": {
+    "燕麥|S": {
+     "sku": "AL06-01",
+     "price": 2280,
+     "sale": 1680,
+     "stock": 2,
+     "on": true
+    },
+    "燕麥|M": {
+     "sku": "AL06-02",
+     "price": 2280,
+     "sale": 1680,
+     "stock": 2,
+     "on": true
+    },
+    "燕麥|L": {
+     "sku": "AL06-03",
+     "price": 2280,
+     "sale": 1680,
+     "stock": 12,
+     "on": true
+    },
+    "燕麥|XL": {
+     "sku": "AL06-04",
+     "price": 2280,
+     "sale": 1680,
+     "stock": 26,
+     "on": true
+    },
+    "黑|S": {
+     "sku": "AL06-05",
+     "price": 2280,
+     "sale": 1680,
+     "stock": 6,
+     "on": true
+    },
+    "黑|M": {
+     "sku": "AL06-06",
+     "price": 2280,
+     "sale": 1680,
+     "stock": 30,
+     "on": true
+    },
+    "黑|L": {
+     "sku": "AL06-07",
+     "price": 2280,
+     "sale": 1680,
+     "stock": 2,
+     "on": true
+    },
+    "黑|XL": {
+     "sku": "AL06-08",
+     "price": 2280,
+     "sale": 1680,
+     "stock": 6,
+     "on": true
+    },
+    "灰|S": {
+     "sku": "AL06-09",
+     "price": 2280,
+     "sale": 1680,
+     "stock": 0,
+     "on": true
+    },
+    "灰|M": {
+     "sku": "AL06-10",
+     "price": 2280,
+     "sale": 1680,
+     "stock": 15,
+     "on": true
+    },
+    "灰|L": {
+     "sku": "AL06-11",
+     "price": 2280,
+     "sale": 1680,
+     "stock": 0,
+     "on": true
+    },
+    "灰|XL": {
+     "sku": "AL06-12",
+     "price": 2280,
+     "sale": 1680,
+     "stock": 0,
+     "on": true
+    }
+   },
+   "sold30": 73,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a08",
+   "name": "軍綠百褶長裙",
+   "cat": "褲裙",
+   "price": 1680,
+   "sale": "",
+   "stock": 26,
+   "sku": "AL07",
+   "status": "on",
+   "img": "img/alley/a08.webp",
+   "art": null,
+   "desc": "鬆緊腰頭，百褶垂墜有份量。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "軍綠",
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "S",
+      "M",
+      "L"
+     ]
+    }
+   },
+   "variants": {
+    "軍綠|S": {
+     "sku": "AL07-01",
+     "price": 1680,
+     "sale": "",
+     "stock": 12,
+     "on": true
+    },
+    "軍綠|M": {
+     "sku": "AL07-02",
+     "price": 1680,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "軍綠|L": {
+     "sku": "AL07-03",
+     "price": 1680,
+     "sale": "",
+     "stock": 6,
+     "on": true
+    },
+    "黑|S": {
+     "sku": "AL07-04",
+     "price": 1680,
+     "sale": "",
+     "stock": 6,
+     "on": true
+    },
+    "黑|M": {
+     "sku": "AL07-05",
+     "price": 1680,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "黑|L": {
+     "sku": "AL07-06",
+     "price": 1680,
+     "sale": "",
+     "stock": 2,
+     "on": true
+    }
+   },
+   "sold30": 41,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a09",
+   "name": "酒紅樂福鞋",
+   "cat": "鞋款",
+   "price": 2680,
+   "sale": "",
+   "stock": 7,
+   "sku": "AL08",
+   "status": "on",
+   "img": "img/alley/a09.webp",
+   "art": null,
+   "desc": "經典樂福鞋，配白襪街頭感十足。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "酒紅",
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺碼",
+     "opts": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40"
+     ]
+    }
+   },
+   "variants": {
+    "酒紅|36": {
+     "sku": "AL08-01",
+     "price": 2680,
+     "sale": "",
+     "stock": 1,
+     "on": true
+    },
+    "酒紅|37": {
+     "sku": "AL08-02",
+     "price": 2680,
+     "sale": "",
+     "stock": 1,
+     "on": true
+    },
+    "酒紅|38": {
+     "sku": "AL08-03",
+     "price": 2680,
+     "sale": "",
+     "stock": 1,
+     "on": true
+    },
+    "酒紅|39": {
+     "sku": "AL08-04",
+     "price": 2680,
+     "sale": "",
+     "stock": 1,
+     "on": true
+    },
+    "酒紅|40": {
+     "sku": "AL08-05",
+     "price": 2680,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "黑|36": {
+     "sku": "AL08-06",
+     "price": 2680,
+     "sale": "",
+     "stock": 1,
+     "on": true
+    },
+    "黑|37": {
+     "sku": "AL08-07",
+     "price": 2680,
+     "sale": "",
+     "stock": 1,
+     "on": true
+    },
+    "黑|38": {
+     "sku": "AL08-08",
+     "price": 2680,
+     "sale": "",
+     "stock": 1,
+     "on": true
+    },
+    "黑|39": {
+     "sku": "AL08-09",
+     "price": 2680,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "黑|40": {
+     "sku": "AL08-10",
+     "price": 2680,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    }
+   },
+   "sold30": 19,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a10",
+   "name": "炭灰單排扣西裝外套",
+   "cat": "外套",
+   "price": 4580,
+   "sale": "",
+   "stock": 104,
+   "sku": "AL09",
+   "status": "on",
+   "img": "img/alley/a10.webp",
+   "art": null,
+   "desc": "微寬鬆版型，正式與街頭都能穿。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "炭灰",
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "S",
+      "M",
+      "L",
+      "XL"
+     ]
+    }
+   },
+   "variants": {
+    "炭灰|S": {
+     "sku": "AL09-01",
+     "price": 4580,
+     "sale": "",
+     "stock": 18,
+     "on": true
+    },
+    "炭灰|M": {
+     "sku": "AL09-02",
+     "price": 4580,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "炭灰|L": {
+     "sku": "AL09-03",
+     "price": 4580,
+     "sale": "",
+     "stock": 12,
+     "on": true
+    },
+    "炭灰|XL": {
+     "sku": "AL09-04",
+     "price": 4580,
+     "sale": "",
+     "stock": 18,
+     "on": true
+    },
+    "黑|S": {
+     "sku": "AL09-05",
+     "price": 4580,
+     "sale": "",
+     "stock": 22,
+     "on": true
+    },
+    "黑|M": {
+     "sku": "AL09-06",
+     "price": 4580,
+     "sale": "",
+     "stock": 22,
+     "on": true
+    },
+    "黑|L": {
+     "sku": "AL09-07",
+     "price": 4580,
+     "sale": "",
+     "stock": 8,
+     "on": true
+    },
+    "黑|XL": {
+     "sku": "AL09-08",
+     "price": 4580,
+     "sale": "",
+     "stock": 4,
+     "on": true
+    }
+   },
+   "sold30": 25,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a11",
+   "name": "灰色打褶西裝褲",
+   "cat": "褲裙",
+   "price": 2180,
+   "sale": 1690,
+   "stock": 114,
+   "sku": "AL10",
+   "status": "on",
+   "img": "img/alley/a11.webp",
+   "art": null,
+   "desc": "雙褶寬版，九分長度露出鞋款。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "灰",
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "S",
+      "M",
+      "L",
+      "XL"
+     ]
+    }
+   },
+   "variants": {
+    "灰|S": {
+     "sku": "AL10-01",
+     "price": 2180,
+     "sale": 1690,
+     "stock": 8,
+     "on": true
+    },
+    "灰|M": {
+     "sku": "AL10-02",
+     "price": 2180,
+     "sale": 1690,
+     "stock": 18,
+     "on": true
+    },
+    "灰|L": {
+     "sku": "AL10-03",
+     "price": 2180,
+     "sale": 1690,
+     "stock": 8,
+     "on": true
+    },
+    "灰|XL": {
+     "sku": "AL10-04",
+     "price": 2180,
+     "sale": 1690,
+     "stock": 6,
+     "on": true
+    },
+    "黑|S": {
+     "sku": "AL10-05",
+     "price": 2180,
+     "sale": 1690,
+     "stock": 30,
+     "on": true
+    },
+    "黑|M": {
+     "sku": "AL10-06",
+     "price": 2180,
+     "sale": 1690,
+     "stock": 12,
+     "on": true
+    },
+    "黑|L": {
+     "sku": "AL10-07",
+     "price": 2180,
+     "sale": 1690,
+     "stock": 2,
+     "on": true
+    },
+    "黑|XL": {
+     "sku": "AL10-08",
+     "price": 2180,
+     "sale": 1690,
+     "stock": 30,
+     "on": true
+    }
+   },
+   "sold30": 36,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a13",
+   "name": "復古水洗牛仔外套",
+   "cat": "外套",
+   "price": 2980,
+   "sale": 2380,
+   "stock": 133,
+   "sku": "AL11",
+   "status": "on",
+   "img": "img/alley/a13.webp",
+   "art": null,
+   "desc": "重磅牛仔，復古水洗，越穿越有味道。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "水洗藍",
+      "淺藍"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "S",
+      "M",
+      "L",
+      "XL"
+     ]
+    }
+   },
+   "variants": {
+    "水洗藍|S": {
+     "sku": "AL11-01",
+     "price": 2980,
+     "sale": 2380,
+     "stock": 30,
+     "on": true
+    },
+    "水洗藍|M": {
+     "sku": "AL11-02",
+     "price": 2980,
+     "sale": 2380,
+     "stock": 6,
+     "on": true
+    },
+    "水洗藍|L": {
+     "sku": "AL11-03",
+     "price": 2980,
+     "sale": 2380,
+     "stock": 22,
+     "on": true
+    },
+    "水洗藍|XL": {
+     "sku": "AL11-04",
+     "price": 2980,
+     "sale": 2380,
+     "stock": 15,
+     "on": true
+    },
+    "淺藍|S": {
+     "sku": "AL11-05",
+     "price": 2980,
+     "sale": 2380,
+     "stock": 30,
+     "on": true
+    },
+    "淺藍|M": {
+     "sku": "AL11-06",
+     "price": 2980,
+     "sale": 2380,
+     "stock": 0,
+     "on": true
+    },
+    "淺藍|L": {
+     "sku": "AL11-07",
+     "price": 2980,
+     "sale": 2380,
+     "stock": 4,
+     "on": true
+    },
+    "淺藍|XL": {
+     "sku": "AL11-08",
+     "price": 2980,
+     "sale": 2380,
+     "stock": 26,
+     "on": true
+    }
+   },
+   "sold30": 88,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a14",
+   "name": "寬版直筒牛仔褲",
+   "cat": "褲裙",
+   "price": 1980,
+   "sale": "",
+   "stock": 74,
+   "sku": "AL12",
+   "status": "on",
+   "img": "img/alley/a14.webp",
+   "art": null,
+   "desc": "寬直筒版型，褲腳可反折。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "水洗藍",
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "28",
+      "30",
+      "32",
+      "34"
+     ]
+    }
+   },
+   "variants": {
+    "水洗藍|28": {
+     "sku": "AL12-01",
+     "price": 1980,
+     "sale": "",
+     "stock": 2,
+     "on": true
+    },
+    "水洗藍|30": {
+     "sku": "AL12-02",
+     "price": 1980,
+     "sale": "",
+     "stock": 6,
+     "on": true
+    },
+    "水洗藍|32": {
+     "sku": "AL12-03",
+     "price": 1980,
+     "sale": "",
+     "stock": 30,
+     "on": true
+    },
+    "水洗藍|34": {
+     "sku": "AL12-04",
+     "price": 1980,
+     "sale": "",
+     "stock": 2,
+     "on": true
+    },
+    "黑|28": {
+     "sku": "AL12-05",
+     "price": 1980,
+     "sale": "",
+     "stock": 6,
+     "on": true
+    },
+    "黑|30": {
+     "sku": "AL12-06",
+     "price": 1980,
+     "sale": "",
+     "stock": 22,
+     "on": true
+    },
+    "黑|32": {
+     "sku": "AL12-07",
+     "price": 1980,
+     "sale": "",
+     "stock": 2,
+     "on": true
+    },
+    "黑|34": {
+     "sku": "AL12-08",
+     "price": 1980,
+     "sale": "",
+     "stock": 4,
+     "on": true
+    }
+   },
+   "sold30": 102,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a15",
+   "name": "奶油白帆布鞋",
+   "cat": "鞋款",
+   "price": 1580,
+   "sale": "",
+   "stock": 175,
+   "sku": "AL13",
+   "status": "on",
+   "img": "img/alley/a15.webp",
+   "art": null,
+   "desc": "高筒帆布鞋，橡膠大底防滑。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "奶油白",
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺碼",
+     "opts": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41",
+      "42"
+     ]
+    }
+   },
+   "variants": {
+    "奶油白|36": {
+     "sku": "AL13-01",
+     "price": 1580,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "奶油白|37": {
+     "sku": "AL13-02",
+     "price": 1580,
+     "sale": "",
+     "stock": 30,
+     "on": true
+    },
+    "奶油白|38": {
+     "sku": "AL13-03",
+     "price": 1580,
+     "sale": "",
+     "stock": 15,
+     "on": true
+    },
+    "奶油白|39": {
+     "sku": "AL13-04",
+     "price": 1580,
+     "sale": "",
+     "stock": 26,
+     "on": true
+    },
+    "奶油白|40": {
+     "sku": "AL13-05",
+     "price": 1580,
+     "sale": "",
+     "stock": 15,
+     "on": true
+    },
+    "奶油白|41": {
+     "sku": "AL13-06",
+     "price": 1580,
+     "sale": "",
+     "stock": 18,
+     "on": true
+    },
+    "奶油白|42": {
+     "sku": "AL13-07",
+     "price": 1580,
+     "sale": "",
+     "stock": 12,
+     "on": true
+    },
+    "黑|36": {
+     "sku": "AL13-08",
+     "price": 1580,
+     "sale": "",
+     "stock": 4,
+     "on": true
+    },
+    "黑|37": {
+     "sku": "AL13-09",
+     "price": 1580,
+     "sale": "",
+     "stock": 4,
+     "on": true
+    },
+    "黑|38": {
+     "sku": "AL13-10",
+     "price": 1580,
+     "sale": "",
+     "stock": 12,
+     "on": true
+    },
+    "黑|39": {
+     "sku": "AL13-11",
+     "price": 1580,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "黑|40": {
+     "sku": "AL13-12",
+     "price": 1580,
+     "sale": "",
+     "stock": 15,
+     "on": true
+    },
+    "黑|41": {
+     "sku": "AL13-13",
+     "price": 1580,
+     "sale": "",
+     "stock": 12,
+     "on": true
+    },
+    "黑|42": {
+     "sku": "AL13-14",
+     "price": 1580,
+     "sale": "",
+     "stock": 12,
+     "on": true
+    }
+   },
+   "sold30": 117,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a16",
+   "name": "奶油白針織開衫",
+   "cat": "上衣",
+   "price": 1880,
+   "sale": "",
+   "stock": 51,
+   "sku": "AL14",
+   "status": "on",
+   "img": "img/alley/a16.webp",
+   "art": null,
+   "desc": "細針織開衫，單穿或當外套都行。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "奶油白",
+      "灰"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "S",
+      "M",
+      "L"
+     ]
+    }
+   },
+   "variants": {
+    "奶油白|S": {
+     "sku": "AL14-01",
+     "price": 1880,
+     "sale": "",
+     "stock": 15,
+     "on": true
+    },
+    "奶油白|M": {
+     "sku": "AL14-02",
+     "price": 1880,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "奶油白|L": {
+     "sku": "AL14-03",
+     "price": 1880,
+     "sale": "",
+     "stock": 8,
+     "on": true
+    },
+    "灰|S": {
+     "sku": "AL14-04",
+     "price": 1880,
+     "sale": "",
+     "stock": 22,
+     "on": true
+    },
+    "灰|M": {
+     "sku": "AL14-05",
+     "price": 1880,
+     "sale": "",
+     "stock": 6,
+     "on": true
+    },
+    "灰|L": {
+     "sku": "AL14-06",
+     "price": 1880,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    }
+   },
+   "sold30": 48,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a17",
+   "name": "咖啡燈芯絨長裙",
+   "cat": "褲裙",
+   "price": 1780,
+   "sale": 1380,
+   "stock": 92,
+   "sku": "AL15",
+   "status": "on",
+   "img": "img/alley/a17.webp",
+   "art": null,
+   "desc": "燈芯絨 A 字長裙，秋冬必備。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "咖啡",
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "S",
+      "M",
+      "L"
+     ]
+    }
+   },
+   "variants": {
+    "咖啡|S": {
+     "sku": "AL15-01",
+     "price": 1780,
+     "sale": 1380,
+     "stock": 22,
+     "on": true
+    },
+    "咖啡|M": {
+     "sku": "AL15-02",
+     "price": 1780,
+     "sale": 1380,
+     "stock": 4,
+     "on": true
+    },
+    "咖啡|L": {
+     "sku": "AL15-03",
+     "price": 1780,
+     "sale": 1380,
+     "stock": 12,
+     "on": true
+    },
+    "黑|S": {
+     "sku": "AL15-04",
+     "price": 1780,
+     "sale": 1380,
+     "stock": 2,
+     "on": true
+    },
+    "黑|M": {
+     "sku": "AL15-05",
+     "price": 1780,
+     "sale": 1380,
+     "stock": 22,
+     "on": true
+    },
+    "黑|L": {
+     "sku": "AL15-06",
+     "price": 1780,
+     "sale": 1380,
+     "stock": 30,
+     "on": true
+    }
+   },
+   "sold30": 33,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  },
+  {
+   "id": "a18",
+   "name": "黑色切爾西短靴",
+   "cat": "鞋款",
+   "price": 3480,
+   "sale": "",
+   "stock": 43,
+   "sku": "AL16",
+   "status": "on",
+   "img": "img/alley/a18.webp",
+   "art": null,
+   "desc": "鬆緊側邊好穿脫，厚底耐走。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺碼",
+     "opts": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+     ]
+    }
+   },
+   "variants": {
+    "黑|36": {
+     "sku": "AL16-01",
+     "price": 3480,
+     "sale": "",
+     "stock": 12,
+     "on": true
+    },
+    "黑|37": {
+     "sku": "AL16-02",
+     "price": 3480,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    },
+    "黑|38": {
+     "sku": "AL16-03",
+     "price": 3480,
+     "sale": "",
+     "stock": 8,
+     "on": true
+    },
+    "黑|39": {
+     "sku": "AL16-04",
+     "price": 3480,
+     "sale": "",
+     "stock": 15,
+     "on": true
+    },
+    "黑|40": {
+     "sku": "AL16-05",
+     "price": 3480,
+     "sale": "",
+     "stock": 8,
+     "on": true
+    },
+    "黑|41": {
+     "sku": "AL16-06",
+     "price": 3480,
+     "sale": "",
+     "stock": 0,
+     "on": true
+    }
+   },
+   "sold30": 57,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": []
+  }
+ ],
+ "orders": [
+  {
+   "id": "T1057",
+   "ageMin": 2554,
+   "cid": "fc10",
+   "cname": "張雅筑",
+   "phone": "0911-854-841",
+   "email": "user10@example.com",
+   "items": [
+    {
+     "pid": "a11",
+     "name": "灰色打褶西裝褲",
+     "variant": "灰|S",
+     "qty": 2,
+     "price": 1690
+    },
+    {
+     "pid": "a18",
+     "name": "黑色切爾西短靴",
+     "variant": "黑|41",
+     "qty": 1,
+     "price": 3480
+    }
+   ],
+   "sub": 6860,
+   "fee": 0,
+   "total": 6860,
+   "pay": "ATM 轉帳",
+   "payStatus": "已付款",
+   "logi": "全家 超商取貨",
+   "dest": "示範門市 桃園中壢",
+   "status": "已到店待取貨",
+   "code": "C2300940875",
+   "printed": true,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1050",
+   "ageMin": 2552,
+   "cid": "fc05",
+   "cname": "王柏翰",
+   "phone": "0968-190-759",
+   "email": "user5@example.com",
+   "items": [
+    {
+     "pid": "a07",
+     "name": "麻花粗針織毛衣",
+     "variant": "燕麥|S",
+     "qty": 2,
+     "price": 1680
+    }
+   ],
+   "sub": 3360,
+   "fee": 0,
+   "total": 3360,
+   "pay": "信用卡（綠界）",
+   "payStatus": "已付款",
+   "logi": "7-11 超商取貨",
+   "dest": "示範門市 高雄左營",
+   "status": "待處理",
+   "code": "",
+   "printed": false,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1061",
+   "ageMin": 2275,
+   "cid": "fc09",
+   "cname": "吳佩珊",
+   "phone": "0919-917-444",
+   "email": "user9@example.com",
+   "items": [
+    {
+     "pid": "a11",
+     "name": "灰色打褶西裝褲",
+     "variant": "灰|L",
+     "qty": 2,
+     "price": 1690
+    },
+    {
+     "pid": "a16",
+     "name": "奶油白針織開衫",
+     "variant": "奶油白|M",
+     "qty": 1,
+     "price": 1880
+    },
+    {
+     "pid": "a17",
+     "name": "咖啡燈芯絨長裙",
+     "variant": "咖啡|S",
+     "qty": 1,
+     "price": 1380
+    }
+   ],
+   "sub": 6640,
+   "fee": 0,
+   "total": 6640,
+   "pay": "信用卡（綠界）",
+   "payStatus": "已取消",
+   "logi": "全家 超商取貨",
+   "dest": "示範門市 台南東區",
+   "status": "已取消",
+   "code": "",
+   "printed": false,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1044",
+   "ageMin": 2157,
+   "cid": "fc06",
+   "cname": "鄭柏翰",
+   "phone": "0935-493-662",
+   "email": "user6@example.com",
+   "items": [
+    {
+     "pid": "a02",
+     "name": "炭灰直筒寬褲",
+     "variant": "炭灰|L",
+     "qty": 2,
+     "price": 1880
+    }
+   ],
+   "sub": 3760,
+   "fee": 0,
+   "total": 3760,
+   "pay": "信用卡（綠界）",
+   "payStatus": "已付款",
+   "logi": "黑貓宅配",
+   "dest": "台北市示範區和平路 12 號 3 樓",
+   "status": "已完成",
+   "code": "B4767462811",
+   "printed": true,
+   "note": "",
+   "returned": 0,
+   "ret": {
+    "reason": "收到時有點損傷",
+    "status": "申請中",
+    "ageMin": 366
+   },
+   "hist": []
+  },
+  {
+   "id": "T1046",
+   "ageMin": 2064,
+   "cid": "fc02",
+   "cname": "王宜庭",
+   "phone": "0913-172-233",
+   "email": "user2@example.com",
+   "items": [
+    {
+     "pid": "a02",
+     "name": "炭灰直筒寬褲",
+     "variant": "炭灰|L",
+     "qty": 1,
+     "price": 1880
+    },
+    {
+     "pid": "a18",
+     "name": "黑色切爾西短靴",
+     "variant": "黑|40",
+     "qty": 2,
+     "price": 3480
+    }
+   ],
+   "sub": 8840,
+   "fee": 0,
+   "total": 8840,
+   "pay": "信用卡（綠界）",
+   "payStatus": "已付款",
+   "logi": "全家 超商取貨",
+   "dest": "示範門市 台北大安",
+   "status": "已完成",
+   "code": "C8863932811",
+   "printed": true,
+   "note": "",
+   "returned": 0,
+   "ret": {
+    "reason": "尺寸或規格不合",
+    "status": "申請中",
+    "ageMin": 215
+   },
+   "hist": []
+  },
+  {
+   "id": "T1054",
+   "ageMin": 1951,
+   "cid": "fc06",
+   "cname": "鄭柏翰",
+   "phone": "0935-493-662",
+   "email": "user6@example.com",
+   "items": [
+    {
+     "pid": "a09",
+     "name": "酒紅樂福鞋",
+     "variant": "酒紅|40",
+     "qty": 2,
+     "price": 2680
+    }
+   ],
+   "sub": 5360,
+   "fee": 0,
+   "total": 5360,
+   "pay": "信用卡（綠界）",
+   "payStatus": "已付款",
+   "logi": "7-11 超商取貨",
+   "dest": "示範門市 高雄左營",
+   "status": "已完成",
+   "code": "F7072477595",
+   "printed": true,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1069",
+   "ageMin": 1721,
+   "cid": "fc02",
+   "cname": "王宜庭",
+   "phone": "0913-172-233",
+   "email": "user2@example.com",
+   "items": [
+    {
+     "pid": "a14",
+     "name": "寬版直筒牛仔褲",
+     "variant": "水洗藍|32",
+     "qty": 1,
+     "price": 1980
+    },
+    {
+     "pid": "a17",
+     "name": "咖啡燈芯絨長裙",
+     "variant": "咖啡|M",
+     "qty": 1,
+     "price": 1380
+    },
+    {
+     "pid": "a06",
+     "name": "黑色德比皮鞋",
+     "variant": "黑|40",
+     "qty": 2,
+     "price": 3280
+    }
+   ],
+   "sub": 9920,
+   "fee": 0,
+   "total": 9920,
+   "pay": "信用卡（綠界）",
+   "payStatus": "已付款",
+   "logi": "全家 超商取貨",
+   "dest": "示範門市 台南東區",
+   "status": "待處理",
+   "code": "",
+   "printed": false,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1060",
+   "ageMin": 1535,
+   "cid": "fc08",
+   "cname": "李建宏",
+   "phone": "0936-116-827",
+   "email": "user8@example.com",
+   "items": [
+    {
+     "pid": "a14",
+     "name": "寬版直筒牛仔褲",
+     "variant": "水洗藍|34",
+     "qty": 2,
+     "price": 1980
+    },
+    {
+     "pid": "a06",
+     "name": "黑色德比皮鞋",
+     "variant": "黑|39",
+     "qty": 1,
+     "price": 3280
+    }
+   ],
+   "sub": 7240,
+   "fee": 0,
+   "total": 7240,
+   "pay": "信用卡（綠界）",
+   "payStatus": "已付款",
+   "logi": "全家 超商取貨",
+   "dest": "示範門市 台北大安",
+   "status": "已處理",
+   "code": "C3575966433",
+   "printed": false,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1047",
+   "ageMin": 1497,
+   "cid": "fc03",
+   "cname": "許思妤",
+   "phone": "0915-768-812",
+   "email": "user3@example.com",
+   "items": [
+    {
+     "pid": "a02",
+     "name": "炭灰直筒寬褲",
+     "variant": "炭灰|S",
+     "qty": 2,
+     "price": 1880
+    },
+    {
+     "pid": "a08",
+     "name": "軍綠百褶長裙",
+     "variant": "軍綠|L",
+     "qty": 2,
+     "price": 1680
+    }
+   ],
+   "sub": 7120,
+   "fee": 0,
+   "total": 7120,
+   "pay": "超商取貨付款",
+   "payStatus": "貨到付款待收款",
+   "logi": "7-11 超商取貨",
+   "dest": "示範門市 台中西屯",
+   "status": "待處理",
+   "code": "",
+   "printed": false,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1071",
+   "ageMin": 1322,
+   "cid": "fc04",
+   "cname": "楊柏翰",
+   "phone": "0965-981-846",
+   "email": "user4@example.com",
+   "items": [
+    {
+     "pid": "a11",
+     "name": "灰色打褶西裝褲",
+     "variant": "灰|XL",
+     "qty": 1,
+     "price": 1690
+    },
+    {
+     "pid": "a13",
+     "name": "復古水洗牛仔外套",
+     "variant": "水洗藍|M",
+     "qty": 1,
+     "price": 2380
+    }
+   ],
+   "sub": 4070,
+   "fee": 0,
+   "total": 4070,
+   "pay": "超商取貨付款",
+   "payStatus": "已退款",
+   "logi": "全家 超商取貨",
+   "dest": "示範門市 桃園中壢",
+   "status": "退貨退款",
+   "code": "C5488819900",
+   "printed": true,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1048",
+   "ageMin": 1277,
+   "cid": "fc05",
+   "cname": "王柏翰",
+   "phone": "0968-190-759",
+   "email": "user5@example.com",
+   "items": [
+    {
+     "pid": "a02",
+     "name": "炭灰直筒寬褲",
+     "variant": "炭灰|XL",
+     "qty": 1,
+     "price": 1880
+    },
+    {
+     "pid": "a16",
+     "name": "奶油白針織開衫",
+     "variant": "奶油白|L",
+     "qty": 1,
+     "price": 1880
+    }
+   ],
+   "sub": 3760,
+   "fee": 0,
+   "total": 3760,
+   "pay": "信用卡（綠界）",
+   "payStatus": "已付款",
+   "logi": "黑貓宅配",
+   "dest": "新北市示範區文化路 88 號",
+   "status": "已處理",
+   "code": "B2737152005",
+   "printed": false,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1074",
+   "ageMin": 854,
+   "cid": "fc05",
+   "cname": "王柏翰",
+   "phone": "0968-190-759",
+   "email": "user5@example.com",
+   "items": [
+    {
+     "pid": "a14",
+     "name": "寬版直筒牛仔褲",
+     "variant": "水洗藍|34",
+     "qty": 2,
+     "price": 1980
+    },
+    {
+     "pid": "a13",
+     "name": "復古水洗牛仔外套",
+     "variant": "水洗藍|M",
+     "qty": 2,
+     "price": 2380
+    }
+   ],
+   "sub": 8720,
+   "fee": 0,
+   "total": 8720,
+   "pay": "信用卡（綠界）",
+   "payStatus": "已付款",
+   "logi": "7-11 超商取貨",
+   "dest": "示範門市 高雄左營",
+   "status": "待處理",
+   "code": "",
+   "printed": false,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1064",
+   "ageMin": 796,
+   "cid": "fc07",
+   "cname": "劉品妍",
+   "phone": "0919-112-747",
+   "email": "user7@example.com",
+   "items": [
+    {
+     "pid": "a04",
+     "name": "卡其雙排扣風衣",
+     "variant": "卡其|M",
+     "qty": 2,
+     "price": 4980
+    },
+    {
+     "pid": "a01",
+     "name": "落肩駝色長大衣",
+     "variant": "駝色|M",
+     "qty": 1,
+     "price": 5580
+    },
+    {
+     "pid": "a11",
+     "name": "灰色打褶西裝褲",
+     "variant": "灰|M",
+     "qty": 1,
+     "price": 1690
+    }
+   ],
+   "sub": 17230,
+   "fee": 0,
+   "total": 17230,
+   "pay": "ATM 轉帳",
+   "payStatus": "待付款",
+   "logi": "7-11 超商取貨",
+   "dest": "示範門市 台中西屯",
+   "status": "等待付款",
+   "code": "",
+   "printed": false,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1067",
+   "ageMin": 769,
+   "cid": "fc01",
+   "cname": "鄭家豪",
+   "phone": "0983-468-286",
+   "email": "user1@example.com",
+   "items": [
+    {
+     "pid": "a10",
+     "name": "炭灰單排扣西裝外套",
+     "variant": "炭灰|S",
+     "qty": 2,
+     "price": 4580
+    },
+    {
+     "pid": "a07",
+     "name": "麻花粗針織毛衣",
+     "variant": "燕麥|M",
+     "qty": 2,
+     "price": 1680
+    }
+   ],
+   "sub": 12520,
+   "fee": 0,
+   "total": 12520,
+   "pay": "貨到付款",
+   "payStatus": "貨到付款待收款",
+   "logi": "黑貓宅配",
+   "dest": "高雄市示範區成功路 20 號 2 樓",
+   "status": "待處理",
+   "code": "",
+   "printed": false,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1070",
+   "ageMin": 527,
+   "cid": "fc10",
+   "cname": "張雅筑",
+   "phone": "0911-854-841",
+   "email": "user10@example.com",
+   "items": [
+    {
+     "pid": "a04",
+     "name": "卡其雙排扣風衣",
+     "variant": "卡其|S",
+     "qty": 1,
+     "price": 4980
+    }
+   ],
+   "sub": 4980,
+   "fee": 0,
+   "total": 4980,
+   "pay": "信用卡（綠界）",
+   "payStatus": "已付款",
+   "logi": "7-11 超商取貨",
+   "dest": "示範門市 台中西屯",
+   "status": "運送中",
+   "code": "F5455376244",
+   "printed": true,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1077",
+   "ageMin": 332,
+   "cid": "fc07",
+   "cname": "劉品妍",
+   "phone": "0919-112-747",
+   "email": "user7@example.com",
+   "items": [
+    {
+     "pid": "a15",
+     "name": "奶油白帆布鞋",
+     "variant": "奶油白|41",
+     "qty": 1,
+     "price": 1580
+    },
+    {
+     "pid": "a04",
+     "name": "卡其雙排扣風衣",
+     "variant": "卡其|S",
+     "qty": 1,
+     "price": 4980
+    },
+    {
+     "pid": "a13",
+     "name": "復古水洗牛仔外套",
+     "variant": "水洗藍|M",
+     "qty": 1,
+     "price": 2380
+    }
+   ],
+   "sub": 8940,
+   "fee": 0,
+   "total": 8940,
+   "pay": "超商取貨付款",
+   "payStatus": "貨到付款待收款",
+   "logi": "7-11 超商取貨",
+   "dest": "示範門市 台中西屯",
+   "status": "運送中",
+   "code": "F5743792600",
+   "printed": true,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  },
+  {
+   "id": "T1075",
+   "ageMin": 319,
+   "cid": "fc04",
+   "cname": "楊柏翰",
+   "phone": "0965-981-846",
+   "email": "user4@example.com",
+   "items": [
+    {
+     "pid": "a04",
+     "name": "卡其雙排扣風衣",
+     "variant": "卡其|M",
+     "qty": 1,
+     "price": 4980
+    }
+   ],
+   "sub": 4980,
+   "fee": 0,
+   "total": 4980,
+   "pay": "超商取貨付款",
+   "payStatus": "貨到付款待收款",
+   "logi": "全家 超商取貨",
+   "dest": "示範門市 桃園中壢",
+   "status": "待處理",
+   "code": "",
+   "printed": false,
+   "note": "",
+   "returned": 0,
+   "ret": null,
+   "hist": []
+  }
+ ],
+ "customers": [
+  {
+   "id": "fc01",
+   "name": "鄭家豪",
+   "phone": "0983-468-286",
+   "email": "user1@example.com",
+   "level": "VVIP",
+   "points": 717,
+   "credit": 50,
+   "joinedDays": 88,
+   "tags": [],
+   "note": ""
+  },
+  {
+   "id": "fc02",
+   "name": "王宜庭",
+   "phone": "0913-172-233",
+   "email": "user2@example.com",
+   "level": "VIP",
+   "points": 35,
+   "credit": 100,
+   "joinedDays": 254,
+   "tags": [
+    "回頭客"
+   ],
+   "note": ""
+  },
+  {
+   "id": "fc03",
+   "name": "許思妤",
+   "phone": "0915-768-812",
+   "email": "user3@example.com",
+   "level": "VIP",
+   "points": 576,
+   "credit": 200,
+   "joinedDays": 121,
+   "tags": [],
+   "note": ""
+  },
+  {
+   "id": "fc04",
+   "name": "楊柏翰",
+   "phone": "0965-981-846",
+   "email": "user4@example.com",
+   "level": "一般",
+   "points": 74,
+   "credit": 0,
+   "joinedDays": 339,
+   "tags": [
+    "回頭客"
+   ],
+   "note": ""
+  },
+  {
+   "id": "fc05",
+   "name": "王柏翰",
+   "phone": "0968-190-759",
+   "email": "user5@example.com",
+   "level": "一般",
+   "points": 454,
+   "credit": 0,
+   "joinedDays": 73,
+   "tags": [],
+   "note": ""
+  },
+  {
+   "id": "fc06",
+   "name": "鄭柏翰",
+   "phone": "0935-493-662",
+   "email": "user6@example.com",
+   "level": "一般",
+   "points": 800,
+   "credit": 200,
+   "joinedDays": 113,
+   "tags": [
+    "愛問問題"
+   ],
+   "note": ""
+  },
+  {
+   "id": "fc07",
+   "name": "劉品妍",
+   "phone": "0919-112-747",
+   "email": "user7@example.com",
+   "level": "一般",
+   "points": 492,
+   "credit": 200,
+   "joinedDays": 89,
+   "tags": [],
+   "note": ""
+  },
+  {
+   "id": "fc08",
+   "name": "李建宏",
+   "phone": "0936-116-827",
+   "email": "user8@example.com",
+   "level": "一般",
+   "points": 383,
+   "credit": 0,
+   "joinedDays": 201,
+   "tags": [
+    "送禮"
+   ],
+   "note": ""
+  },
+  {
+   "id": "fc09",
+   "name": "吳佩珊",
+   "phone": "0919-917-444",
+   "email": "user9@example.com",
+   "level": "一般",
+   "points": 240,
+   "credit": 50,
+   "joinedDays": 290,
+   "tags": [
+    "送禮"
+   ],
+   "note": ""
+  },
+  {
+   "id": "fc10",
+   "name": "張雅筑",
+   "phone": "0911-854-841",
+   "email": "user10@example.com",
+   "level": "一般",
+   "points": 94,
+   "credit": 0,
+   "joinedDays": 258,
+   "tags": [
+    "送禮"
+   ],
+   "note": ""
+  }
+ ],
+ "threads": [
+  {
+   "id": "fm1",
+   "cname": "王宜庭",
+   "cid": "fc02",
+   "orderNo": "T1069",
+   "unread": false,
+   "msgs": [
+    {
+     "f": "c",
+     "t": "請問今天下單，什麼時候會到？",
+     "ageMin": 644
+    },
+    {
+     "f": "s",
+     "t": "一般都是 1–2 天內寄出，今天下午會幫您出貨喔！",
+     "ageMin": 7
+    }
+   ]
+  },
+  {
+   "id": "fm2",
+   "cname": "楊柏翰",
+   "cid": "fc04",
+   "orderNo": "T1067",
+   "unread": true,
+   "msgs": [
+    {
+     "f": "c",
+     "t": "想改收件門市可以嗎？",
+     "ageMin": 558
+    }
+   ]
+  },
+  {
+   "id": "fm3",
+   "cname": "鄭柏翰",
+   "cid": "fc06",
+   "orderNo": "T1046",
+   "unread": true,
+   "msgs": [
+    {
+     "f": "c",
+     "t": "商品收到了，很喜歡！",
+     "ageMin": 101
+    }
+   ]
+  },
+  {
+   "id": "fm4",
+   "cname": "李建宏",
+   "cid": "fc08",
+   "orderNo": "T1075",
+   "unread": true,
+   "msgs": [
+    {
+     "f": "c",
+     "t": "請問有沒有更大的尺寸／容量？",
+     "ageMin": 523
+    }
+   ]
+  },
+  {
+   "id": "fm5",
+   "cname": "張雅筑",
+   "cid": "fc10",
+   "orderNo": "T1050",
+   "unread": false,
+   "msgs": [
+    {
+     "f": "c",
+     "t": "可以開統編發票嗎？",
+     "ageMin": 259
+    },
+    {
+     "f": "s",
+     "t": "可以的，請提供統一編號與抬頭。",
+     "ageMin": 11
+    }
+   ]
+  }
+ ],
+ "quick": [
+  "您好，已收到您的訊息，我們會盡快回覆。",
+  "商品已出貨，物流單號請看訂單詳情。",
+  "不好意思讓您久等了，已為您處理。",
+  "謝謝您的支持！"
+ ],
+ "reviews": [
+  {
+   "id": "fr1",
+   "pid": "a06",
+   "pname": "黑色德比皮鞋",
+   "who": "鄭家豪",
+   "stars": 5,
+   "text": "版型很好看，尺寸照平常買就對了。",
+   "hidden": false,
+   "reply": "",
+   "ageDays": 1
+  },
+  {
+   "id": "fr2",
+   "pid": "a15",
+   "pname": "奶油白帆布鞋",
+   "who": "王宜庭",
+   "stars": 5,
+   "text": "質感超出這個價位，會回購。",
+   "hidden": false,
+   "reply": "",
+   "ageDays": 4
+  },
+  {
+   "id": "fr3",
+   "pid": "a13",
+   "pname": "復古水洗牛仔外套",
+   "who": "許思妤",
+   "stars": 4,
+   "text": "出貨很快，包裝乾淨。",
+   "hidden": false,
+   "reply": "",
+   "ageDays": 7
+  },
+  {
+   "id": "fr4",
+   "pid": "a03",
+   "pname": "白色厚底板鞋",
+   "who": "楊柏翰",
+   "stars": 4,
+   "text": "顏色跟照片一樣，很滿意。",
+   "hidden": false,
+   "reply": "",
+   "ageDays": 10
+  },
+  {
+   "id": "fr5",
+   "pid": "a02",
+   "pname": "炭灰直筒寬褲",
+   "who": "王柏翰",
+   "stars": 5,
+   "text": "穿起來很有街頭感，朋友一直問哪買的。",
+   "hidden": false,
+   "reply": "",
+   "ageDays": 13
+  },
+  {
+   "id": "fr6",
+   "pid": "a03",
+   "pname": "白色厚底板鞋",
+   "who": "鄭柏翰",
+   "stars": 3,
+   "text": "版型很好看，尺寸照平常買就對了。",
+   "hidden": false,
+   "reply": "",
+   "ageDays": 16
+  }
+ ],
+ "coupons": [
+  {
+   "id": "fk1",
+   "name": "新朋友見面禮",
+   "code": "HELLO100",
+   "type": "amount",
+   "value": 100,
+   "min": 500,
+   "limit": 200,
+   "used": 37,
+   "start": "2026-10-01",
+   "end": "2026-12-31",
+   "active": true
+  },
+  {
+   "id": "fk2",
+   "name": "雙 11 加碼",
+   "code": "DOUBLE11",
+   "type": "percent",
+   "value": 11,
+   "min": 800,
+   "limit": 100,
+   "used": 64,
+   "start": "2026-11-01",
+   "end": "2026-11-14",
+   "active": true
+  },
+  {
+   "id": "fk3",
+   "name": "回購感謝券",
+   "code": "THANKS50",
+   "type": "amount",
+   "value": 50,
+   "min": 300,
+   "limit": 500,
+   "used": 212,
+   "start": "2026-08-01",
+   "end": "2026-10-31",
+   "active": false
+  }
+ ],
+ "campaigns": [
+  {
+   "id": "fa1",
+   "name": "滿 1500 元免運",
+   "type": "滿額免運",
+   "cond": "訂單滿 1500 元",
+   "benefit": "免運費",
+   "start": "2026-10-01",
+   "end": "2026-12-31",
+   "active": true
+  },
+  {
+   "id": "fa2",
+   "name": "任選 3 件 9 折",
+   "type": "任選優惠",
+   "cond": "指定商品任選 3 件",
+   "benefit": "總價 9 折",
+   "start": "2026-11-01",
+   "end": "2026-11-30",
+   "active": true
+  },
+  {
+   "id": "fa3",
+   "name": "購物車加購優惠",
+   "type": "購物車加價購",
+   "cond": "訂單滿 600 元",
+   "benefit": "指定商品 50 元加購",
+   "start": "2026-11-01",
+   "end": "2026-11-20",
+   "active": false
+  }
+ ],
+ "pages": [
+  {
+   "id": "fg1",
+   "title": "關於我們",
+   "slug": "about",
+   "status": "發布",
+   "body": "巷尾選物 ALLEY 27 是虛構的示範店：平價街頭選貨，每晚上新。（示範文字）",
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "fg2",
+   "title": "運送與退換貨說明",
+   "slug": "shipping",
+   "status": "發布",
+   "body": "下單後 1–2 個工作天出貨；收到商品 7 天內可申請退換貨。（示範文字）",
+   "updated": "2026-10-22"
+  },
+  {
+   "id": "fg3",
+   "title": "常見問題",
+   "slug": "faq",
+   "status": "發布",
+   "body": "Q：可以改收件地址嗎？A：出貨前可以，請聯絡客服。（示範文字）",
+   "updated": "2026-10-25"
+  },
+  {
+   "id": "fg4",
+   "title": "雙 11 活動頁",
+   "slug": "double11",
+   "status": "草稿",
+   "body": "活動內容整理中。（示範文字）",
+   "updated": "2026-11-02"
+  }
+ ],
+ "menu": [
+  "首頁",
+  "全部商品",
+  "外套",
+  "鞋款",
+  "關於我們",
+  "聯絡客服"
+ ],
+ "slides": [
+  {
+   "title": "年終出清 最低 5 折",
+   "sub": "深夜還亮著的選物店",
+   "link": "/sale"
+  },
+  {
+   "title": "每晚 21:00 新品上架",
+   "sub": "本週 16 款街頭單品",
+   "link": "/new"
+  },
+  {
+   "title": "滿 NT$1,500 免運",
+   "sub": "全館適用",
+   "link": "/products"
+  }
+ ],
+ "series": [
+  {
+   "d": 30,
+   "rev": 21478,
+   "ord": 29,
+   "newc": 3
+  },
+  {
+   "d": 29,
+   "rev": 32227,
+   "ord": 60,
+   "newc": 2
+  },
+  {
+   "d": 28,
+   "rev": 27166,
+   "ord": 40,
+   "newc": 1
+  },
+  {
+   "d": 27,
+   "rev": 40496,
+   "ord": 77,
+   "newc": 4
+  },
+  {
+   "d": 26,
+   "rev": 28850,
+   "ord": 39,
+   "newc": 5
+  },
+  {
+   "d": 25,
+   "rev": 17837,
+   "ord": 27,
+   "newc": 3
+  },
+  {
+   "d": 24,
+   "rev": 25696,
+   "ord": 34,
+   "newc": 5
+  },
+  {
+   "d": 23,
+   "rev": 17575,
+   "ord": 31,
+   "newc": 0
+  },
+  {
+   "d": 22,
+   "rev": 21751,
+   "ord": 28,
+   "newc": 5
+  },
+  {
+   "d": 21,
+   "rev": 34009,
+   "ord": 57,
+   "newc": 4
+  },
+  {
+   "d": 20,
+   "rev": 27390,
+   "ord": 39,
+   "newc": 4
+  },
+  {
+   "d": 19,
+   "rev": 27014,
+   "ord": 39,
+   "newc": 2
+  },
+  {
+   "d": 18,
+   "rev": 31759,
+   "ord": 55,
+   "newc": 1
+  },
+  {
+   "d": 17,
+   "rev": 26323,
+   "ord": 39,
+   "newc": 5
+  },
+  {
+   "d": 16,
+   "rev": 21311,
+   "ord": 35,
+   "newc": 1
+  },
+  {
+   "d": 15,
+   "rev": 24241,
+   "ord": 33,
+   "newc": 6
+  },
+  {
+   "d": 14,
+   "rev": 30353,
+   "ord": 40,
+   "newc": 6
+  },
+  {
+   "d": 13,
+   "rev": 23580,
+   "ord": 32,
+   "newc": 3
+  },
+  {
+   "d": 12,
+   "rev": 29342,
+   "ord": 40,
+   "newc": 0
+  },
+  {
+   "d": 11,
+   "rev": 29055,
+   "ord": 41,
+   "newc": 5
+  },
+  {
+   "d": 10,
+   "rev": 27623,
+   "ord": 44,
+   "newc": 2
+  },
+  {
+   "d": 9,
+   "rev": 30783,
+   "ord": 54,
+   "newc": 0
+  },
+  {
+   "d": 8,
+   "rev": 32896,
+   "ord": 46,
+   "newc": 3
+  },
+  {
+   "d": 7,
+   "rev": 28720,
+   "ord": 45,
+   "newc": 5
+  },
+  {
+   "d": 6,
+   "rev": 23682,
+   "ord": 35,
+   "newc": 1
+  },
+  {
+   "d": 5,
+   "rev": 26994,
+   "ord": 36,
+   "newc": 1
+  },
+  {
+   "d": 4,
+   "rev": 23314,
+   "ord": 39,
+   "newc": 3
+  },
+  {
+   "d": 3,
+   "rev": 31631,
+   "ord": 45,
+   "newc": 6
+  },
+  {
+   "d": 2,
+   "rev": 30898,
+   "ord": 56,
+   "newc": 1
+  },
+  {
+   "d": 1,
+   "rev": 26488,
+   "ord": 35,
+   "newc": 2
+  }
+ ],
+ "restock": [
+  {
+   "ageMin": 5519,
+   "order": "T1002",
+   "prod": "奶油白針織開衫",
+   "qty": 2,
+   "src": "退貨補回"
+  },
+  {
+   "ageMin": 11227,
+   "order": "T0987",
+   "prod": "軍綠百褶長裙",
+   "qty": 1,
+   "src": "退貨補回"
+  }
+ ],
+ "shiplog": [],
+ "levels": [
+  {
+   "name": "VIP",
+   "spend": 5000,
+   "off": 5
+  },
+  {
+   "name": "VVIP",
+   "spend": 15000,
+   "off": 10
+  }
+ ],
+ "pointRule": {
+  "per": 100,
+  "value": 1
+ },
+ "settings": {
+  "shipMode": "ecpay",
+  "homeFee": 120,
+  "cvsFee": 65,
+  "freeOver": 1500,
+  "seven": true,
+  "family": true,
+  "home": true,
+  "lowStock": 10,
+  "lowDaily": true,
+  "autoDone": true,
+  "notifyShip": true,
+  "payCard": true,
+  "payCvs": true,
+  "payCod": true,
+  "payAtm": true,
+  "fromName": "巷尾選物",
+  "replyTo": "hello@alley27-demo.example",
+  "notifyNew": true,
+  "lowMail": "hello@alley27-demo.example",
+  "storeName": "巷尾選物",
+  "taxId": "",
+  "accounts": [
+   {
+    "name": "店長 小幫手",
+    "role": "店長",
+    "mail": "manager@example.com"
+   },
+   {
+    "name": "老闆",
+    "role": "老闆",
+    "mail": "boss@example.com"
+   }
+  ]
+ },
+ "fashionNote": ""
+}

@@ -107,6 +107,14 @@
   - `css/base.css` 的 `:root`：cute 的預設色票（token，就是「顏色、字體的代號」）。
   - `css/themes/t02.css`：T02 全部樣式，選擇器都以 `html.sk-t02` 開頭，不影響 cute。
   - 首頁 `#skinTop`：T02 的街頭首屏（跑馬公告、黑色動態主視覺、故障效果 LOGO、NEW 分類方塊、出清特賣條）。
+- **T02 綁定示範店「巷尾選物 ALLEY 27」**（2026-11-08 新增）
+  - 資料：`data/alley.json`、`data/alley.js`（由 `tools/gen_alley.py` 產生；不動其他三家店）。16 件街頭服飾、兩層規格（顏色／尺寸或尺碼）、5 件特價、17 筆訂單、10 位顧客。
+  - 商品圖：`img/alley/*.webp`，由 6 張模特照裁切（`tools/gen_alley_imgs.py`），沒有新生成圖片。
+  - 切到 T02：後台、首頁、商店頁面都自動用巷尾選物。「換品牌」選單在 T02 隱藏（一個主題一家店）。
+  - 切回 cute：回到訪客原本選的店（預設晨露鮮蔬）。cute 的換品牌選單不會出現巷尾選物。
+  - 穿搭輪盤外掛：巷尾選物和北風衣櫥都算「服飾店」，T02 下可直接開啟外掛、匯入 6 套示範穿搭。
+  - 重設示範資料：兩個主題都可用；T02 重設後仍是巷尾選物。
+  - 測試：`tools/t02_shop_switch.py [網址]`（22 項）。`tools/run_skin.py t02` 跑舊腳本時，會把「北風衣櫥／fashion」換成「巷尾選物／alley」。
 - 新增一個主題：在 `theme.js` 的 THEMES 加一筆，再新增 `css/themes/<名稱>.css`。
 - 測試：`python3 tools/run_skin.py t02 tools/<腳本>.py` 用指定主題跑既有檢查；`tools/theme_shots.py`＋`tools/theme_diff.py` 比對截圖。
 - T02 字體 Poppins、Inter、Noto Sans TC 由 Google Fonts 載入（SIL OFL 授權，可商用）。離線時會退回系統字。

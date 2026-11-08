@@ -167,5 +167,5 @@ SH.route('lookbook',/^\/lookbook$/,function(m,H,o){var lb=LB.get();
   var cta='<section class="lb-cta rvl">'+SH.ham('tiaotiao','','mascot')+'<div><span class="lb-kick">棠序自製功能</span><h2>這個穿搭輪盤，是棠序問策自己做的外掛</h2><p>做在 WordPress／WooCommerce 上，店長在後台點一點照片、標好商品，顧客就能在商店頁面一鍵整套加入購物車。這個示範站是靜態的假資料，但操作手感跟正式版一樣。</p><div class="go"><a class="btn" data-go="app.html#/shop/lookbook" data-cur="後台">到後台改這個輪盤</a><a class="btn pk" data-line="lookbook-cta">'+SH.LINE+'我也想要・LINE 問棠序</a></div></div></section>';
   if(!looks.length){return {html:'<div class="pg lb-page">'+SH.lookbookHead(true)+SH.empty('穿搭輪盤還沒有內容','外掛已經開啟，店長到後台「模特兒穿搭輪盤」新增一套穿搭（選模特兒照片、點照片標熱點、連到商品），這裡就會出現。',(T_isFashion()?'':'<button class="btn" type="button" data-shop="fashion">先換到北風衣櫥</button> ')+'<a class="btn w" data-go="app.html#/shop/lookbook">去後台新增穿搭</a>')+cta+'</div>',admin:'app.html#/shop/lookbook'}}
   return {html:'<div class="pg lb-page">'+SH.crumbs([['穿搭輪盤']])+SH.lookbookHead(true)+SH.lookbookHtml({page:true})+cta+'</div>',admin:'app.html#/shop/lookbook',edit:'app.html#/shop/lookbook',editLabel:'去後台改這個輪盤',mount:function(root){SH.lookbookMount(root,!(SH.cur&&SH.cur.name==='lookbook'))}}});
-function T_isFashion(){return TX.shopKey()==='fashion'}
+function T_isFashion(){return TX.isApparel()}
 })();

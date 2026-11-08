@@ -28,5 +28,5 @@ T.artSrc=function(k,c){return 'data:image/svg+xml;utf8,'+encodeURIComponent(T.ar
 var COL={'白':'#FFFFFF','黑':'#4B4B55','粉':'#FF8DAA','杏':'#F2D3B0','焦糖':'#C98A4B','米':'#EADBC0'};
 T.pimg=function(p,variant){if(p.img)return p.img;if(p.art){var c=p.art.c;if(variant){var v=variant.split('|')[0];if(COL[v])c=COL[v]}return T.artSrc(p.art.k,c)}return T.artSrc('jar','#FFB48A')};
 /* 新商品沒有照片時的預設插圖：依分類挑形狀 */
-T.defaultArt=function(shop,cat){var m={fresh:['jar','#7BDDB5'],beauty:['tube','#FF8DAA'],fashion:['tee','#FFD45E']}[shop]||['jar','#FFB48A'];return {k:m[0],c:m[1]}};
+T.defaultArt=function(shop,cat){var m={fresh:['jar','#7BDDB5'],beauty:['tube','#FF8DAA'],fashion:['tee','#FFD45E'],alley:['tee','#111111']}[shop]||['jar','#FFB48A'];return {k:m[0],c:m[1]}};
 })();

@@ -20,13 +20,18 @@ function load(){try{var j=localStorage.getItem(KEY);if(j){S=JSON.parse(j);if(S&&
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){console.warn('[store] 存檔失敗（可能是瀏覽器關閉了儲存）',e)}}
 load();
 T.save=save;
-T.shopKey=function(){return S.shop};
-T.setShop=function(k){if(RAW[k]){S.shop=k;save()}};
-T.D=function(k){k=k||S.shop;if(!S.shops[k]){S.shops[k]=realize(RAW[k]);save()}return S.shops[k]};
+/* 主題綁店：T02 夜巷固定用「巷尾選物」（alley）。鎖住時不改 S.shop，切回 cute 就回到原本那家店。 */
+var LOCK=(window.THEME&&THEME.cfg&&THEME.cfg.shop&&RAW[THEME.cfg.shop])?THEME.cfg.shop:null;
+T.locked=function(){return LOCK};
+T.shopKey=function(){return LOCK||S.shop};
+T.setShop=function(k){if(LOCK)return;if(RAW[k]&&k!=='alley'){S.shop=k;save()}};
+/* 服飾店（穿搭輪盤外掛可用）：北風衣櫥、巷尾選物 */
+T.isApparel=function(k){k=k||T.shopKey();return k==='fashion'||k==='alley'};
+T.D=function(k){k=k||T.shopKey();if(!S.shops[k]){S.shops[k]=realize(RAW[k]);save()}return S.shops[k]};
 T.reload=function(){load()};
 T.reset=function(){try{localStorage.removeItem(KEY);localStorage.removeItem(SEQ);localStorage.removeItem('tx-cart-v1');localStorage.removeItem('tx-member-v1');sessionStorage.removeItem('theme')}catch(e){}S={ver:1,shop:S.shop,shops:{}};save()};
-T.shops=function(){return Object.keys(RAW).map(function(k){return {key:k,name:RAW[k].name,acc:RAW[k].acc}})};
-T.THEMES={fresh:{acc:'#4BD1A0',d:'#2BA57A',soft:'#D3F5E7'},beauty:{acc:'#FF7AA5',d:'#D9507D',soft:'#FFDCE8'},fashion:{acc:'#FFC93F',d:'#D99C14',soft:'#FFF0BF'}};
+T.shops=function(){return Object.keys(RAW).filter(function(k){return LOCK?k===LOCK:k!=='alley'}).map(function(k){return {key:k,name:RAW[k].name,acc:RAW[k].acc}})};
+T.THEMES={fresh:{acc:'#4BD1A0',d:'#2BA57A',soft:'#D3F5E7'},beauty:{acc:'#FF7AA5',d:'#D9507D',soft:'#FFDCE8'},fashion:{acc:'#FFC93F',d:'#D99C14',soft:'#FFF0BF'},alley:{acc:'#E5302A',d:'#B51F1A',soft:'#EFEFEF'}};
 /* ---------- 小工具 ---------- */
 T.money=function(n){n=Math.round(+n||0);return 'NT$ '+n.toLocaleString('en-US')};
 T.num=function(n){return Math.round(+n||0).toLocaleString('en-US')};
@@ -165,8 +170,8 @@ T.soldOut=function(p){return T.stockOf(p)<=0};
 T.maxQty=function(p,vk){var s=T.vstock(p,vk),m=+p.maxBuy||0;return m>0?Math.min(s,m):s};
 /* 購物車（每家店各一台） */
 function cartAll(){try{return JSON.parse(localStorage.getItem(CART))||{}}catch(e){return {}}}
-T.cart=function(){var l=cartAll()[S.shop];return Array.isArray(l)?l:[]};
-T.cartSave=function(l){var a=cartAll();a[S.shop]=l;try{localStorage.setItem(CART,JSON.stringify(a))}catch(e){}};
+T.cart=function(){var l=cartAll()[T.shopKey()];return Array.isArray(l)?l:[]};
+T.cartSave=function(l){var a=cartAll();a[T.shopKey()]=l;try{localStorage.setItem(CART,JSON.stringify(a))}catch(e){}};
 T.cartCount=function(){return T.cart().reduce(function(a,i){return a+i.qty},0)};
 T.cartAdd=function(pid,vk,qty){var p=T.product(pid);if(!p||p.status!=='on')return {ok:false,msg:'這個商品已經下架了'};
   if(T.vkeys(p).length&&!T.vOf(p,vk))return {ok:false,msg:'請先選好規格'};
@@ -190,8 +195,8 @@ T.payOpts=function(logi){var s=T.D().settings,cvs=/超商/.test(logi||''),home=l
 T.todayStr=function(){return T.fmtDay(Date.now())};
 T.findCoupon=function(code){code=String(code||'').trim().toUpperCase();if(!code)return null;return T.D().coupons.filter(function(c){return String(c.code).toUpperCase()===code})[0]||null};
 T.couponCheck=function(c,sub){if(!c)return '找不到這組折扣碼';if(!c.active)return '這組折扣碼已停用';var t=T.todayStr();if(c.start&&t<c.start)return '這組折扣碼還沒開始';if(c.end&&t>c.end)return '這組折扣碼已過期';if(c.limit&&c.used>=c.limit)return '這組折扣碼已被領完';if(sub<c.min)return '再買 '+T.money(c.min-sub)+' 就能用這組折扣碼（滿 '+T.money(c.min)+'）';return ''};
-T.member=function(){try{var m=JSON.parse(localStorage.getItem(MEM));return m&&m.shop===S.shop?m:null}catch(e){return null}};
-T.memberSet=function(m){try{if(m)localStorage.setItem(MEM,JSON.stringify(Object.assign({shop:S.shop},m)));else localStorage.removeItem(MEM)}catch(e){}};
+T.member=function(){try{var m=JSON.parse(localStorage.getItem(MEM));return m&&m.shop===T.shopKey()?m:null}catch(e){return null}};
+T.memberSet=function(m){try{if(m)localStorage.setItem(MEM,JSON.stringify(Object.assign({shop:T.shopKey()},m)));else localStorage.removeItem(MEM)}catch(e){}};
 T.customerByPhone=function(ph){var d=T.digits(ph);if(!d)return null;return T.D().customers.filter(function(c){return T.digits(c.phone)===d})[0]||null};
 T.levelOff=function(cust){if(!cust)return 0;var l=T.D().levels.filter(function(x){return x.name===cust.level})[0];return l?+l.off:0};
 /* 試算：小計、活動折扣、折扣碼、會員折扣、運費 */

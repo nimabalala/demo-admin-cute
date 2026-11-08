@@ -23,7 +23,7 @@ LB.dropMenu=function(){var D=T.D(),lb=LB.get();D.menu=D.menu.filter(function(m){
 LB.setOn=function(v){var lb=LB.get(),res={ok:true,on:v?1:0,looks:0,items:0,prods:0,note:''};
   if(!v){lb.on=0;LB.dropMenu();T.save();return res}
   lb.on=1;
-  if(!lb.looks.length){if(T.shopKey()!=='fashion')res.note=LB.MSG.notfashion;else if(!LB.active())res.note=LB.MSG.locked_demo;else{var r=LB.importDemo();if(r.ok){res.looks=r.looks;res.items=r.items;res.prods=r.prods}else res.note=r.msg}}
+  if(!lb.looks.length){if(!T.isApparel())res.note=LB.MSG.notfashion;else if(!LB.active())res.note=LB.MSG.locked_demo;else{var r=LB.importDemo();if(r.ok){res.looks=r.looks;res.items=r.items;res.prods=r.prods}else res.note=r.msg}}
   LB.ensureMenu();T.save();return res};
 LB.save=function(){T.save()};
 LB.active=function(){return LB.get().lic.state==='active'};
@@ -51,7 +51,7 @@ LB.addLook=function(look,choose){choose=choose||{};var out={added:[],skipped:[],
 function mkProduct(pid,it,n,i,j){var z=it.z,shoe=/^(37|41)$/.test(z[0]),vars={},tot=0;
   z.forEach(function(s,k){var st=24+((n*7+k*11)%38);if(pid==='fl05'&&s==='32')st=0;if(pid==='fl09'&&s==='37')st=4;vars[s]={sku:'LK'+('0'+n).slice(-2)+'-'+(k+1),price:it.p,sale:'',stock:st,on:true};tot+=st});
   return {id:pid,name:it.n,cat:it.c,price:it.p,sale:'',stock:tot,sku:'LK'+('0'+n).slice(-2),status:'on',img:'img/lookbook/l'+(i+1)+'i'+(j+1)+'.webp',art:null,imgData:'',desc:it.d,specs:{s1:{name:shoe?'尺碼':'尺寸',opts:z.slice()}},variants:vars,sold30:5+((n*7)%23),preorder:false,shipDate:'',maxBuy:0,shipFee:'',schedOn:'',schedOff:'',imgs:[],lb:1}}
-LB.importDemo=function(){if(T.shopKey()!=='fashion')return {ok:false,msg:LB.MSG.notfashion};
+LB.importDemo=function(){if(!T.isApparel())return {ok:false,msg:LB.MSG.notfashion};
   if(!LB.canCreate())return {ok:false,msg:LB.MSG.locked_demo};
   var D=T.D(),lb=LB.get(),made=0,items=0,prods=0;
   DEMO.forEach(function(L,i){var key='lbd'+(i+1);if(lb.looks.some(function(x){return x.key===key}))return;

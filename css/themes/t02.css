@@ -191,3 +191,5 @@ html.sk-t02 .cell .no{color:#111;font-family:var(--disp);font-weight:900}
 html.sk-t02 .cell small{color:#6B6B6B}
 html.sk-t02 .cell:hover .no,html.sk-t02 .cell:hover .lb,html.sk-t02 .cell:hover small{color:#fff}
 html.sk-t02 .gl *{color:#111}
+/* T02 綁定示範店「巷尾選物」：換品牌（換示範店）的選單在這個主題不顯示 */
+html.sk-t02 .swwrap,html.sk-t02 .mnav .msw,html.sk-t02 .mnav p.mt:has(+.msw),html.sk-t02 #dbs,html.sk-t02 #themes,html.sk-t02 .shoppick{display:none!important}

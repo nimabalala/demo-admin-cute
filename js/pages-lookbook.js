@@ -22,7 +22,7 @@ function offPage(){var body='<div class="board plgoff"><div class="pi">'+ICON+'<
 function route(re,sec,fn){A.route(re,sec,function(m,o){return LB.on()?fn(m,o):offPage()})}
 /* ================= 穿搭列表 ================= */
 
-route(/^\/shop\/lookbook$/,'shop',function(){var lb=LB.get(),D=TX.D(),fash=TX.shopKey()==='fashion',demoN=lb.looks.filter(function(l){return l.demo}).length,show=Math.max(1,+lb.set.show||6);
+route(/^\/shop\/lookbook$/,'shop',function(){var lb=LB.get(),D=TX.D(),fash=TX.isApparel(),demoN=lb.looks.filter(function(l){return l.demo}).length,show=Math.max(1,+lb.set.show||6);
   var right='<button class="btn sm" type="button" data-a="lbnew">＋ 新增穿搭</button>';
   var rows=lb.looks.map(function(l,i){var res=l.items.map(LB.res),lk=res.filter(function(r){return r.linked}).length,pins=l.items.filter(function(it){return it.x!=null&&it.x!==''}).length,vis=!l.hide&&i<show&&lb.looks.slice(0,i).filter(function(x){return !x.hide}).length<show;
     var vc=lb.looks.filter(function(x,k){return !x.hide&&k<=i}).length,on=!l.hide&&vc<=show;
@@ -99,7 +99,7 @@ A.act.lbsave=function(t){var E=ui.draft;if(!E)return;var er=[];
 function qs(){var hs=location.hash||'',i=hs.indexOf('?');return new URLSearchParams(i<0?'':hs.slice(i+1))}
 window.addEventListener('hashchange',function(){ui.just=null});
 A.route(/^\/settings\/plugins(?:\?.*)?$/,'settings',function(){
-  var lb=LB.get(),on=LB.on(),fash=TX.shopKey()==='fashion',hint=qs().get('hint')==='1',st=lb.lic.state,j=ui.just,nvis=LB.visible().length,total=lb.looks.length;
+  var lb=LB.get(),on=LB.on(),fash=TX.isApparel(),hint=qs().get('hint')==='1',st=lb.lic.state,j=ui.just,nvis=LB.visible().length,total=lb.looks.length;
   var items=lb.looks.reduce(function(n,l){return n+l.items.length},0);
   var licTx=st==='active'?'授權有效・已綁定這個網站・有效至 '+h(lb.lic.exp)+'（示範）':st==='expired'?'授權已到期：前台照常顯示，但不能新增穿搭、也收不到更新':'授權尚未啟用：請先輸入授權碼';
   var sw='<div class="plgswrap"><button type="button" class="plgsw'+(on?' on':'')+'" role="switch" aria-checked="'+on+'" aria-label="模特兒穿搭輪盤外掛開關" data-a="plgtoggle"><span class="trk"><i class="knob"></i><b>'+(on?'已開啟':'已關閉')+'</b></span></button>'+
@@ -114,7 +114,7 @@ A.route(/^\/settings\/plugins(?:\?.*)?$/,'settings',function(){
   var more='<section class="plgmore"><div><b>想要別的功能？</b><p>我們也接客製外掛與網站功能。告訴我們你的店需要什麼，我們幫你做成可以開關的外掛。</p></div><a class="btn pk sm" data-line="plugins-more">LINE 問棠序</a></section>';
   var body='<div class="note plgintro">'+U.icon.info+'<div>這裡是<b>棠序自製外掛</b>的清單。外掛裝好之後，店長可以自己決定要不要開；打開或關閉，商店頁面馬上跟著變。</div></div>'+card+more;
   return {html:A.page('settings','外掛','設定','',body,'/settings/plugins'),mount:function(){A.pet&&A.pet(on?'外掛開著呢，去商店頁面看看吧！':'把大開關按下去，看看商店頁面會發生什麼事！')}}});
-function turnOn(t){var sw=TX.shopKey()!=='fashion';A.confetti(t,100);
+function turnOn(t){var sw=!TX.isApparel();A.confetti(t,100);
   if(sw){C.setTheme('fashion');if(C.chromeMark)C.chromeMark()}
   var r=LB.setOn(1);ui.just={sw:sw,res:r};
   U.toast('外掛已開啟',(r.looks?'6 套穿搭、18 件單品已經準備好；':'')+'商店頁面馬上看得到');

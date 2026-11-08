@@ -12,7 +12,7 @@ var THEMES={
         mascot:true,motion:{speed:1},home:{street:false}},
   t02:{key:'t02',name:'夜巷 街頭',sub:'黑白街頭選貨・雜誌感',sw:['#111111','#FFFFFF','#E5302A'],css:'css/themes/t02.css',
         fonts:'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;0,800;0,900;1,900&family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@400;700;900&display=swap',
-        mascot:false,motion:{speed:1.35},home:{street:true},
+        mascot:false,motion:{speed:1.35},home:{street:true},shop:'alley',
         assets:{looks:['img/lookbook/look1.webp','img/lookbook/look2.webp','img/lookbook/look3.webp','img/lookbook/look4.webp','img/lookbook/look5.webp','img/lookbook/look6.webp']}}
 };
 var KEY='tx-skin-v1',DEF='cute',ls=null;try{ls=window.localStorage}catch(e){}
