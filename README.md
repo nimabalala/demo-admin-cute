@@ -92,6 +92,25 @@
 檔案：`js/lookbook-store.js`（資料層 `TX.LB`，含開關 `LB.on()`／`LB.setOn()`）、`js/shop-lookbook.js`（輪盤與商店頁面路由）、`css/lookbook.css`、`js/pages-lookbook.js`（後台，含外掛頁）＋`css/lookbook-admin.css`、`img/lookbook/`（模特兒 6 張＋單品 18 張，WebP 約 600KB）。
 測試：`python3 tools/plugin_toggle_flow.py`（外掛開關：桌機 1440＋手機 390，44 項，結果 `_qa/plugin_toggle_results.json`）、`python3 tools/lookbook_flow.py`（輪盤與後台本體：桌機、手機、減少動態，64 項，結果 `_qa/lookbook_flow_results.json`）、`python3 tools/lookbook_live.py`（線上版驗證）。導覽影片：`tools/plugin_toggle_tour.py` → `_qa/plugin_toggle_tour.mp4`（約 26 秒，開關劇情）、`tools/lookbook_tour.py` → `_qa/lookbook_tour.mp4`（約 36 秒，輪盤本體）。
 
+## 網站風格（外觀主題）　← 2026-11-08 新增
+同一套功能，可以換整套外觀。「主題」＝配色、字體、圖案、動畫的組合。
+- 預設：`cute` 可愛糖果（v5）。
+- 新增：`t02` 夜巷 街頭（黑白街頭選貨風，示範店「巷尾選物 ALLEY 27」）。
+- 切換方法：
+  1. 網址加 `?theme=t02` 或 `?theme=cute`。
+  2. 示範條（最上面黑條）右邊的「風格」按鈕。
+  3. 首頁最下面「換成你的品牌」區塊。
+  4. 後台「設定 → 店家資料」最下面的「網站風格」卡片。
+- 選擇存在 localStorage `tx-skin-v1`。「重設示範資料」不會清掉它。
+- 檔案：
+  - `js/theme.js`：主題清單與設定（名稱、樣式檔、字體、吉祥物開關、動畫速度、首頁區塊、素材）。放在 `<head>` 所有 CSS 之後。
+  - `css/base.css` 的 `:root`：cute 的預設色票（token，就是「顏色、字體的代號」）。
+  - `css/themes/t02.css`：T02 全部樣式，選擇器都以 `html.sk-t02` 開頭，不影響 cute。
+  - 首頁 `#skinTop`：T02 的街頭首屏（跑馬公告、黑色動態主視覺、故障效果 LOGO、NEW 分類方塊、出清特賣條）。
+- 新增一個主題：在 `theme.js` 的 THEMES 加一筆，再新增 `css/themes/<名稱>.css`。
+- 測試：`python3 tools/run_skin.py t02 tools/<腳本>.py` 用指定主題跑既有檢查；`tools/theme_shots.py`＋`tools/theme_diff.py` 比對截圖。
+- T02 字體 Poppins、Inter、Noto Sans TC 由 Google Fonts 載入（SIL OFL 授權，可商用）。離線時會退回系統字。
+
 ## 填入你的 LINE、GA4、Meta Pixel（`config.js`）
 ```js
 window.DEMO_CONFIG = {

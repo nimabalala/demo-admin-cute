@@ -1,0 +1,193 @@
+/* ==========================================================================
+   T02 夜巷 Back Alley ── 黑白街頭選貨風（客戶 fuzzyselect.shop 同意參考其氣氛）
+   只蓋外觀層：先換色票 token，再統一形狀（直角、無厚陰影、細黑線），最後是各區塊微調。
+   全部選擇器都以 html.sk-t02 開頭，不影響 cute 主題。
+   ========================================================================== */
+html.sk-t02{
+  --cream:#FFFFFF;--cream2:#EAEAEA;--ink:#111111;--mut:#6B6B6B;--line:#E2E2E2;--white:#fff;
+  --pink:#E5302A;--rose:#E5302A;--mint:#111111;--butter:#C6F432;--sky:#EAEAEA;--peach:#EAEAEA;
+  --acc:#111111;--acc-d:#000000;--acc-soft:#EAEAEA;
+  --shadow:transparent;--red:#E5302A;--lime:#C6F432;
+  --disp:"Poppins","Noto Sans TC",sans-serif;--body:"Inter","Noto Sans TC",sans-serif;
+}
+html.sk-t02,html.sk-t02 body{background:#fff;color:#111}
+html.sk-t02 body{font-weight:400;letter-spacing:.01em}
+html.sk-t02 b,html.sk-t02 strong,html.sk-t02 h1,html.sk-t02 h2,html.sk-t02 h3{font-weight:800}
+html.sk-t02 h1,html.sk-t02 h2{letter-spacing:-.01em}
+/* 形狀：直角、拿掉糖果厚陰影 */
+html.sk-t02 *:not(canvas){border-radius:0!important;box-shadow:none!important;text-shadow:none!important}
+html.sk-t02 [style*="--c:"],html.sk-t02 [style*="--k:"]{--c:#F2F2F2!important;--k:#F2F2F2!important}
+html.sk-t02 [style*="--sec:"]{--sec:#fff!important}
+html.sk-t02 .tile{--sh:#111!important}
+/* 吉祥物：T02 沒有倉鼠 */
+html.sk-t02 [data-ham],html.sk-t02 .ham,html.sk-t02 .pethost,html.sk-t02 .hamwrap,html.sk-t02 .trio,html.sk-t02 .pethint .pet,html.sk-t02 .mascot,html.sk-t02 #roll .ham{display:none!important}
+/* 按鈕：黑底白字，按了只位移不彈跳 */
+html.sk-t02 .btn{background:#111;color:#fff;border:2px solid #111;font-family:var(--disp);font-weight:800;letter-spacing:.04em;top:0!important;transition:background .2s,color .2s}
+html.sk-t02 .btn:hover{background:#fff;color:#111}
+html.sk-t02 .btn.w{background:#fff;color:#111}
+html.sk-t02 .btn.w:hover{background:#111;color:#fff}
+html.sk-t02 .btn.pk{background:var(--red);border-color:var(--red);color:#fff}
+html.sk-t02 .btn.pk:hover{background:#111;border-color:#111}
+html.sk-t02 .act{color:#fff;top:0!important}html.sk-t02 .act.g{background:#EAEAEA;color:#111}
+html.sk-t02 .tag,html.sk-t02 .chip{border:1px solid #111;background:#fff}
+html.sk-t02 .tag i{background:var(--red)}
+/* 游標：白色小方塊，用「差異」混色，在黑白上都看得到 */
+html.sk-t02 #cursor{mix-blend-mode:difference}
+html.sk-t02 #cursor .b{background:#fff!important;width:18px;height:18px;left:-9px;top:-9px;color:#000;font-family:var(--disp)}
+html.sk-t02 #cursor .b:before,html.sk-t02 #cursor .b:after{display:none}
+html.sk-t02 #cursor.big .b{width:72px;height:72px;left:-36px;top:-36px;font-size:12px}
+/* 轉場：黑色布幕，帶一條紅線 */
+html.sk-t02 #roll .rug{background:#111}
+html.sk-t02 #roll .tube{background:repeating-linear-gradient(90deg,#111 0 18px,#fff 18px 22px,#111 22px 40px)}
+html.sk-t02 #roll .tube:after{background:linear-gradient(90deg,transparent 46%,var(--red) 46% 54%,transparent 54%)}
+/* 示範條、導覽列 */
+html.sk-t02 .demo-bar{background:#000;color:#fff}
+html.sk-t02 .demo-bar .db1 i{background:var(--red)}
+html.sk-t02 .nav{background:#fff;border-bottom:2px solid #111;left:0;right:0;top:30px;height:62px}
+html.sk-t02 .lk{color:#111;font-family:var(--disp);font-weight:700}
+html.sk-t02 .lk.on,html.sk-t02 .lk:hover{background:#111;color:#fff}
+html.sk-t02 .swmenu{border:2px solid #111}
+html.sk-t02 .swmenu button.on,html.sk-t02 .swmenu button:hover{background:#EAEAEA}
+html.sk-t02 .mk{background:var(--acc)}
+/* 風格切換器（兩個主題都會用到，cute 的樣式在 base 區塊下方） */
+/* ---------- 首頁（前台浮誇） ---------- */
+html.sk-t02 .hero{background:#fff}
+html.sk-t02 .blobs,html.sk-t02 .dots,html.sk-t02 .cloud,html.sk-t02 .stickers,html.sk-t02 .balloons,html.sk-t02 .mound{display:none!important}
+html.sk-t02 .hl{font-family:var(--disp);font-weight:900;letter-spacing:-.02em}
+html.sk-t02 .hl .hi{color:var(--red)}
+html.sk-t02 .coin{background:#111;color:#fff}
+html.sk-t02 .tile,html.sk-t02 .tile .win{background:#fff;border:3px solid #111}
+html.sk-t02 .tile .strip i{font-family:var(--disp);font-weight:900}
+html.sk-t02 .meta .up{color:#111}
+html.sk-t02 .sec{border-top:2px solid #111}
+html.sk-t02 .sec h2{font-family:var(--disp);font-weight:900}
+html.sk-t02 .cell{background:#fff!important;border:2px solid #111}
+html.sk-t02 .cell:hover{background:#111!important;color:#fff}
+html.sk-t02 .cell .face{display:none}
+html.sk-t02 .lbhl{background:#111!important;color:#fff}
+html.sk-t02 .lbhl .lbh-sub,html.sk-t02 .lbhl li{color:#ddd}
+html.sk-t02 .lbh-tag{background:var(--lime)!important;color:#111!important}
+html.sk-t02 .lbh-pic .bl{background:#222!important}
+html.sk-t02 .lbh-pic img{filter:grayscale(1) contrast(1.1)}
+html.sk-t02 .lbh-pic .pn{background:var(--red)!important;color:#fff!important}
+html.sk-t02 .cta{background:#fff!important}
+html.sk-t02 .themes .sw{border:2px solid #111;background:#fff}
+html.sk-t02 .themes .sw.on{background:#111;color:#fff}
+html.sk-t02 .scal{display:none}
+/* 街頭首屏 */
+.st-wrap{position:relative;padding-top:92px;background:#fff}
+.st-mq{background:#000;color:#fff;overflow:hidden;white-space:nowrap;height:34px;line-height:34px;font:700 13px var(--disp);letter-spacing:.08em}
+.st-mq-in{display:inline-block;animation:st-mq 38s linear infinite}
+@keyframes st-mq{to{transform:translateX(-50%)}}
+.st-hero{position:relative;height:calc(100vh - 126px);min-height:560px;background:#0b0b0b;overflow:hidden;color:#fff}
+#stfx{position:absolute;inset:0;width:100%;height:100%}
+.st-model{position:absolute;right:6%;bottom:0;height:92%;filter:grayscale(1) contrast(1.25) brightness(.62);opacity:.85;mix-blend-mode:screen}
+.st-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.75),rgba(0,0,0,0) 70%);z-index:1}
+.st-in{position:absolute;left:6%;bottom:12%;z-index:3;max-width:900px}
+.st-kick{font:700 14px var(--disp);letter-spacing:.3em;color:#bbb;margin-bottom:10px}
+.st-logo{position:relative;font:italic 900 clamp(64px,13vw,200px)/.9 "Poppins",sans-serif;letter-spacing:-.04em;margin:0;color:#fff;-webkit-text-stroke:0}
+.st-logo span{position:relative;display:inline-block;background:#fff;color:#0b0b0b;padding:0 .12em}
+.st-logo:before,.st-logo:after{content:attr(data-text);position:absolute;left:0;top:0;padding:0 .12em;color:#fff;pointer-events:none;opacity:0}
+.st-logo:before{color:var(--red);animation:st-g1 3.2s steps(1) infinite}
+.st-logo:after{color:#9ad7ff;animation:st-g2 3.2s steps(1) infinite}
+@keyframes st-g1{0%,86%,100%{opacity:0;transform:none;clip-path:none}87%{opacity:.9;transform:translate(-6px,2px);clip-path:inset(10% 0 55% 0)}90%{opacity:.9;transform:translate(5px,-3px);clip-path:inset(60% 0 8% 0)}93%{opacity:0}}
+@keyframes st-g2{0%,86%,100%{opacity:0;transform:none;clip-path:none}88%{opacity:.8;transform:translate(6px,1px);clip-path:inset(40% 0 30% 0)}91%{opacity:.8;transform:translate(-4px,0);clip-path:inset(0 0 75% 0)}94%{opacity:0}}
+.st-logo span{animation:st-jit 3.2s steps(1) infinite}
+@keyframes st-jit{0%,86%,95%,100%{transform:none}88%{transform:translateX(4px) skewX(-6deg)}91%{transform:translateX(-3px)}}
+.st-zh{font:900 clamp(22px,3vw,40px) "Noto Sans TC",sans-serif;margin:18px 0 26px;letter-spacing:.06em}
+.st-go{display:flex;gap:14px;flex-wrap:wrap}
+html.sk-t02 .st-go .btn{background:#fff;color:#111;border-color:#fff}
+html.sk-t02 .st-go .btn:hover{background:var(--red);border-color:var(--red);color:#fff}
+html.sk-t02 .st-go .btn.w{background:transparent;color:#fff}
+.st-mark{margin-top:22px;font-size:12.5px;color:#aaa}
+.st-scroll{position:absolute;right:28px;bottom:24px;z-index:3;font:700 12px var(--disp);letter-spacing:.3em;writing-mode:vertical-rl;color:#bbb}
+.st-new{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-bottom:2px solid #111}
+.st-tile{position:relative;aspect-ratio:3/4;overflow:hidden;border-right:2px solid #111;background:#EAEAEA;color:#111;display:block}
+.st-tile:last-child{border-right:0}
+.st-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15);transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .4s}
+.st-tile:hover img{transform:scale(1.06);filter:none}
+.st-n{position:absolute;left:14px;top:6px;font:italic 900 clamp(54px,7vw,104px)/1 "Poppins",sans-serif;color:transparent;-webkit-text-stroke:2px #111;background:none}
+.st-tile b{position:absolute;left:0;right:0;bottom:0;background:#111;color:#fff;font:900 22px "Noto Sans TC",sans-serif;padding:14px 16px 30px;letter-spacing:.08em}
+.st-tile small{position:absolute;left:16px;bottom:10px;color:#aaa;font:700 11px var(--disp);letter-spacing:.25em;z-index:1}
+.st-sale{display:flex;align-items:center;gap:28px;padding:30px 6%;background:var(--red);color:#fff;border-bottom:2px solid #111}
+.st-sale b{font:900 clamp(40px,6vw,88px)/1 "Noto Sans TC",sans-serif;letter-spacing:.06em}
+.st-sale span{flex:1;font:800 clamp(14px,1.6vw,22px) var(--disp);letter-spacing:.1em}
+.st-sale em{font:italic 900 32px "Poppins",sans-serif}
+.st-sale:hover{background:#111}
+.st-note{text-align:center;padding:26px 16px 0;font-weight:700;color:#6B6B6B}
+@media (max-width:760px){.st-wrap{padding-top:84px}.st-hero{height:78vh;min-height:520px}.st-model{right:-18%;height:78%}.st-in{left:20px;right:20px;bottom:9%}.st-new{grid-template-columns:1fr 1fr}.st-tile:nth-child(2){border-right:0}.st-tile:nth-child(-n+2){border-bottom:2px solid #111}.st-sale{flex-wrap:wrap;gap:8px}.st-sale span{flex-basis:100%}.st-scroll{display:none}}
+html.rm .st-mq-in,html.rm .st-logo:before,html.rm .st-logo:after,html.rm .st-logo span{animation:none}
+@media (prefers-reduced-motion:reduce){.st-mq-in,.st-logo:before,.st-logo:after,.st-logo span{animation:none!important}}
+/* ---------- 後台（簡潔） ---------- */
+html.sk-t02 body.work{background:#F5F5F5}
+html.sk-t02 .h1 h1{font-family:var(--disp);font-weight:900;letter-spacing:-.02em}
+html.sk-t02 .kpi{background:#fff!important;border:1px solid #111}
+html.sk-t02 .kpi b{color:#111;font-family:var(--disp);font-weight:800}
+html.sk-t02 .board,html.sk-t02 .panel,html.sk-t02 .drawer,html.sk-t02 .modal,html.sk-t02 .toast,html.sk-t02 .tst{background:#fff;border:1px solid #D4D4D4}
+html.sk-t02 .tabs button{background:#fff;border:1px solid #D4D4D4;color:#444;top:0!important}
+html.sk-t02 .tabs button.on{background:#111;color:#fff;border-color:#111}
+html.sk-t02 .search{background:#fff;border:1px solid #D4D4D4}
+html.sk-t02 .tbl td{border-top:1px solid #EAEAEA}
+html.sk-t02 .tbl tr.r:hover{background:#F7F7F7}
+html.sk-t02 .cb{border:2px solid #999}html.sk-t02 .cb.on svg{stroke:#fff}
+html.sk-t02 .tg{background:#CFCFCF}html.sk-t02 .tg.on{background:#111}
+html.sk-t02 .fld input,html.sk-t02 .fld textarea,html.sk-t02 .fld select,html.sk-t02 .spec input{background:#fff;border:1px solid #CFCFCF}
+html.sk-t02 .fld input:focus,html.sk-t02 .fld textarea:focus{border-color:#111}
+html.sk-t02 .batch,html.sk-t02 .savebar{background:#111}
+html.sk-t02 .prev em{color:var(--red)}
+html.sk-t02 .tl{border-left:2px solid #D4D4D4}
+/* ---------- 商店頁面 ---------- */
+html.sk-t02 body.shop{background:#fff}
+html.sk-t02 .mq{background:#000!important;color:#fff!important}
+html.sk-t02 .sf-head{background:#fff;border-bottom:2px solid #111}
+html.sk-t02 .sf-brand{font-family:var(--disp);font-weight:900;font-style:italic;letter-spacing:-.02em}
+html.sk-t02 .sf-links a{font-family:var(--disp);font-weight:700}
+html.sk-t02 .sf-links a.on,html.sk-t02 .sf-links a:hover{background:#111;color:#fff}
+html.sk-t02 .sf-search{background:#fff;border:1px solid #111}
+html.sk-t02 .ibtn{background:#fff;border:1px solid #111}html.sk-t02 .ibtn.cart{background:#111;color:#fff}
+html.sk-t02 .ibtn .bd{background:var(--red);color:#fff}
+html.sk-t02 .hero .blob,html.sk-t02 .hero .stk{display:none}
+html.sk-t02 #sf .hero{background:#0b0b0b;color:#fff;border-bottom:2px solid #111}
+html.sk-t02 #sf .hero h1{font-family:var(--disp);font-weight:900;letter-spacing:-.02em}
+html.sk-t02 #sf .hero h1 b{color:var(--red)}
+html.sk-t02 #sf .hero p.sub,html.sk-t02 #sf .hero .kick{color:#ccc}
+html.sk-t02 #sf .hero .ph img{filter:grayscale(1) contrast(1.15)}
+html.sk-t02 #sf .hero .btn.w{background:transparent;color:#fff;border-color:#fff}
+html.sk-t02 .perk{background:#fff;border:1px solid #111}
+html.sk-t02 .cat{background:#fff;border:2px solid #111}html.sk-t02 .cat:hover{background:#111;color:#fff}
+html.sk-t02 .cat .im img{filter:grayscale(1)}
+html.sk-t02 h2.sec-t,html.sk-t02 h1.pgt{font-family:var(--disp);font-weight:900;letter-spacing:-.01em}
+html.sk-t02 .pc{background:#fff;border:1px solid #E2E2E2}html.sk-t02 .pc:hover{border-color:#111}
+html.sk-t02 .pc .im{aspect-ratio:1}
+html.sk-t02 .pc .tg i,html.sk-t02 .pc .tg i.hot{background:#111;color:#fff}
+html.sk-t02 .pc .tg i.low{background:var(--lime);color:#111}
+html.sk-t02 .pc .add{background:#111;color:#fff}
+html.sk-t02 .price{font-family:var(--disp);font-weight:800}
+html.sk-t02 .price.sale,html.sk-t02 .info .big .off{color:var(--red)}
+html.sk-t02 .ribbon{background:var(--red)!important;color:#fff!important}
+html.sk-t02 .ribbon .chips span{background:#fff;color:#111}
+html.sk-t02 .about{background:#111!important;color:#fff}
+html.sk-t02 .fchip,html.sk-t02 .och,html.sk-t02 .radio,html.sk-t02 .qty,html.sk-t02 .card,html.sk-t02 .sum,html.sk-t02 .cl,html.sk-t02 .fbox,html.sk-t02 .od,html.sk-t02 .cpn input{background:#fff;border:1px solid #D4D4D4}
+html.sk-t02 .fchip.on,html.sk-t02 .och.on,html.sk-t02 .radio.on{background:#111;color:#fff;border-color:#111}
+html.sk-t02 .freebar .bar i{background:#111}
+html.sk-t02 .pill{background:#EAEAEA}
+html.sk-t02 #foot{background:#000!important;color:#fff}
+html.sk-t02 #foot a.fl,html.sk-t02 #foot p{color:#bbb}
+html.sk-t02 .backadmin,html.sk-t02 .editadmin{background:#111!important;color:#fff!important}
+html.sk-t02 .pethint .bub{background:#fff;border:2px solid #111}
+html.sk-t02 #sweep i{background:#111!important}
+/* ---------- 穿搭輪盤外掛：黑色秀場 ---------- */
+html.sk-t02 .mlb-runway.lbx{--mlb-accent:#fff;--mlb-on:#111;--mlb-line:#333;background:radial-gradient(ellipse at 50% 30%,#2a2a2a 0%,#0b0b0b 70%)!important;color:#fff}
+html.sk-t02 .lbx .sp1{background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,0) 78%)}
+html.sk-t02 .lbx .sp2{background:linear-gradient(180deg,rgba(229,48,42,.25),rgba(229,48,42,0) 78%)}
+html.sk-t02 .lbx .ghost{color:rgba(255,255,255,.06);font-style:italic}
+html.sk-t02 .lbx .st{background:#fff!important;opacity:.5}
+html.sk-t02 .lbx .mlb-floor{background:radial-gradient(ellipse at 50% 30%,rgba(255,255,255,.16),rgba(255,255,255,0) 70%)}
+html.sk-t02 .lb-kick i{background:var(--red);color:#fff}
+html.sk-t02 .lb-head .more{border:1px solid #111}
+/* ---------- 後台外掛頁 ---------- */
+html.sk-t02 .lbh-tag{border:0}
+html.sk-t02 .cell .no{color:#111;font-family:var(--disp);font-weight:900}
+html.sk-t02 .cell small{color:#6B6B6B}
+html.sk-t02 .cell:hover .no,html.sk-t02 .cell:hover .lb,html.sk-t02 .cell:hover small{color:#fff}
+html.sk-t02 .gl *{color:#111}

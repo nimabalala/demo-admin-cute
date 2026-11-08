@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>示範後台｜棠序問策股份有限公司建置</title>
-<link rel="stylesheet" href="css/base.css"><link rel="stylesheet" href="css/home.css"><link rel="stylesheet" href="css/chrome.css"></head>
+<link rel="stylesheet" href="css/base.css"><link rel="stylesheet" href="css/home.css"><link rel="stylesheet" href="css/chrome.css"><script src="js/theme.js"></script></head>
 <body class="home" data-section="home">
 <div id="cursor"><div class="b"></div></div>
 <canvas id="confetti"></canvas>
 <div id="chrome"></div>
+<div id="skinTop"></div><script>THEME.mountHome()</script>
 
 <section class="hero-wrap" id="heroWrap">
  <div class="hero" id="hero">
@@ -83,6 +84,7 @@
 <section class="sec cta" id="cta" style="--sec:var(--acc-soft)">
  <i class="scal"></i>
  <h2>換成你的品牌，<br>就是你的後台</h2>
+ <div id="skinHome"></div><script>document.getElementById("skinHome").outerHTML=THEME.switcher("home")</script>
  <p class="sub">店名、主色、商品、訂單，一鍵整套替換。選一個試試看：</p>
  <div class="themes" id="themes">
   <button class="sw on" data-theme="fresh" data-cur="選我"><i style="--c:#4BD1A0"></i>生鮮蔬果</button>
