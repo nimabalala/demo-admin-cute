@@ -53,15 +53,20 @@ function mkProduct(pid,it,n,i,j){var z=it.z,shoe=/^(37|41)$/.test(z[0]),vars={},
   return {id:pid,name:it.n,cat:it.c,price:it.p,sale:'',stock:tot,sku:'LK'+('0'+n).slice(-2),status:'on',img:'img/lookbook/l'+(i+1)+'i'+(j+1)+'.webp',art:null,imgData:'',desc:it.d,specs:{s1:{name:shoe?'尺碼':'尺寸',opts:z.slice()}},variants:vars,sold30:5+((n*7)%23),preorder:false,shipDate:'',maxBuy:0,shipFee:'',schedOn:'',schedOff:'',imgs:[],lb:1}}
 LB.importDemo=function(){if(!T.isApparel())return {ok:false,msg:LB.MSG.notfashion};
   if(!LB.canCreate())return {ok:false,msg:LB.MSG.locked_demo};
-  var D=T.D(),lb=LB.get(),made=0,items=0,prods=0;
+  var D=T.D(),lb=LB.get(),made=0,items=0,prods=0,AL=T.shopKey()==='alley'?(window.TX_DATA||{}).alley:null;
   DEMO.forEach(function(L,i){var key='lbd'+(i+1);if(lb.looks.some(function(x){return x.key===key}))return;
     var look={id:T.uid('lk'),key:key,title:L.t,sub:L.s,img:'img/lookbook/look'+(i+1)+'.webp',hide:false,demo:1,items:[]};
-    L.i.forEach(function(it,j){var n=i*3+j+1,pid='fl'+('0'+n).slice(-2),p=T.product(pid);if(!p){D.products.push(mkProduct(pid,it,n,i,j));prods++}
-      look.items.push({id:T.uid('li'),pid:pid,name:it.n,price:it.p,img:'img/lookbook/l'+(i+1)+'i'+(j+1)+'.webp',x:it.x,y:it.y,note:''});items++});
+    L.i.forEach(function(it,j){var n=i*3+j+1,pid='fl'+('0'+n).slice(-2),img='img/lookbook/l'+(i+1)+'i'+(j+1)+'.webp',nm=it.n;
+      /* 巷尾選物：熱點直接連到店裡既有商品；店裡沒有的 3 件才補上（巷尾選物的命名與圖），不會重複 */
+      if(AL){pid=AL.lbMap[i][j];var p=T.product(pid);if(!p){p=JSON.parse(JSON.stringify(AL.lbExtra[pid]));D.products.push(p);prods++}img=p.img;nm=p.name}
+      else{var p=T.product(pid);if(!p){D.products.push(mkProduct(pid,it,n,i,j));prods++}}
+      look.items.push({id:T.uid('li'),pid:pid,name:nm,price:it.p,img:img,x:it.x,y:it.y,note:''});items++});
     lb.looks.push(look);made++});
   if(!made)return {ok:false,msg:'示範穿搭已經匯入過了'};
   if(D.menu.indexOf('穿搭輪盤')<0){var at=D.menu.indexOf('關於我們');if(at<0)D.menu.push('穿搭輪盤');else D.menu.splice(at,0,'穿搭輪盤');lb.menu=1}
   T.save();return {ok:true,looks:made,items:items,prods:prods}};
+/* 匯入示範穿搭會新增幾件商品：北風衣櫥 18 件；巷尾選物只補店裡沒有的 3 件 */
+LB.demoNewCount=function(){var AL=T.shopKey()==='alley'?(window.TX_DATA||{}).alley:null;if(!AL)return DEMO.reduce(function(a,L,i){return a+L.i.filter(function(it,j){return !T.product('fl'+('0'+(i*3+j+1)).slice(-2))}).length},0);return Object.keys(AL.lbExtra).filter(function(k){return !T.product(k)}).length};
 LB.removeDemo=function(){var D=T.D(),lb=LB.get(),n=lb.looks.filter(function(l){return l.demo}).length;
   if(!n)return {ok:false,msg:'目前沒有示範穿搭可以刪除'};
   lb.looks=lb.looks.filter(function(l){return !l.demo});

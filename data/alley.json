@@ -791,7 +791,7 @@
   },
   {
    "id": "a09",
-   "name": "酒紅樂福鞋",
+   "name": "深棕樂福鞋",
    "cat": "鞋款",
    "price": 2680,
    "sale": "",
@@ -805,7 +805,7 @@
     "s1": {
      "name": "顏色",
      "opts": [
-      "酒紅",
+      "深棕",
       "黑"
      ]
     },
@@ -821,35 +821,35 @@
     }
    },
    "variants": {
-    "酒紅|36": {
+    "深棕|36": {
      "sku": "AL08-01",
      "price": 2680,
      "sale": "",
      "stock": 1,
      "on": true
     },
-    "酒紅|37": {
+    "深棕|37": {
      "sku": "AL08-02",
      "price": 2680,
      "sale": "",
      "stock": 1,
      "on": true
     },
-    "酒紅|38": {
+    "深棕|38": {
      "sku": "AL08-03",
      "price": 2680,
      "sale": "",
      "stock": 1,
      "on": true
     },
-    "酒紅|39": {
+    "深棕|39": {
      "sku": "AL08-04",
      "price": 2680,
      "sale": "",
      "stock": 1,
      "on": true
     },
-    "酒紅|40": {
+    "深棕|40": {
      "sku": "AL08-05",
      "price": 2680,
      "sale": "",
@@ -1291,7 +1291,7 @@
   },
   {
    "id": "a15",
-   "name": "奶油白帆布鞋",
+   "name": "奶油白低筒帆布鞋",
    "cat": "鞋款",
    "price": 1580,
    "sale": "",
@@ -1300,7 +1300,7 @@
    "status": "on",
    "img": "img/alley/a15.webp",
    "art": null,
-   "desc": "高筒帆布鞋，橡膠大底防滑。",
+   "desc": "低筒帆布鞋，橡膠大底防滑。",
    "specs": {
     "s1": {
      "name": "顏色",
@@ -1882,8 +1882,8 @@
    "items": [
     {
      "pid": "a09",
-     "name": "酒紅樂福鞋",
-     "variant": "酒紅|40",
+     "name": "深棕樂福鞋",
+     "variant": "深棕|40",
      "qty": 2,
      "price": 2680
     }
@@ -2262,7 +2262,7 @@
    "items": [
     {
      "pid": "a15",
-     "name": "奶油白帆布鞋",
+     "name": "奶油白低筒帆布鞋",
      "variant": "奶油白|41",
      "qty": 1,
      "price": 1580
@@ -2566,7 +2566,7 @@
   {
    "id": "fr2",
    "pid": "a15",
-   "pname": "奶油白帆布鞋",
+   "pname": "奶油白低筒帆布鞋",
    "who": "王宜庭",
    "stars": 5,
    "text": "質感超出這個價位，會回購。",
@@ -3001,5 +3001,288 @@
    }
   ]
  },
- "fashionNote": ""
+ "fashionNote": "",
+ "lbExtra": {
+  "a19": {
+   "id": "a19",
+   "name": "奶油白高領針織衫",
+   "cat": "上衣",
+   "price": 1880,
+   "sale": "",
+   "stock": 165,
+   "sku": "AX19",
+   "status": "on",
+   "img": "img/alley/a19.webp",
+   "art": null,
+   "desc": "羅紋高領，疊在大衣裡剛好。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "奶油白",
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "S",
+      "M",
+      "L"
+     ]
+    }
+   },
+   "variants": {
+    "奶油白|S": {
+     "sku": "AX19-1",
+     "price": 1880,
+     "sale": "",
+     "stock": 20,
+     "on": true
+    },
+    "奶油白|M": {
+     "sku": "AX19-2",
+     "price": 1880,
+     "sale": "",
+     "stock": 23,
+     "on": true
+    },
+    "奶油白|L": {
+     "sku": "AX19-3",
+     "price": 1880,
+     "sale": "",
+     "stock": 26,
+     "on": true
+    },
+    "黑|S": {
+     "sku": "AX19-4",
+     "price": 1880,
+     "sale": "",
+     "stock": 29,
+     "on": true
+    },
+    "黑|M": {
+     "sku": "AX19-5",
+     "price": 1880,
+     "sale": "",
+     "stock": 32,
+     "on": true
+    },
+    "黑|L": {
+     "sku": "AX19-6",
+     "price": 1880,
+     "sale": "",
+     "stock": 35,
+     "on": true
+    }
+   },
+   "sold30": 0,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": [],
+   "lb": 1
+  },
+  "a05": {
+   "id": "a05",
+   "name": "深藍錐形長褲",
+   "cat": "褲裙",
+   "price": 1980,
+   "sale": "",
+   "stock": 165,
+   "sku": "AX05",
+   "status": "on",
+   "img": "img/alley/a05.webp",
+   "art": null,
+   "desc": "微錐形褲管，九分長度露鞋。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "深藍",
+      "黑"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "28",
+      "30",
+      "32"
+     ]
+    }
+   },
+   "variants": {
+    "深藍|28": {
+     "sku": "AX05-1",
+     "price": 1980,
+     "sale": "",
+     "stock": 20,
+     "on": true
+    },
+    "深藍|30": {
+     "sku": "AX05-2",
+     "price": 1980,
+     "sale": "",
+     "stock": 23,
+     "on": true
+    },
+    "深藍|32": {
+     "sku": "AX05-3",
+     "price": 1980,
+     "sale": "",
+     "stock": 26,
+     "on": true
+    },
+    "黑|28": {
+     "sku": "AX05-4",
+     "price": 1980,
+     "sale": "",
+     "stock": 29,
+     "on": true
+    },
+    "黑|30": {
+     "sku": "AX05-5",
+     "price": 1980,
+     "sale": "",
+     "stock": 32,
+     "on": true
+    },
+    "黑|32": {
+     "sku": "AX05-6",
+     "price": 1980,
+     "sale": "",
+     "stock": 35,
+     "on": true
+    }
+   },
+   "sold30": 0,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": [],
+   "lb": 1
+  },
+  "a20": {
+   "id": "a20",
+   "name": "白色牛津襯衫",
+   "cat": "上衣",
+   "price": 1580,
+   "sale": "",
+   "stock": 165,
+   "sku": "AX20",
+   "status": "on",
+   "img": "img/alley/a20.webp",
+   "art": null,
+   "desc": "挺版牛津布，單穿或內搭都行。",
+   "specs": {
+    "s1": {
+     "name": "顏色",
+     "opts": [
+      "白",
+      "淺藍"
+     ]
+    },
+    "s2": {
+     "name": "尺寸",
+     "opts": [
+      "S",
+      "M",
+      "L"
+     ]
+    }
+   },
+   "variants": {
+    "白|S": {
+     "sku": "AX20-1",
+     "price": 1580,
+     "sale": "",
+     "stock": 20,
+     "on": true
+    },
+    "白|M": {
+     "sku": "AX20-2",
+     "price": 1580,
+     "sale": "",
+     "stock": 23,
+     "on": true
+    },
+    "白|L": {
+     "sku": "AX20-3",
+     "price": 1580,
+     "sale": "",
+     "stock": 26,
+     "on": true
+    },
+    "淺藍|S": {
+     "sku": "AX20-4",
+     "price": 1580,
+     "sale": "",
+     "stock": 29,
+     "on": true
+    },
+    "淺藍|M": {
+     "sku": "AX20-5",
+     "price": 1580,
+     "sale": "",
+     "stock": 32,
+     "on": true
+    },
+    "淺藍|L": {
+     "sku": "AX20-6",
+     "price": 1580,
+     "sale": "",
+     "stock": 35,
+     "on": true
+    }
+   },
+   "sold30": 0,
+   "preorder": false,
+   "shipDate": "",
+   "maxBuy": 0,
+   "shipFee": "",
+   "schedOn": "",
+   "schedOff": "",
+   "imgs": [],
+   "lb": 1
+  }
+ },
+ "lbMap": [
+  [
+   "a01",
+   "a19",
+   "a02"
+  ],
+  [
+   "a04",
+   "a05",
+   "a06"
+  ],
+  [
+   "a07",
+   "a08",
+   "a09"
+  ],
+  [
+   "a10",
+   "a11",
+   "a20"
+  ],
+  [
+   "a13",
+   "a14",
+   "a15"
+  ],
+  [
+   "a16",
+   "a17",
+   "a18"
+  ]
+ ]
 }
