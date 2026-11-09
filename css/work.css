@@ -82,3 +82,15 @@ main{max-width:1280px;margin:0 auto;padding:10px 30px 150px}
 .prev b{display:block;font-size:17px}.prev em{font-style:normal;font:700 24px var(--disp);color:#E0486A}
 .savebar{position:sticky;bottom:20px;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:12px 14px 12px 28px;border-radius:999px;background:var(--ink);color:#fff;box-shadow:0 8px 0 #2A170F}
 .savebar span{font-weight:700;font-size:14.5px}
+
+/* 報表強化＋金流／追蹤／密碼 */
+.funnel{display:flex;flex-direction:column;gap:10px}.funnel .fn{display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:center}
+.funnel .fn b{font-size:13.5px}.funnel .fn i{display:block;height:18px;border-radius:999px;background:var(--acc);min-width:8px}
+.funnel .fn span{font-size:12.5px;color:var(--mut);font-weight:700;white-space:nowrap}
+.heat{display:grid;grid-template-columns:repeat(12,1fr);gap:6px}
+.heat i{aspect-ratio:1;border-radius:12px;background:color-mix(in srgb,var(--acc) calc(var(--a)*100%), transparent);display:grid;place-items:end center;padding:4px;font-style:normal}
+.heat i b{font-size:10px;font-weight:800;color:var(--ink);opacity:.7}
+.pwrow{display:flex;gap:8px;align-items:center}.pwrow input{flex:1}
+.ecsteps{list-style:none;padding:0;margin:0;display:grid;gap:8px}.ecsteps li{padding:10px 14px;border-radius:16px;background:var(--cream);border:2px solid transparent}.ecsteps li.on{border-color:var(--acc);background:var(--acc-soft)}.ecsteps li.done{opacity:.75}.ecsteps li b{display:block}.ecsteps li span{font-size:12.5px;color:var(--mut);font-weight:700}
+.payprov{margin-bottom:12px}
+@media(max-width:720px){.funnel .fn{grid-template-columns:1fr;}.heat{grid-template-columns:repeat(6,1fr)}}

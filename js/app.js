@@ -8,7 +8,7 @@ var SUBS={
  customers:[['客服訊息','/customers/inbox','unread'],['顧客名單','/customers'],['會員等級與點數','/customers/levels']],
  marketing:[['折價券','/marketing'],['優惠活動','/marketing/campaigns']],
  shop:[['外觀與首頁','/shop'],['頁面','/shop/pages'],['網站選單','/shop/menu'],['模特兒穿搭輪盤','/shop/lookbook','diy']],
- settings:[['店家資料','/settings'],['運費與出貨','/settings/shipping'],['付款','/settings/payment'],['通知','/settings/notify'],['帳號與權限','/settings/accounts'],['外掛','/settings/plugins','diy']],
+ settings:[['店家資料','/settings'],['運費與出貨','/settings/shipping'],['付款','/settings/payment'],['追蹤與廣告','/settings/tracking'],['綠界申請','/settings/ecpay-apply'],['通知','/settings/notify'],['帳號與權限','/settings/accounts'],['外掛','/settings/plugins','diy']],
  reports:[]
 };
 var PET={orders:'xiaosha',reports:'xiaosha',products:'tiaotiao',shop:'tiaotiao',customers:'lili',marketing:'lili',settings:'lili'};

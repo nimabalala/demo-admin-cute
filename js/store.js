@@ -27,7 +27,7 @@ T.shopKey=function(){return LOCK||S.shop};
 T.setShop=function(k){if(LOCK)return;if(RAW[k]&&k!=='alley'){S.shop=k;save()}};
 /* 服飾店（穿搭輪盤外掛可用）：北風衣櫥、巷尾選物 */
 T.isApparel=function(k){k=k||T.shopKey();return k==='fashion'||k==='alley'};
-T.D=function(k){k=k||T.shopKey();if(!S.shops[k]){S.shops[k]=realize(RAW[k]);save()}return S.shops[k]};
+T.D=function(k){k=k||T.shopKey();if(!S.shops[k]){S.shops[k]=realize(RAW[k]);save()}var d=S.shops[k];T.ensureExtras(d);return d};
 T.reload=function(){load()};
 T.reset=function(){try{localStorage.removeItem(KEY);localStorage.removeItem(SEQ);localStorage.removeItem('tx-cart-v1');localStorage.removeItem('tx-member-v1');sessionStorage.removeItem('theme')}catch(e){}S={ver:1,shop:S.shop,shops:{}};save()};
 T.shops=function(){return Object.keys(RAW).filter(function(k){return LOCK?k===LOCK:k!=='alley'}).map(function(k){return {key:k,name:RAW[k].name,acc:RAW[k].acc}})};
@@ -101,14 +101,24 @@ T.newOrder=function(){ /* 模擬一筆新訂單進來 */
   T.save();return o};
 /* ---------- 商品與規格（規則參考常見電商後台：兩層、選項 ≤20、特價<原價、庫存整數、貨號不可重複） ---------- */
 T.SPEC_MAX_OPTS=20;
-T.combos=function(specs){var a=specs.s1,b=specs.s2;if(!a)return [];var A=a.opts.map(function(o){return o.v});if(!b)return A.map(function(x){return x});var B=b.opts.map(function(o){return o.v}),r=[];A.forEach(function(x){B.forEach(function(y){r.push(x+'|'+y)})});return r};
-T.validateSpecs=function(specs){var er=[];['s1','s2'].forEach(function(k,i){var s=specs[k];if(!s)return;var n=(i+1);
-  if(!s.name.trim())er.push('規格 '+n+'：請填寫名稱（例如：顏色、尺寸）');
-  if(s.name.indexOf('|')>-1)er.push('規格 '+n+'：名稱不可包含「|」');
-  if(!s.opts.length)er.push('規格 '+n+'：至少要有一個選項');
-  if(s.opts.length>T.SPEC_MAX_OPTS)er.push('規格 '+n+'：選項最多 '+T.SPEC_MAX_OPTS+' 個');
-  var seen={};s.opts.forEach(function(o){var v=o.v.trim().toLowerCase();if(!v)er.push('規格 '+n+'：有空白的選項');else if(seen[v])er.push('規格 '+n+'：選項「'+o.v+'」重複了');seen[v]=1;if(o.v.indexOf('|')>-1)er.push('規格 '+n+'：選項不可包含「|」')})});
-  if(specs.s1&&specs.s2&&specs.s1.name.trim()&&specs.s1.name.trim().toLowerCase()===specs.s2.name.trim().toLowerCase())er.push('兩個規格名稱不能一樣，請換一個名稱');
+T.SPEC_MAX_LAYERS=3;
+T.SPEC_KEYS=['s1','s2','s3'];
+T.SPEC_PRESETS=[{id:'color-size',name:'顏色 × 尺寸',layers:[{name:'顏色',opts:['黑','白','米']},{name:'尺寸',opts:['S','M','L']}]},
+  {id:'size-only',name:'只有尺寸',layers:[{name:'尺寸',opts:['S','M','L','XL']}]},
+  {id:'color-size-mat',name:'顏色 × 尺寸 × 材質',layers:[{name:'顏色',opts:['黑','白']},{name:'尺寸',opts:['S','M','L']},{name:'材質',opts:['棉','麻']}]}];
+T.combos=function(specs){var keys=T.SPEC_KEYS.filter(function(k){return specs[k]&&specs[k].opts&&specs[k].opts.length});
+  if(!keys.length)return [];
+  var lists=keys.map(function(k){return specs[k].opts.map(function(o){return o.v})});
+  return lists.reduce(function(acc,list){var out=[];acc.forEach(function(a){list.forEach(function(b){out.push(a?a+'|'+b:b)})});return out},['']);
+};
+T.validateSpecs=function(specs){var er=[],names=[],keys=T.SPEC_KEYS.filter(function(k){return specs[k]});
+  keys.forEach(function(k,i){var s=specs[k],n=i+1;
+    if(!s.name.trim())er.push('規格 '+n+'：請填寫名稱（例如：顏色、尺寸）');
+    if(s.name.indexOf('|')>-1)er.push('規格 '+n+'：名稱不可包含「|」');
+    if(!s.opts.length)er.push('規格 '+n+'：至少要有一個選項');
+    if(s.opts.length>T.SPEC_MAX_OPTS)er.push('規格 '+n+'：選項最多 '+T.SPEC_MAX_OPTS+' 個');
+    var nm=s.name.trim().toLowerCase();if(nm){if(names.indexOf(nm)>-1)er.push('規格名稱「'+s.name.trim()+'」重複了，請換一個');names.push(nm)}
+    var seen={};s.opts.forEach(function(o){var v=o.v.trim().toLowerCase();if(!v)er.push('規格 '+n+'：有空白的選項');else if(seen[v])er.push('規格 '+n+'：選項「'+o.v+'」重複了');seen[v]=1;if(o.v.indexOf('|')>-1)er.push('規格 '+n+'：選項不可包含「|」')})});
   return er};
 T.validateProduct=function(p,draftVariants,isNew){var er=[],D=T.D();
   if(!p.name.trim())er.push('商品名稱');if(!p.cat)er.push('商品分類');
@@ -133,7 +143,49 @@ T.deleteProduct=function(id){var D=T.D();D.products=D.products.filter(function(p
 T.setStock=function(pid,vk,q){var p=T.product(pid);if(!p)return;q=Math.max(0,Math.floor(+q||0));if(vk&&p.variants[vk])p.variants[vk].stock=q;else p.stock=q;if(p.variants&&Object.keys(p.variants).length)p.stock=T.stockOf(p);T.save()};
 /* ---------- 客服、顧客 ---------- */
 T.reply=function(tid,text){var D=T.D(),h=D.threads.filter(function(x){return x.id===tid})[0];if(!h||!text.trim())return;h.msgs.push({f:'s',t:text.trim(),at:Date.now()});h.unread=false;T.save()};
-T.pts=function(cid,d){var c=T.customer(cid);if(c){c.points=Math.max(0,(+c.points||0)+d);T.save()}};
+T.pts=function(cid,d,reason){return T.ptsAdjust(cid,d,reason)};
+T.ptsAdjust=function(cid,d,reason){var c=T.customer(cid);if(!c)return false;var before=+c.points||0,after=Math.max(0,before+(+d||0));c.points=after;
+  var D=T.D();if(!D.pointLog)D.pointLog=[];D.pointLog.unshift({t:Date.now(),cid:cid,cname:c.name,before:before,after:after,delta:after-before,reason:String(reason||'').trim()||'手動調整',op:'示範店長'});
+  if(D.pointLog.length>80)D.pointLog=D.pointLog.slice(0,80);T.save();return true};
+T.levelNames=function(){var D=T.D(),names=['一般'];(D.levels||[]).forEach(function(l){if(l.name&&names.indexOf(l.name)<0)names.push(l.name)});
+  D.customers.forEach(function(c){if(c.level&&names.indexOf(c.level)<0)names.push(c.level)});return names};
+T.addLevel=function(name,spend,off){name=String(name||'').trim();if(!name||name==='一般')return {ok:false,msg:'請輸入等級名稱'};
+  var D=T.D();if((D.levels||[]).some(function(l){return l.name===name}))return {ok:false,msg:'已經有這個等級了'};
+  D.levels=D.levels||[];D.levels.push({name:name,spend:Math.max(0,+spend||0),off:Math.max(0,+off||0)});T.save();return {ok:true}};
+T.renameLevel=function(old,nw){nw=String(nw||'').trim();if(!nw)return {ok:false,msg:'名稱不能空白'};
+  var D=T.D();if(nw!==old&&(D.levels||[]).some(function(l){return l.name===nw}))return {ok:false,msg:'已經有這個等級了'};
+  (D.levels||[]).forEach(function(l){if(l.name===old)l.name=nw});D.customers.forEach(function(c){if(c.level===old)c.level=nw});T.save();return {ok:true}};
+T.deleteLevel=function(name){var D=T.D();D.levels=(D.levels||[]).filter(function(l){return l.name!==name});
+  D.customers.forEach(function(c){if(c.level===name)c.level='一般'});T.save();return {ok:true}};
+T.addCat=function(name){name=String(name||'').trim();var D=T.D();if(!name)return {ok:false,msg:'請輸入分類名稱'};
+  if(D.cats.indexOf(name)>-1)return {ok:false,msg:'已經有這個分類了'};D.cats.push(name);T.save();return {ok:true}};
+T.ensureExtras=function(D){D=D||T.D();if(!D.pointLog)D.pointLog=[];if(!D.specPresets)D.specPresets=[];
+  var S=D.settings||(D.settings={});
+  if(!S.payProviders)S.payProviders=[{id:'ecpay',name:'綠界科技 ECPay',kind:'ecpay',on:true,merchantId:'（示範）',hashKey:'••••••••',hashIV:'••••••••',priority:1,note:'主要金流（金流：幫網站代收信用卡等款項的服務）'}];
+  if(!S.tracking)S.tracking={meta:{on:false,id:'',name:'Meta Pixel（追蹤碼：記錄訪客在網站做了什麼，給廣告平台優化用）'},ga4:{on:false,id:'',name:'Google Analytics 4（分析工具：看訪客從哪來、看了哪些頁）'},gads:{on:false,id:'',name:'Google Ads（廣告轉換追蹤）'},tiktok:{on:false,id:'',name:'TikTok Pixel（追蹤碼）'},line:{on:false,id:'',name:'LINE Tag（追蹤碼）'},x:{on:false,id:'',name:'X Pixel（追蹤碼）'},pinterest:{on:false,id:'',name:'Pinterest Tag（追蹤碼）'}};
+  if(!S.ecpayApp)S.ecpayApp={step:0,status:'idle',form:{shopName:'',taxId:'',ownerName:'',ownerId:'',bankName:'',bankAccount:'',bankBranch:'',phone:'',email:'',addr:'',remark:'BVG'},docs:{idFront:0,idBack:0,passbook:0,company:0},log:[]};
+  if(!S.me)S.me={name:(S.accounts&&S.accounts[0]&&S.accounts[0].name)||'示範店長',mail:(S.accounts&&S.accounts[0]&&S.accounts[0].mail)||'manager@example.com',role:'管理員',passSet:false,passHint:''};
+  return D};
+T.reportDetail=function(days){var R=T.report(days),D=T.D(),seed=(T.shopKey()||'x').length*17+days;
+  function rnd(n){seed=(seed*1103515245+12345)&0x7fffffff;return seed%n}
+  var sources=[{k:'直接造訪',v:38+rnd(12)},{k:'Google 搜尋',v:22+rnd(10)},{k:'Instagram',v:14+rnd(8)},{k:'Facebook 廣告',v:10+rnd(6)},{k:'LINE',v:8+rnd(5)},{k:'其他',v:4+rnd(4)}];
+  var st=sources.reduce(function(a,x){return a+x.v},0);sources.forEach(function(x){x.pct=Math.round(x.v/st*100)});
+  var views=1800+rnd(900)+days*40,adds=Math.round(views*(0.12+rnd(8)/100)),checks=Math.round(adds*(0.35+rnd(10)/100)),pays=R.ord||Math.round(checks*(0.7+rnd(15)/100));
+  var funnel=[{k:'瀏覽商品頁',v:views},{k:'加入購物車',v:adds},{k:'進入結帳',v:checks},{k:'完成付款',v:pays}];
+  var newc=R.newc,ret=Math.max(0,R.cust-newc);
+  var paysplit=[{k:'信用卡（綠界）',v:55+rnd(10)},{k:'超商取貨付款',v:18+rnd(8)},{k:'ATM 轉帳',v:12+rnd(6)},{k:'貨到付款',v:8+rnd(5)}];
+  var ship=[{k:'7-11 超商取貨',v:40+rnd(10)},{k:'全家 超商取貨',v:28+rnd(8)},{k:'黑貓宅配',v:22+rnd(8)}];
+  var hours=[];for(var h=0;h<24;h++)hours.push({h:h,v:Math.round((h>=10&&h<=22?40:8)+rnd(30)*(h>=19&&h<=21?1.6:1))});
+  var refunds=Math.max(1,Math.round(R.ord*0.04)+rnd(3)),refundRate=R.ord?Math.round(refunds/R.ord*1000)/10:0;
+  var channels=[{k:'Meta 廣告',spend:12000+rnd(4000),conv:18+rnd(12),rev:R.rev*0.22},{k:'Google 廣告',spend:9000+rnd(3000),conv:14+rnd(10),rev:R.rev*0.18},{k:'TikTok 廣告',spend:5000+rnd(2000),conv:8+rnd(8),rev:R.rev*0.09},{k:'LINE 官方帳號',spend:2000+rnd(1000),conv:6+rnd(5),rev:R.rev*0.07}];
+  return {base:R,sources:sources,funnel:funnel,newc:newc,returning:ret,paysplit:paysplit,ship:ship,hours:hours,refunds:refunds,refundRate:refundRate,channels:channels,demo:true}};
+/* 示範密碼：不存明文，只記「有設過」與強度提示 */
+T.setDemoPass=function(cur,nw){var S=T.D().settings;T.ensureExtras();
+  if(S.me.passSet&&cur!=='demo-pass')return {ok:false,msg:'目前密碼不對（示範：第一次可空白；之後請填 demo-pass）'};
+  if(!nw||nw.length<8)return {ok:false,msg:'新密碼至少 8 個字'};
+  if(!/[A-Za-z]/.test(nw)||!/[0-9]/.test(nw))return {ok:false,msg:'請同時包含英文與數字'};
+  S.me.passSet=true;S.me.passHint='已設定（示範不會真的存密碼）';T.save();return {ok:true}};
+
 T.custStats=function(c){var os=T.D().orders.filter(function(o){return o.cid===c.id&&T.isSales(o)});return {n:os.length,spent:os.reduce(function(a,o){return a+o.total},0)}};
 /* ---------- 報表 ---------- */
 T.report=function(days){var D=T.D(),from=T.dayStart(Date.now()-(days-1)*DAY),rows=[];
