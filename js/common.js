@@ -113,7 +113,14 @@ function place(X,mode){
   var hop=Math.abs(Math.sin(X/70))*26;
   gsap.set(rh,{x:X-320,y:-hop,rotation:9,scaleY:1-hop/400,transformOrigin:'50% 100%'});
 }
+/* 跨頁連結帶上目前這一頁的風格。避免其他分頁改了 localStorage，這一頁畫面還是舊風格，點進去卻變成別套。 */
+C.withSkin=function(url){var skin=(window.THEME&&THEME.key)||'cute';if(!url)return url;
+  var i=url.indexOf('#'),path=i<0?url:url.slice(0,i),hash=i<0?'':url.slice(i);
+  if(/[?&]theme=/.test(path))return url;
+  path+=(path.indexOf('?')>=0?'&':'?')+'theme='+encodeURIComponent(skin);
+  return path+hash};
 C.go=function(url){
+  url=C.withSkin(url);
   if(RM){location.href=url;return}
   try{sessionStorage.setItem('roll','1')}catch(e){}
   roll.style.visibility='visible';var o={X:-260};place(o.X,'in');

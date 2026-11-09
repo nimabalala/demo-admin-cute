@@ -159,7 +159,7 @@ var PLUG_URL='app.html#/settings/plugins?shop=fashion&hint=1';
 SH.route('lookbook',/^\/lookbook$/,function(m,H,o){var lb=LB.get();
   /* 外掛還沒開：從示範連結（demo=1）進來就帶去後台外掛頁；自己點進來則說明外掛沒開 */
   if(!LB.on()){
-    if(H.q.get('demo')==='1'){history.replaceState(null,'','#/lookbook');setTimeout(function(){if(C.go)C.go(PLUG_URL);else location.href=PLUG_URL},350);
+    if(H.q.get('demo')==='1'){history.replaceState(null,'','#/lookbook');setTimeout(function(){if(C.go)C.go(PLUG_URL);else location.href=(C.withSkin?C.withSkin(PLUG_URL):PLUG_URL)},350);
       return {html:'<div class="pg lb-page">'+SH.empty('正在帶你去後台打開外掛…','模特兒穿搭輪盤是店長在後台「外掛」頁打開的功能，打開之後商店頁面才會出現。','<a class="btn" data-go="'+PLUG_URL+'" data-cur="後台">直接前往</a>')+'</div>'}}
     return {html:'<div class="pg lb-page"><div class="lb-off rvl">'+SH.ham('tiaotiao','','mascot')+'<span class="lb-kick">LOOKBOOK <i>棠序自製外掛</i></span><h1 class="sec-t">模特兒穿搭輪盤外掛還沒開啟</h1><p>這是棠序問策自製的外掛。店長到後台「設定 → 外掛」打開開關，這裡就會出現可以拖曳旋轉的模特兒穿搭輪盤，顧客點模特兒就能看到整套單品、一鍵加入購物車。</p><div class="go"><a class="btn pk lg" data-go="'+PLUG_URL+'" data-cur="後台">去後台打開外掛</a><a class="btn w lg" data-go="shop.html#/">回商店首頁</a></div></div></div>',admin:'app.html#/settings/plugins',edit:'app.html#/settings/plugins',editLabel:'去後台打開外掛'}}
   if(H.q.get('demo')==='1')history.replaceState(null,'','#/lookbook');

@@ -61,7 +61,7 @@ route(/^\/shop\/lookbook\/edit\/([^/]+)$/,'shop',function(m){var id=decodeURICom
    '<div class="lbsave"><a class="btn w sm" href="#/shop/lookbook" data-a="lbcancel">取消</a><button class="btn sm" type="button" data-a="lbsave">儲存這套穿搭</button></div><div id="lberr"></div>';
   return {html:A.page('shop',E._new?'新增穿搭':'編輯穿搭','網店',(E._new?'':'<button class="btn sm w" type="button" data-a="lbprev">在商店頁面看</button>'),'<div class="lbed"><div>'+left+'</div><div>'+right+'</div></div>','/shop/lookbook'),mount:function(root){bindPins(root)}}});
 A.act.lbcancel=function(){ui.draft=null};
-A.act.lbprev=function(){var E=ui.draft;if(E&&!E._new)C.go?C.go('shop.html#/lookbook'):location.href='shop.html#/lookbook'};
+A.act.lbprev=function(){var E=ui.draft;if(E&&!E._new)C.go?C.go('shop.html#/lookbook'):location.href=(C.withSkin?C.withSkin('shop.html#/lookbook'):'shop.html#/lookbook')};
 A.act.lbimg=function(t){var E=ui.draft;if(!E)return;E.img=t.dataset.src;A.refresh()};
 A.act.lbmode=function(t){var E=ui.draft,it=E&&E.items[+t.dataset.n];if(!it)return;it.mode=t.dataset.m;A.refresh()};
 A.act.lbpinsel=function(t){var E=ui.draft;if(!E||ui.skipClick)return;var n=+t.dataset.n;E._act=E._act===n&&t.classList.contains('act')?-1:n;A.refresh()};
