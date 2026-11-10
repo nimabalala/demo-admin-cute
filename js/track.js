@@ -4,7 +4,7 @@ var CFG=window.DEMO_CONFIG||{};
 function load(src){var s=document.createElement('script');s.async=true;s.src=src;document.head.appendChild(s)}
 try{if(CFG.ga4Id){window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments)};load('https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(CFG.ga4Id));window.gtag('js',new Date());window.gtag('config',CFG.ga4Id)}}catch(e){console.warn('[track] GA4 初始化失敗',e)}
 try{if(CFG.metaPixelId&&!window.fbq){(function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)})(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');window.fbq('init',CFG.metaPixelId);window.fbq('track','PageView')}}catch(e){console.warn('[track] Meta Pixel 初始化失敗',e)}
-function href(loc){if(!CFG.lineUrl)return '';try{var u=new URL(CFG.lineUrl),m=CFG.utm||{};
+function href(loc){if(!CFG.lineUrl)return '';if(CFG.utm===false)return CFG.lineUrl;try{var u=new URL(CFG.lineUrl),m=CFG.utm||{};
  if(m.source)u.searchParams.set('utm_source',m.source);if(m.medium)u.searchParams.set('utm_medium',m.medium);if(m.campaign)u.searchParams.set('utm_campaign',m.campaign);u.searchParams.set('utm_content',loc);return u.toString()}
  catch(e){console.warn('[track] config.js 的 lineUrl 不是有效網址：',CFG.lineUrl);return ''}}
 window.trackCTA=function(loc,text){
@@ -15,5 +15,9 @@ window.trackCTA=function(loc,text){
  if(url){if(CFG.openInNewTab===false)location.href=url;else window.open(url,'_blank','noopener')}
  else if(window.TXUI&&TXUI.toast)TXUI.toast('LINE 連結還沒設定','這是示範頁，點擊已記錄（見 config.js）');
  return url};
+/* 讓每個 LINE 按鈕都是真的連結（可長按、右鍵、新分頁開啟） */
+function deco(root){if(!CFG.lineUrl)return;(root.querySelectorAll?root:document).querySelectorAll('a[data-line]').forEach(function(a){if(a.dataset.lnk)return;a.dataset.lnk=1;a.href=href(a.getAttribute('data-line'));a.target='_blank';a.rel='noopener'})}
+function boot(){deco(document);try{new MutationObserver(function(){deco(document)}).observe(document.body,{childList:true,subtree:true})}catch(e){}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 document.addEventListener('click',function(e){var l=e.target.closest('[data-line]');if(l){e.preventDefault();window.trackCTA(l.getAttribute('data-line'),(l.textContent||'').trim())}});
 })();

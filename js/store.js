@@ -28,7 +28,10 @@ var BOUND={alley:1,atelier:1};/* 只屬於某個主題的店，不出現在一�
 T.setShop=function(k){if(LOCK)return;if(RAW[k]&&!BOUND[k]){S.shop=k;save()}};
 /* 服飾店（穿搭輪盤外掛可用）：北風衣櫥、巷尾選物 */
 T.isApparel=function(k){k=k||T.shopKey();return k==='fashion'||k==='alley'||k==='atelier'};
-T.D=function(k){k=k||T.shopKey();if(!S.shops[k]){S.shops[k]=realize(RAW[k]);save()}var d=S.shops[k];T.ensureExtras(d);return d};
+T.D=function(k){k=k||T.shopKey();if(!S.shops[k]){S.shops[k]=realize(RAW[k]);save()}
+  /* 舊存檔升級：深裁（atelier）換成 img/atelier 棚拍照；只動這家店 */
+  if(k==='atelier'&&S.shops[k].imgv!==2){S.shops[k]=JSON.parse(JSON.stringify(S.shops[k]).split('img/alley/a').join('img/atelier/a'));S.shops[k].imgv=2;save()}
+  var d=S.shops[k];T.ensureExtras(d);return d};
 T.reload=function(){load()};
 T.reset=function(){try{localStorage.removeItem(KEY);localStorage.removeItem(SEQ);localStorage.removeItem('tx-cart-v1');localStorage.removeItem('tx-member-v1');sessionStorage.removeItem('theme')}catch(e){}S={ver:1,shop:S.shop,shops:{}};save()};
 T.shops=function(){return Object.keys(RAW).filter(function(k){return LOCK?k===LOCK:!BOUND[k]}).map(function(k){return {key:k,name:RAW[k].name,acc:RAW[k].acc}})};

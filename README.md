@@ -122,14 +122,15 @@
 ## 填入你的 LINE、GA4、Meta Pixel（`config.js`）
 ```js
 window.DEMO_CONFIG = {
-  lineUrl: '',        // 例：'https://lin.ee/xxxx' 或 'https://line.me/R/ti/p/@你的ID'
+  lineUrl: 'https://line.me/R/ti/p/@664pkwrn',  // 棠序 LINE 官方帳號（2026-11-10 已填）
   ga4Id: '',          // 例：'G-XXXXXXXXXX'
   metaPixelId: '',    // 例：'1234567890'
   ...
 };
 ```
 - 全部留空也能正常開：按 LINE 按鈕只會跳出提示並在主控台記錄。
-- 填了 `lineUrl` 後，每個 LINE 按鈕會自動加上 `utm_source=demo-admin&utm_medium=button&utm_campaign=web-build&utm_content=<按鈕位置>`（位置如 `topbar-cta`、`cta-bottom`、`brand-menu`、`mobile-menu`、`shop-footer`、`shop-contact`）。
+- 目前 `utm: false`：LINE 連結維持原樣（https://line.me/R/ti/p/@664pkwrn），每個 LINE 按鈕都是真連結、新分頁開啟；點擊位置仍會送進 GA4／Pixel 事件（填了 ID 之後）。
+- 若把 `utm` 改回物件，每個 LINE 按鈕會自動加上 `utm_source=demo-admin&utm_medium=button&utm_campaign=web-build&utm_content=<按鈕位置>`（位置如 `topbar-cta`、`cta-bottom`、`brand-menu`、`mobile-menu`、`shop-footer`、`shop-contact`）。
 - 填了 `ga4Id` 才會載入 GA4，按鈕點擊送出事件 `line_cta_click`（帶按鈕位置、文字、頁面）。
 - 填了 `metaPixelId` 才會載入 Pixel，按鈕點擊送出 `Contact`。
 - 沒填的追蹤碼，網站**不會**連到第三方。
@@ -172,3 +173,9 @@ window.DEMO_CONFIG = {
 - 示範穿搭只能匯入「北風衣櫥」；在其他店打開外掛時會自動換到北風衣櫥。外掛開關依各店分開記錄。
 - 連動需同一瀏覽器、同一網址來源；手機只用 Chromium 390 寬模擬（含觸控），沒有實機。
 - 上線前仍須確認 GSAP 授權。
+
+## 深裁（T03）棚拍商品照（2026-11-10，v=20261110-h1）
+- `img/atelier/aXX.webp` 正面、`aXX-2.webp` 細節、`aXX-3.webp` 背面／側面或摺疊、`pack.webp` 包裝；米色棚拍底、768×1024、每張 150KB 內。
+- 只有深裁這家店（`data/atelier.js`）用這組圖；巷尾選物（t02）仍用 `img/alley`。舊瀏覽器存檔會在 `TX.D()` 自動換成新圖（`imgv:2`）。
+- 商品頁四張小圖：正面、細節、另一面、包裝；不是這組圖的商品（例如店長自己上傳的）會沿用舊的裁切小圖。
+- 檢查：`python3 tools/line_wp_check.py <網址>`（三個主題的 LINE 連結與 WordPress 字樣）。

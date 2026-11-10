@@ -123,9 +123,16 @@ function home(){var d=D(),ps=TX.shopProducts(),s=d.settings,onSale=ps.filter(fun
 
 /* ======================= 商品頁 ======================= */
 SH.skin={};
-SH.skin.pdpInner=function(c){var p=c.p,st=c.st,img=c.img,s=c.s,crop=[['1','50% 50%'],['1.8','12% 14%'],['1.8','88% 86%']][st.img]||null;
+/* 棚拍照組：img/atelier/aXX.webp → 正面、細節(-2)、另一面(-3)、包裝；不是這組圖就回傳 null，沿用舊的裁切小圖 */
+function shots(u){var m=/^(.*img\/atelier\/a\d+)\.webp(\?.*)?$/.exec(u||'');if(!m)return null;var q=m[2]||'';return [m[1]+'.webp'+q,m[1]+'-2.webp'+q,m[1]+'-3.webp'+q,m[1].replace(/a\d+$/,'pack')+'.webp'+q]}
+SH.skin.shots=shots;
+SH.skin.pdpInner=function(c){var p=c.p,st=c.st,img=c.img,s=c.s,set=shots(img);
+  if(set){var lab=['正面','細節','另一面','包裝'];
+    var main='<div class="main lxp-main lxp-studio"><img src="'+h(set[st.img]||set[0])+'" alt="'+h(p.name)+'"></div>';
+    var th='<div class="th lxp-th lxp-studio" role="group" aria-label="商品圖片">'+set.map(function(u,i){return '<button type="button" class="'+(st.img===i?'on':'')+'" data-a="pimg" data-i="'+i+'" aria-label="'+lab[i]+'"><img src="'+h(u)+'" alt="" loading="lazy"><small>'+(i===3?'包裝':two(i+1))+'</small></button>'}).join('')+'</div>'}
+  else{var crop=[['1','50% 50%'],['1.8','12% 14%'],['1.8','88% 86%']][st.img]||null;
   var main=st.img===3?'<div class="main lxp-main">'+BOX+'</div>':'<div class="main lxp-main"><img src="'+h(img)+'" alt="'+h(p.name)+'" style="'+(crop?'transform:scale('+crop[0]+');transform-origin:'+crop[1]:'')+'"></div>';
-  var th='<div class="th lxp-th" role="group" aria-label="商品圖片">'+[0,1,2,3].map(function(i){var q=[['1','50% 50%'],['1.8','12% 14%'],['1.8','88% 86%']][i];return '<button type="button" class="'+(st.img===i?'on':'')+'" data-a="pimg" data-i="'+i+'" aria-label="第 '+(i+1)+' 張圖">'+(i===3?BOX:'<img src="'+h(img)+'" alt="" style="transform:scale('+q[0]+');transform-origin:'+q[1]+'">')+'<small>'+(i===3?'包裝示意':two(i+1))+'</small></button>'}).join('')+'</div>';
+  var th='<div class="th lxp-th" role="group" aria-label="商品圖片">'+[0,1,2,3].map(function(i){var q=[['1','50% 50%'],['1.8','12% 14%'],['1.8','88% 86%']][i];return '<button type="button" class="'+(st.img===i?'on':'')+'" data-a="pimg" data-i="'+i+'" aria-label="第 '+(i+1)+' 張圖">'+(i===3?BOX:'<img src="'+h(img)+'" alt="" style="transform:scale('+q[0]+');transform-origin:'+q[1]+'">')+'<small>'+(i===3?'包裝示意':two(i+1))+'</small></button>'}).join('')+'</div>'}
   var rt=c.rt.n?'<span class="stars">'+SH.stars(c.rt.avg)+' '+c.rt.avg.toFixed(1)+'（'+c.rt.n+' 則評價）</span>':'<span class="stars">還沒有評價</span>';
   var off=c.pr<c.or?'<span class="off">省 '+Math.round((1-c.pr/c.or)*100)+'%</span>':'';
   var buy='<div class="buy desk lxp-buy"><div class="qty" role="group" aria-label="數量"><button type="button" data-a="qm" aria-label="減少"'+(st.qty<=1?' disabled':'')+'>−</button><input type="number" min="1" max="'+c.max+'" value="'+st.qty+'" data-a="qin" aria-label="數量"><button type="button" data-a="qp" aria-label="增加"'+(st.qty>=c.max?' disabled':'')+'>＋</button></div><button class="btn lg" type="button" data-a="padd"'+c.dis+'>加入購物車</button><button class="btn w lg" type="button" data-a="pnow"'+c.dis+'>直接結帳</button></div>';
@@ -137,7 +144,7 @@ SH.skin.pdpInner=function(c){var p=c.p,st=c.st,img=c.img,s=c.s,crop=[['1','50% 5
   return '<div class="pdp lxp"><div class="gal lxp-gal">'+main+th+(p.ai?'<small class="aicap">商品圖：AI 輔助生成</small>':'')+'<small>示範：縮圖是同一張圖的不同裁切。</small></div>'+info+'</div>'+bar};
 SH.skin.pdpPage=function(c){var p=c.p,id=c.id,rt=c.rt,s=c.s;
   var html=SH.crumbs([[p.cat||'全部商品','#/list'+(p.cat?'?cat='+encodeURIComponent(p.cat):'')],[p.name]])+'<div id="pdpmain">'+c.inner+'</div>'+
-   '<section class="lxp-detail rvl"><div class="lxp-dph lxs-clip"><img src="'+h(TX.pimg(p))+'" alt="" loading="lazy"></div><div class="lxp-dtx"><p class="lxs-no2">N° 01 — Le Détail</p><h2 class="sec-t">商品介紹</h2><p>'+h(p.desc||'店家還沒有填寫介紹。')+'</p><dl><dt>分類</dt><dd>'+h(p.cat||'—')+'</dd><dt>編號</dt><dd>'+no(p)+'</dd></dl></div></section>'+
+   '<section class="lxp-detail rvl"><div class="lxp-dph lxs-clip'+(shots(TX.pimg(p))?' lxp-studio':'')+'"><img src="'+h(shots(TX.pimg(p))?shots(TX.pimg(p))[1]:TX.pimg(p))+'" alt="" loading="lazy"></div><div class="lxp-dtx"><p class="lxs-no2">N° 01 — Le Détail</p><h2 class="sec-t">商品介紹</h2><p>'+h(p.desc||'店家還沒有填寫介紹。')+'</p><dl><dt>分類</dt><dd>'+h(p.cat||'—')+'</dd><dt>編號</dt><dd>'+no(p)+'</dd></dl></div></section>'+
    '<section class="lxp-rev rvl"><p class="lxs-no2">N° 02 — Avis</p><h2 class="sec-t">顧客評價'+(rt.n?'（'+rt.n+'）':'')+'</h2>'+(rt.n?rt.list.map(function(r){return '<div class="rv"><div class="t"><span class="stars">'+SH.stars(r.stars)+'</span>'+h(r.who)+'<small>'+TX.ago(r.t)+'</small></div><p>'+h(r.text)+'</p>'+(r.reply?'<div class="rp"><b>店家回覆：</b>'+h(r.reply)+'</div>':'')+'</div>'}).join(''):'<p class="lxp-none">還沒有人留下評價。</p>')+'</section>'+
    '<section class="lxp-ship rvl"><p class="lxs-no2">N° 03 — Service</p><h2 class="sec-t">運送與付款</h2><div class="lxp-3"><div><em>I</em><b>物流</b><p>'+(c.lg.join('、')||'店家還沒開啟任何物流')+'。</p></div><div><em>II</em><b>付款</b><p>'+(c.pays.join('、')||'店家還沒開啟任何付款方式')+'。</p></div><div><em>III</em><b>出貨與退換</b><p>滿 '+TX.money(s.freeOver)+' 免運；下單後 1–2 個工作天出貨；收到商品 7 天內可申請退換貨。</p></div></div></section>'+
    (c.rel.length?'<section><div class="sec-h rvl"><div><p class="lxs-no2">N° 04 — À voir aussi</p><h2 class="sec-t">你可能也喜歡</h2></div></div>'+SH.grid(c.rel)+'</section>':'');
@@ -145,5 +152,5 @@ SH.skin.pdpPage=function(c){var p=c.p,id=c.id,rt=c.rt,s=c.s;
 
 /* 換掉首頁路由；每一頁 mount 後都跑圖片顯影（其他頁面沿用原本的功能，只靠 CSS 換外觀） */
 SH.routes.forEach(function(r){if(r.name==='home')r.fn=home;
-  var fn=r.fn;r.fn=function(m,H,o){var res=fn(m,H,o)||{};if(typeof res==='string')res={html:res};if(res.html)res.html=res.html.replace(/做在\s*WordPress／WooCommerce\s*上/g,'做在你的官網上').replace(/WordPress|WooCommerce/g,'官網');var mt=res.mount;res.mount=function(root,a,b){var x=mt?mt(root,a,b):null;clips(root);return x};return res}});
+  var fn=r.fn;r.fn=function(m,H,o){var res=fn(m,H,o)||{};if(typeof res==='string')res={html:res};var mt=res.mount;res.mount=function(root,a,b){var x=mt?mt(root,a,b):null;clips(root);return x};return res}});
 })();

@@ -411,10 +411,10 @@ html.sk-t03 #sf .hero .kick{font-weight:400}
    中文：源雲明體月 GenWanMin2 TW（EL＝200–300 細明朝，R＝400–500 小字）；英文：Bodoni Moda（高反差 Didone，含斜體）。
    都是自帶 woff2 子集（fonts/t03/，SIL OFL）；缺字退回 Noto Serif TC。後台表格表單仍用 Noto Sans TC。
    ========================================================================== */
-@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-EL-t03.woff2?v=20261110-g1") format("woff2");font-weight:100 350;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-R-t03.woff2?v=20261110-g1") format("woff2");font-weight:351 900;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-g1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-g1") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-g1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-g1") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
+@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-EL-t03.woff2?v=20261110-h1") format("woff2");font-weight:100 350;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-R-t03.woff2?v=20261110-h1") format("woff2");font-weight:351 900;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-h1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-h1") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-h1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-h1") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
 html.sk-t03{--serif:"T03 GenWanMin","Noto Serif TC",serif;--latin:"T03 Bodoni","T03 GenWanMin","Noto Serif TC",serif;--disp:"T03 Bodoni","T03 GenWanMin","Noto Serif TC",serif}
 /* 首頁大數字改 Bodoni 等高數字；後台數字維持 Noto Serif TC 400 好讀 */
 html.sk-t03 .tile .strip i,html.sk-t03 .bignum .sep,html.sk-t03 .cell .no{font-family:"T03 Bodoni","Noto Serif TC",serif!important;font-weight:400!important;font-variant-numeric:lining-nums tabular-nums}
@@ -874,3 +874,85 @@ html.sk-t03 .lb-cta p{font-weight:400;letter-spacing:.06em;line-height:2}
 /* 商店空狀態卡（購物車空、輪盤沒內容）：細線框、細字 */
 html.sk-t03 #sf .empty{background:transparent;border:1px solid rgba(36,28,20,.14);border-radius:0;box-shadow:none;font-weight:400;letter-spacing:.06em;line-height:2;color:var(--mut)}
 html.sk-t03 #sf .empty b{font-family:var(--disp);font-weight:400;letter-spacing:.14em;color:var(--ink)}
+/* 第五版 h1：深裁棚拍商品照（img/atelier，米色棚拍底）——不再混色，直接滿版 */
+html.sk-t03 img[src*="img/atelier/"]{mix-blend-mode:normal!important;filter:none!important}
+html.sk-t03 .pc .im img[src*="img/atelier/"],html.sk-t03 .lxs-ph img[src*="img/atelier/"],html.sk-t03 .gal .lxp-main img[src*="img/atelier/"],html.sk-t03 .gal .lxp-th img[src*="img/atelier/"]{object-fit:cover;padding:0}
+html.sk-t03 .pc .im:has(img[src*="img/atelier/"]),html.sk-t03 .lxs-ph:has(img[src*="img/atelier/"]),html.sk-t03 .gal .lxp-main.lxp-studio,html.sk-t03 .gal .lxp-th.lxp-studio button{background:#DCD2C4}
+html.sk-t03 .lxp-dph.lxp-studio img{transform:none!important}
+html.sk-t03 .gal .lxp-th.lxp-studio button small{color:var(--wood);background:rgba(232,223,210,.82);padding:3px 5px}
+
+/* ===== 第五版 h1：後台精品化（外掛頁與其他後台頁） ===== */
+/* 全站虛線分隔 → 細實線（自動由 app.css/shop.css 的虛線規則對應產生） */
+html.sk-t03 .tbl td{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .sw-row{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .specbox{border-style:solid!important;border-width:1px!important;border-color:rgba(36,28,20,.14)!important}
+html.sk-t03 .chat .lst{border-right-style:solid!important;border-right-width:1px!important;border-right-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .thr{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .chat .hd{border-bottom-style:solid!important;border-bottom-width:1px!important;border-bottom-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .chat .rp{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .cc .code{border-style:solid!important;border-width:1px!important;border-color:rgba(36,28,20,.14)!important}
+html.sk-t03 .items .it{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .sum{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .print-sheet .ps1{border-style:solid!important;border-width:1px!important;border-color:rgba(36,28,20,.14)!important}
+html.sk-t03 .tbl.cards tr{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .lbit{border-style:solid!important;border-width:1px!important;border-color:rgba(36,28,20,.14)!important}
+html.sk-t03 .lbkv th{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .lbkv td{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .plgctl{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .lbx .mlb-item{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .lbx .mlb-allbox{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .rv{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .cl{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .sum .r.t{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+html.sk-t03 .od .tl{border-left-style:solid!important;border-left-width:1px!important;border-left-color:rgba(36,28,20,.12)!important}
+html.sk-t03 #foot .copy{border-top-style:solid!important;border-top-width:1px!important;border-top-color:rgba(36,28,20,.12)!important}
+/* 外掛設定頁：白卡 → 象牙底細框、方角；標籤細框；說明改細字 */
+html.sk-t03 #view .plgcard{background:var(--white);border:1px solid rgba(36,28,20,.12);border-radius:0;box-shadow:none;padding:36px 40px}
+html.sk-t03 #view .plgcard .pi{border-radius:0;box-shadow:none;background:var(--wood);color:var(--gilt)}
+html.sk-t03 #view .plgcard h2{font-family:var(--serif);font-weight:400;letter-spacing:.08em}
+html.sk-t03 #view .plgcard .by,html.sk-t03 #view .plgcard .d,html.sk-t03 #view .plgcard p{font-weight:400;letter-spacing:.04em}
+html.sk-t03 #view .plgcard .ver{background:transparent;border:1px solid rgba(36,28,20,.18);border-radius:0;font-weight:400;font-family:var(--latin);letter-spacing:.1em}
+html.sk-t03 #view .plgcard .diy,html.sk-t03 #view .sub .diy,html.sk-t03 #view .sub em{background:transparent!important;border:1px solid var(--gilt);color:#8A6A3A;box-shadow:none;border-radius:0;font-weight:400;letter-spacing:.1em}
+html.sk-t03 #view .sub a.on em{color:var(--gilt)}
+html.sk-t03 #view .plgcard li{background:transparent;border:1px solid rgba(36,28,20,.14);border-radius:0;font-weight:400;letter-spacing:.04em}
+html.sk-t03 #view .plgctl{border-top:1px solid rgba(201,163,106,.55)!important}
+html.sk-t03 #view .plgintro{background:transparent;border:0;border-left:2px solid var(--gilt);border-radius:0;font-weight:400;letter-spacing:.04em}
+html.sk-t03 #view .plgmore{background:transparent;border-top:1px solid var(--gilt);border-bottom:1px solid rgba(36,28,20,.12);border-radius:0;padding:26px 4px}
+html.sk-t03 #view .plgmore b{font-family:var(--serif);font-weight:400;letter-spacing:.1em}
+html.sk-t03 #view .plgmore p{font-weight:400}
+html.sk-t03 #view .plghint{border-radius:0;font-weight:400;letter-spacing:.06em}
+/* 開關：白色把手 → 象牙；軌道細框 */
+html.sk-t03 #view .tg i,html.sk-t03 #view .knob{background:var(--milk)!important;box-shadow:0 0 0 1px rgba(36,28,20,.18)!important}
+/* 子分頁：白底按鈕 → 細字＋底線 */
+html.sk-t03 #view nav.sub a{background:transparent;border:0;border-bottom:1px solid transparent;border-radius:0;font-weight:400;letter-spacing:.12em;box-shadow:none;padding-left:4px;padding-right:4px}
+html.sk-t03 #view nav.sub a:hover{border-bottom-color:rgba(36,28,20,.3)}
+html.sk-t03 #view nav.sub a.on{background:transparent;color:var(--wood);border-bottom:1px solid var(--gilt)}
+html.sk-t03 #view nav.sub{gap:28px;border-bottom:1px solid rgba(36,28,20,.1)}
+/* 篩選小按鈕、下拉、勾選框、白卡 → 象牙 */
+html.sk-t03 #view .chips2 button:not(.on),html.sk-t03 #view select.sel,html.sk-t03 #view button.cb,html.sk-t03 #view .cc,html.sk-t03 #view .chat,html.sk-t03 #view .chat .top,html.sk-t03 #view .bub.c,html.sk-t03 #view .prevsite .ps{background:var(--white)!important}
+html.sk-t03 #view .cc{border:1px solid rgba(36,28,20,.12);border-radius:0;box-shadow:none}
+html.sk-t03 #view .cc .code{background:transparent;border:1px solid var(--gilt)!important;border-radius:0;color:#8A6A3A;font-weight:400;letter-spacing:.14em}
+/* 顧客頭像：糖果色 → 木色系 */
+html.sk-t03 #view .av{background:var(--paper3)!important;color:var(--wood)!important;font-weight:400!important;font-family:var(--serif)}
+html.sk-t03 #view .av[style*="#FF8DAA"],html.sk-t03 #view .av[style*="#86C8FF"]{background:var(--bronze)!important;color:var(--milk)!important}
+html.sk-t03 #view .av[style*="#7BDDB5"]{background:var(--wood)!important;color:var(--gilt)!important}
+html.sk-t03 #view .lbit,html.sk-t03 #view .specbox{border-radius:0}
+/* 外掛大開關：細框膠囊＋金色把手，不再是厚重色塊 */
+html.sk-t03 #view .plgsw .trk{width:172px;height:56px;padding:0 22px 0 0;border-radius:999px;background:transparent!important;border:1px solid rgba(36,28,20,.28);box-shadow:none!important}
+html.sk-t03 #view .plgsw .trk b{font:400 15px var(--serif);letter-spacing:.2em;color:var(--sub);padding-left:66px;text-shadow:none}
+html.sk-t03 #view .plgsw .knob{left:6px;top:6px;width:42px;height:42px;background:var(--paper3)!important;box-shadow:none!important;transition:left .6s cubic-bezier(.2,.7,.1,1)}
+html.sk-t03 #view .plgsw .knob::after{inset:15px;background:var(--milk)}
+html.sk-t03 #view .plgsw.on .trk{background:var(--wood)!important;border-color:var(--wood);padding:0 0 0 24px}
+html.sk-t03 #view .plgsw.on .trk b{color:var(--gilt);padding:0}
+html.sk-t03 #view .plgsw.on .knob{left:122px;background:var(--gilt)!important}
+html.sk-t03 #view .plgsw.on .knob::after{background:var(--wood)}
+html.sk-t03 #view .plgsw:active .knob{width:48px}
+html.sk-t03 #view .plgsw.on:active .knob{left:116px}
+html.sk-t03 #view .plgsw:focus-visible .trk{outline:1px solid var(--gilt);outline-offset:4px}
+html.sk-t03 #view .plghint{background:var(--wood)!important;color:var(--milk)}
+html.sk-t03 #view .plglic .st{border-radius:0}
+@media (max-width:640px){html.sk-t03 #view .plgcard{padding:22px 18px}}
+html.sk-t03 #view .plgsw .trk{border-radius:999px!important}
+html.sk-t03 #view .plgsw .knob,html.sk-t03 #view .plgsw .knob::after{border-radius:50%!important}
+html.sk-t03 .lxs-f.sm .lxs-ph:has(img[src*="img/atelier/"]){aspect-ratio:1/1}
+html.sk-t03 .lxs-f .lxs-ph img[src*="img/atelier/"]{padding:0!important}
