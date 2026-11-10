@@ -411,10 +411,10 @@ html.sk-t03 #sf .hero .kick{font-weight:400}
    中文：源雲明體月 GenWanMin2 TW（EL＝200–300 細明朝，R＝400–500 小字）；英文：Bodoni Moda（高反差 Didone，含斜體）。
    都是自帶 woff2 子集（fonts/t03/，SIL OFL）；缺字退回 Noto Serif TC。後台表格表單仍用 Noto Sans TC。
    ========================================================================== */
-@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-EL-t03.woff2?v=20261110-h1") format("woff2");font-weight:100 350;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-R-t03.woff2?v=20261110-h1") format("woff2");font-weight:351 900;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-h1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-h1") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-h1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-h1") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
+@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-EL-t03.woff2?v=20261110-i1") format("woff2");font-weight:100 350;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-R-t03.woff2?v=20261110-i1") format("woff2");font-weight:351 900;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-i1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-i1") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-i1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-i1") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
 html.sk-t03{--serif:"T03 GenWanMin","Noto Serif TC",serif;--latin:"T03 Bodoni","T03 GenWanMin","Noto Serif TC",serif;--disp:"T03 Bodoni","T03 GenWanMin","Noto Serif TC",serif}
 /* 首頁大數字改 Bodoni 等高數字；後台數字維持 Noto Serif TC 400 好讀 */
 html.sk-t03 .tile .strip i,html.sk-t03 .bignum .sep,html.sk-t03 .cell .no{font-family:"T03 Bodoni","Noto Serif TC",serif!important;font-weight:400!important;font-variant-numeric:lining-nums tabular-nums}
@@ -956,3 +956,16 @@ html.sk-t03 #view .plgsw .trk{border-radius:999px!important}
 html.sk-t03 #view .plgsw .knob,html.sk-t03 #view .plgsw .knob::after{border-radius:50%!important}
 html.sk-t03 .lxs-f.sm .lxs-ph:has(img[src*="img/atelier/"]){aspect-ratio:1/1}
 html.sk-t03 .lxs-f .lxs-ph img[src*="img/atelier/"]{padding:0!important}
+
+/* ===== 第六版 i1：換色換圖、棚拍穿搭輪盤 ===== */
+/* 商品頁換顏色：主圖與小圖沉穩淡入（0.8 秒，不位移、不彈跳） */
+@keyframes lx-cfade{from{opacity:0}to{opacity:1}}
+html.sk-t03 .lxp-main.lx-cfade img{animation:lx-cfade .8s cubic-bezier(.33,0,.2,1) both}
+html.sk-t03 .lxp-th.lx-cfade img{animation:lx-cfade .8s cubic-bezier(.33,0,.2,1) both}
+html.sk-t03 .lxp-th.lx-cfade button:nth-child(2) img{animation-delay:.06s}
+html.sk-t03 .lxp-th.lx-cfade button:nth-child(3) img{animation-delay:.12s}
+@media (prefers-reduced-motion:reduce){html.sk-t03 .lx-cfade img{animation:none!important}}
+/* 穿搭輪盤：深裁的模特兒照是米色棚拍照（有背景），以型錄相片框呈現 */
+html.sk-t03 .lbx .mlb-portrait img[src*="img/atelier/look"]{object-fit:cover;background:#DCD2C4;outline:1px solid rgba(201,163,106,.55);outline-offset:-1px;box-shadow:0 24px 48px -28px rgba(20,14,8,.65)}
+html.sk-t03 .lbx .mlb-actor:has(img[src*="img/atelier/look"])::after{display:none}
+html.sk-t03 .lbx .mlb-actor.is-front:not(.is-open) .mlb-portrait:has(img[src*="img/atelier/look"]){filter:none}

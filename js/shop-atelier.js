@@ -123,13 +123,22 @@ function home(){var d=D(),ps=TX.shopProducts(),s=d.settings,onSale=ps.filter(fun
 
 /* ======================= 商品頁 ======================= */
 SH.skin={};
-/* 棚拍照組：img/atelier/aXX.webp → 正面、細節(-2)、另一面(-3)、包裝；不是這組圖就回傳 null，沿用舊的裁切小圖 */
-function shots(u){var m=/^(.*img\/atelier\/a\d+)\.webp(\?.*)?$/.exec(u||'');if(!m)return null;var q=m[2]||'';return [m[1]+'.webp'+q,m[1]+'-2.webp'+q,m[1]+'-3.webp'+q,m[1].replace(/a\d+$/,'pack')+'.webp'+q]}
+/* 棚拍照組：img/atelier/aXX.webp → 正面、細節(-2)、另一面(-3)、包裝；不是這組圖就回傳 null，沿用舊的裁切小圖。
+   cc 是非主色的代碼（data/atelier.js 的 cshots，例如 黑 → k），有的話換成 aXX-k.webp、aXX-k-2.webp、aXX-k-3.webp */
+function shots(u,cc){var m=/^(.*img\/atelier\/a\d+)\.webp(\?.*)?$/.exec(u||'');if(!m)return null;var q=m[2]||'',b=m[1]+(cc?'-'+cc:'');return [b+'.webp'+q,b+'-2.webp'+q,b+'-3.webp'+q,m[1].replace(/a\d+$/,'pack')+'.webp'+q]}
+function cmap(p){var A=(window.TX_DATA||{}).atelier;return (A&&A.cshots&&p&&A.cshots[p.id])||null}
+/* 目前選的顏色（第一組規格名稱有「色」才算顏色） */
+function colOf(g,st){var g0=g&&g[0];return g0&&/色/.test(g0.name||'')?st.a:''}
+/* 進商品頁先把其他顏色的照片載好，換色時不會閃白 */
+var PRE={};function preload(p,img){var m=cmap(p);if(!m||PRE[p.id])return;PRE[p.id]=1;Object.keys(m).forEach(function(k){(shots(img,m[k])||[]).slice(0,3).forEach(function(u){var i=new Image();i.src=u})})}
+var LASTC={pid:'',c:''};
 SH.skin.shots=shots;
-SH.skin.pdpInner=function(c){var p=c.p,st=c.st,img=c.img,s=c.s,set=shots(img);
+SH.skin.pdpInner=function(c){var p=c.p,st=c.st,img=c.img,s=c.s,col=colOf(c.g,st),m=cmap(p),cc=m&&col?m[col]||'':'',set=shots(img,cc);
+  /* 換顏色：主圖與小圖換成該色照片，並沉穩淡入（同一商品、顏色變了才淡入） */
+  var fade=LASTC.pid===p.id&&LASTC.c!==col;LASTC={pid:p.id,c:col};if(set)preload(p,img);
   if(set){var lab=['正面','細節','另一面','包裝'];
-    var main='<div class="main lxp-main lxp-studio"><img src="'+h(set[st.img]||set[0])+'" alt="'+h(p.name)+'"></div>';
-    var th='<div class="th lxp-th lxp-studio" role="group" aria-label="商品圖片">'+set.map(function(u,i){return '<button type="button" class="'+(st.img===i?'on':'')+'" data-a="pimg" data-i="'+i+'" aria-label="'+lab[i]+'"><img src="'+h(u)+'" alt="" loading="lazy"><small>'+(i===3?'包裝':two(i+1))+'</small></button>'}).join('')+'</div>'}
+    var main='<div class="main lxp-main lxp-studio'+(fade?' lx-cfade':'')+'" data-col="'+h(col)+'"><img src="'+h(set[st.img]||set[0])+'" alt="'+h(p.name+(col?'（'+col+'）':''))+'"></div>';
+    var th='<div class="th lxp-th lxp-studio'+(fade?' lx-cfade':'')+'" role="group" aria-label="商品圖片">'+set.map(function(u,i){return '<button type="button" class="'+(st.img===i?'on':'')+'" data-a="pimg" data-i="'+i+'" aria-label="'+lab[i]+'"><img src="'+h(u)+'" alt="" loading="lazy"><small>'+(i===3?'包裝':two(i+1))+'</small></button>'}).join('')+'</div>'}
   else{var crop=[['1','50% 50%'],['1.8','12% 14%'],['1.8','88% 86%']][st.img]||null;
   var main=st.img===3?'<div class="main lxp-main">'+BOX+'</div>':'<div class="main lxp-main"><img src="'+h(img)+'" alt="'+h(p.name)+'" style="'+(crop?'transform:scale('+crop[0]+');transform-origin:'+crop[1]:'')+'"></div>';
   var th='<div class="th lxp-th" role="group" aria-label="商品圖片">'+[0,1,2,3].map(function(i){var q=[['1','50% 50%'],['1.8','12% 14%'],['1.8','88% 86%']][i];return '<button type="button" class="'+(st.img===i?'on':'')+'" data-a="pimg" data-i="'+i+'" aria-label="第 '+(i+1)+' 張圖">'+(i===3?BOX:'<img src="'+h(img)+'" alt="" style="transform:scale('+q[0]+');transform-origin:'+q[1]+'">')+'<small>'+(i===3?'包裝示意':two(i+1))+'</small></button>'}).join('')+'</div>'}
@@ -141,7 +150,7 @@ SH.skin.pdpInner=function(c){var p=c.p,st=c.st,img=c.img,s=c.s,set=shots(img);
     (p.preorder?'<p class="stockline"><i></i>預購商品'+(p.shipDate?'，預計 '+h(p.shipDate)+' 出貨':'')+'</p>':'')+'<p class="desc">'+h(p.desc||'')+'</p>'+c.opts+c.stl+buy+
     '<ul class="lxp-svc"><li><em>I</em>滿 '+TX.money(s.freeOver)+' 免運；未滿宅配 '+TX.money(s.homeFee)+'、超商 '+TX.money(s.cvsFee)+'</li><li><em>II</em>信用卡付款不加收手續費</li><li><em>III</em>收到商品 7 天內可申請退換貨</li></ul></div>';
   var bar='<div class="buybar"><div class="pp">'+TX.money(c.pr)+'<small>'+(c.hasV?h(TX.vlabel(c.vk)):'')+'</small></div><button class="btn w" type="button" data-a="padd"'+c.dis+'>加入購物車</button><button class="btn pk" type="button" data-a="pnow"'+c.dis+'>直接結帳</button></div>';
-  return '<div class="pdp lxp"><div class="gal lxp-gal">'+main+th+(p.ai?'<small class="aicap">商品圖：AI 輔助生成</small>':'')+'<small>示範：縮圖是同一張圖的不同裁切。</small></div>'+info+'</div>'+bar};
+  return '<div class="pdp lxp"><div class="gal lxp-gal">'+main+th+(p.ai?'<small class="aicap">商品圖：AI 輔助生成</small>':'')+(set?'':'<small>示範：縮圖是同一張圖的不同裁切。</small>')+'</div>'+info+'</div>'+bar};
 SH.skin.pdpPage=function(c){var p=c.p,id=c.id,rt=c.rt,s=c.s;
   var html=SH.crumbs([[p.cat||'全部商品','#/list'+(p.cat?'?cat='+encodeURIComponent(p.cat):'')],[p.name]])+'<div id="pdpmain">'+c.inner+'</div>'+
    '<section class="lxp-detail rvl"><div class="lxp-dph lxs-clip'+(shots(TX.pimg(p))?' lxp-studio':'')+'"><img src="'+h(shots(TX.pimg(p))?shots(TX.pimg(p))[1]:TX.pimg(p))+'" alt="" loading="lazy"></div><div class="lxp-dtx"><p class="lxs-no2">N° 01 — Le Détail</p><h2 class="sec-t">商品介紹</h2><p>'+h(p.desc||'店家還沒有填寫介紹。')+'</p><dl><dt>分類</dt><dd>'+h(p.cat||'—')+'</dd><dt>編號</dt><dd>'+no(p)+'</dd></dl></div></section>'+

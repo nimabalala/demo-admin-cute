@@ -179,3 +179,10 @@ window.DEMO_CONFIG = {
 - 只有深裁這家店（`data/atelier.js`）用這組圖；巷尾選物（t02）仍用 `img/alley`。舊瀏覽器存檔會在 `TX.D()` 自動換成新圖（`imgv:2`）。
 - 商品頁四張小圖：正面、細節、另一面、包裝；不是這組圖的商品（例如店長自己上傳的）會沿用舊的裁切小圖。
 - 檢查：`python3 tools/line_wp_check.py <網址>`（三個主題的 LINE 連結與 WordPress 字樣）。
+
+## 深裁（T03）換色換圖、棚拍穿搭輪盤（2026-11-10，v=20261110-i1）
+- 非主色照片：`img/atelier/aXX-代碼.webp`（正面）、`-2`（細節）、`-3`（另一面）；代碼 k＝黑、g＝灰、lb＝淺藍、kw＝黑白。對照表在 `data/atelier.js` 的 `cshots`。
+- 商品頁點顏色：主圖與小圖換成該色照片並淡入 0.8 秒；商店列表、購物車仍用主色照片。
+- 穿搭輪盤模特兒照：`img/atelier/look1~6.webp`（米色棚拍、480×1200），熱點位置在 `data/atelier.js` 的 `lbXY`。只有深裁用；可愛糖果、夜巷街頭仍是 `img/lookbook/`。
+- 舊瀏覽器存檔會自動換新照片與熱點（`imgv:3`）。
+- 檢查：`python3 tools/t03_color_check.py <網址>`。

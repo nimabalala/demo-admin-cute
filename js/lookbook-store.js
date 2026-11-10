@@ -9,6 +9,8 @@ var DEMO=[{"t":"日系駝色長大衣穿搭","s":"LOOK 01","i":[{"n":"羊毛長�
 LB.VER='1.2.0';LB.NEWVER='1.2.1';LB.AUTHOR='棠序問策股份有限公司';LB.NAME='Model Lookbook 模特兒穿搭輪盤';
 LB.CHANGELOG=['手機版：穿搭輪盤可以用手指左右滑動，單品面板可以往下滑關閉','整套加入購物車時，缺貨或沒連結商品的單品會自動略過並說明','授權到期後，前台輪盤照常顯示、加入購物車照常運作'];
 LB.IMGS=[1,2,3,4,5,6].map(function(i){return 'img/lookbook/look'+i+'.webp'});
+/* 可選的模特兒照片：店家資料有自己的一組（深裁的米色棚拍照）就用那組，否則用共用的 */
+LB.imgs=function(){var A=(window.TX_DATA||{})[T.shopKey()];return A&&A.lookImgs&&A.lookImgs.length?A.lookImgs:LB.IMGS};
 LB.DEMO_KEYS={ok:'MLB-K67Q-TBR9-6WPT-HQX9',expired:'MLB-EXPD-0000-0000-0001',used:'MLB-USED-0000-0000-0002'};
 LB.MSG={locked_new:'目前無法新增穿搭：授權尚未啟用或已到期。已建立的穿搭仍可編輯，前台與加入購物車不受影響。',locked_demo:'目前無法匯入示範資料：授權尚未啟用或已到期。',notfashion:'示範穿搭是服飾款，請先換到「北風衣櫥」再匯入。'};
 LB.defaults=function(){return {ver:LB.VER,newVer:LB.NEWVER,on:0,looks:[],menu:0,
@@ -55,12 +57,13 @@ LB.importDemo=function(){if(!T.isApparel())return {ok:false,msg:LB.MSG.notfashio
   if(!LB.canCreate())return {ok:false,msg:LB.MSG.locked_demo};
   var D=T.D(),lb=LB.get(),made=0,items=0,prods=0,AL=/^(alley|atelier)$/.test(T.shopKey())?(window.TX_DATA||{})[T.shopKey()]:null;
   DEMO.forEach(function(L,i){var key='lbd'+(i+1);if(lb.looks.some(function(x){return x.key===key}))return;
-    var look={id:T.uid('lk'),key:key,title:L.t,sub:L.s,img:'img/lookbook/look'+(i+1)+'.webp',hide:false,demo:1,items:[]};
+    var look={id:T.uid('lk'),key:key,title:L.t,sub:L.s,img:LB.imgs()[i]||'img/lookbook/look'+(i+1)+'.webp',hide:false,demo:1,items:[]};
     L.i.forEach(function(it,j){var n=i*3+j+1,pid='fl'+('0'+n).slice(-2),img='img/lookbook/l'+(i+1)+'i'+(j+1)+'.webp',nm=it.n;
       /* 巷尾選物：熱點直接連到店裡既有商品；店裡沒有的 3 件才補上（巷尾選物的命名與圖），不會重複 */
       if(AL){pid=AL.lbMap[i][j];var p=T.product(pid);if(!p){p=JSON.parse(JSON.stringify(AL.lbExtra[pid]));D.products.push(p);prods++}img=p.img;nm=p.name}
       else{var p=T.product(pid);if(!p){D.products.push(mkProduct(pid,it,n,i,j));prods++}}
-      look.items.push({id:T.uid('li'),pid:pid,name:nm,price:it.p,img:img,x:it.x,y:it.y,note:''});items++});
+      var xy=AL&&AL.lbXY&&AL.lbXY[i]&&AL.lbXY[i][j];/* 深裁的棚拍照有自己的熱點位置 */
+      look.items.push({id:T.uid('li'),pid:pid,name:nm,price:it.p,img:img,x:xy?xy[0]:it.x,y:xy?xy[1]:it.y,note:''});items++});
     lb.looks.push(look);made++});
   if(!made)return {ok:false,msg:'示範穿搭已經匯入過了'};
   if(D.menu.indexOf('穿搭輪盤')<0){var at=D.menu.indexOf('關於我們');if(at<0)D.menu.push('穿搭輪盤');else D.menu.splice(at,0,'穿搭輪盤');lb.menu=1}

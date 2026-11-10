@@ -30,7 +30,7 @@ T.setShop=function(k){if(LOCK)return;if(RAW[k]&&!BOUND[k]){S.shop=k;save()}};
 T.isApparel=function(k){k=k||T.shopKey();return k==='fashion'||k==='alley'||k==='atelier'};
 T.D=function(k){k=k||T.shopKey();if(!S.shops[k]){S.shops[k]=realize(RAW[k]);save()}
   /* 舊存檔升級：深裁（atelier）換成 img/atelier 棚拍照；只動這家店 */
-  if(k==='atelier'&&S.shops[k].imgv!==2){S.shops[k]=JSON.parse(JSON.stringify(S.shops[k]).split('img/alley/a').join('img/atelier/a'));S.shops[k].imgv=2;save()}
+  if(k==='atelier'&&(+S.shops[k].imgv||0)<3){S.shops[k]=JSON.parse(JSON.stringify(S.shops[k]).split('img/alley/a').join('img/atelier/a').split('img/lookbook/look').join('img/atelier/look'));S.shops[k].imgv=3;var AX=(window.TX_DATA||{}).atelier,lb=S.shops[k].lb;if(AX&&AX.lbXY&&lb&&lb.looks)lb.looks.forEach(function(l){var m=/^lbd(\d)$/.exec(l.key||''),q=m&&AX.lbXY[+m[1]-1];if(q&&l.img===AX.lookImgs[+m[1]-1])l.items.forEach(function(it,j){if(q[j]){it.x=q[j][0];it.y=q[j][1]}})});save()}/* 深裁：舊存檔換成棚拍商品照（v2）與棚拍模特兒照（v3） */
   var d=S.shops[k];T.ensureExtras(d);return d};
 T.reload=function(){load()};
 T.reset=function(){try{localStorage.removeItem(KEY);localStorage.removeItem(SEQ);localStorage.removeItem('tx-cart-v1');localStorage.removeItem('tx-member-v1');sessionStorage.removeItem('theme')}catch(e){}S={ver:1,shop:S.shop,shops:{}};save()};
