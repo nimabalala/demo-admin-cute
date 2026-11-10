@@ -80,4 +80,6 @@ html.sk-t02.roll-hold,html.sk-t02.roll-hold::before{background:#111}
 .skin-home{display:flex;justify-content:center;margin:0 0 18px}
 .skin-home .skb{height:44px;padding:0 18px;font-size:15px;background:#fff;color:var(--ink);border:2px solid var(--ink)}
 .skin-home .skb.on{background:var(--ink);color:#fff}
-@media (max-width:760px){.demo-bar .skin-sw .skl{display:none}.demo-bar .skin-sw .skb{padding:0 7px}.demo-bar .skin-sw .skb b{display:none}}
+@media (max-width:760px){.demo-bar .skin-sw{gap:4px}.demo-bar .skin-sw .skl{display:none}.demo-bar .skin-sw .skb{padding:0 6px}.demo-bar .skin-sw .skb b{display:none}.demo-bar .db1{font-size:10.5px;line-height:1.2}}
+/* 三個以上風格時，設定頁的大卡片自動排；首頁 CTA 的切換鈕可換行 */
+.skin-panel .skin-sw{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.skin-home{flex-wrap:wrap}

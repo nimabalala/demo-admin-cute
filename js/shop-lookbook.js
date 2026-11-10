@@ -153,7 +153,7 @@ SH.act.lball=function(t,e){e.stopPropagation();var look=LB.look(t.dataset.look);
   U.toast('整套 '+res.added.length+' 件已加進購物車',(res.skipped.length?'略過：'+res.skipped.map(function(s){return s[0]+'（'+s[1]+'）'}).join('、'):look.title)+(res.notes.length?'・'+res.notes[0]:''));
   SH.say('整套帶走！');if(!RM&&C.burst){var r=t.getBoundingClientRect();C.burst(r.left+r.width/2,r.top+r.height/2,36)}
   t.querySelector('.t').textContent='整套已加入 ✓';setTimeout(function(){var q=t.querySelector('.t');if(q)q.textContent='整套加入購物車'},2200);var vc=$('.mlb-viewcart',pn);if(vc)vc.classList.add('show')};
-SH.act.lbimport=function(t){var r=LB.importDemo();if(!r.ok){U.toast(r.msg);return}U.toast('已匯入 '+r.looks+' 套穿搭、'+r.items+' 件單品','新增了 '+r.prods+' 個北風衣櫥商品');if(!RM&&C.burst){var b=t.getBoundingClientRect();C.burst(b.left+b.width/2,b.top+b.height/2,60)}ST.cur=0;ST.open=false;SH.refresh()};
+SH.act.lbimport=function(t){var r=LB.importDemo();if(!r.ok){U.toast(r.msg);return}U.toast('已匯入 '+r.looks+' 套穿搭、'+r.items+' 件單品','新增了 '+r.prods+' 個'+TX.D().name+'商品');if(!RM&&C.burst){var b=t.getBoundingClientRect();C.burst(b.left+b.width/2,b.top+b.height/2,60)}ST.cur=0;ST.open=false;SH.refresh()};
 /* ---------- 專屬頁面 #/lookbook ---------- */
 var PLUG_URL='app.html#/settings/plugins?shop=fashion&hint=1';
 SH.route('lookbook',/^\/lookbook$/,function(m,H,o){var lb=LB.get();

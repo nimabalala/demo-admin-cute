@@ -4,6 +4,9 @@ var C=window.CUTE,RM=C.RM,$=C.$,$$=C.$$,T=window.TX;
 var SC=innerWidth<760?.46:innerWidth<1100?.72:1;
 gsap.registerPlugin(ScrollTrigger);
 var R=gsap.utils.random;
+/* T03 質感精品：動作放慢放柔，不彈跳、不歪斜（EL 把彈跳類的 ease 換成平順淡入） */
+var CALM=!!(window.THEME&&THEME.cfg&&THEME.cfg.motion&&THEME.cfg.motion.calm);
+function EL(e){return CALM?'power2.out':e}
 var lenis=null;
 if(!RM){
   lenis=new Lenis({duration:1.1,smoothWheel:true});window.__lenis=lenis;
@@ -12,7 +15,7 @@ if(!RM){
 }
 /* 磁吸按鈕 */
 if(!RM)$$('.mag').forEach(function(b){
-  var qx=gsap.quickTo(b,'x',{duration:.5,ease:'elastic.out(1,.5)'}),qy=gsap.quickTo(b,'y',{duration:.5,ease:'elastic.out(1,.5)'});
+  var qx=gsap.quickTo(b,'x',{duration:.5,ease:EL('elastic.out(1,.5)')}),qy=gsap.quickTo(b,'y',{duration:.5,ease:EL('elastic.out(1,.5)')});
   b.addEventListener('pointermove',function(e){var r=b.getBoundingClientRect();qx((e.clientX-r.left-r.width/2)*.28);qy((e.clientY-r.top-r.height/2)*.4)});
   b.addEventListener('pointerleave',function(){qx(0);qy(0)});
 });
@@ -39,7 +42,7 @@ function setRevenue(n,instant){
     if(g.k>=18){gsap.set(g.st,{yPercent:-(cur+10)*100/30});g.k=cur+10}
     g.k=g.k+delta;
     if(instant)gsap.set(g.st,{yPercent:-g.k*100/30});
-    else gsap.to(g.st,{yPercent:-g.k*100/30,duration:1.2+i*.2,ease:'back.out(1.5)'});
+    else gsap.to(g.st,{yPercent:-g.k*100/30,duration:1.2+i*.2,ease:EL('back.out(1.5)')});
   });
 }
 if(RM)setRevenue(revenue,true);else setRevenue(0,true);
@@ -54,7 +57,7 @@ function fillMeta(){
 }
 function fillStats(pop){
   var t=T.todo(),vals={'n-unread':t.unread,'n-ship':t.ship,'n-trans':trans(),'n-low':t.low};
-  Object.keys(vals).forEach(function(id){var el=$('#'+id);el.dataset.n=vals[id];if(pop||el.dataset.shown){el.textContent=vals[id];el.dataset.shown=1;if(pop&&!RM)gsap.fromTo(el,{scale:.7},{scale:1,duration:.9,ease:'elastic.out(1,.4)'})}});
+  Object.keys(vals).forEach(function(id){var el=$('#'+id);el.dataset.n=vals[id];if(pop||el.dataset.shown){el.textContent=vals[id];el.dataset.shown=1;if(pop&&!RM)gsap.fromTo(el,{scale:.7},{scale:1,duration:.9,ease:EL('elastic.out(1,.4)')})}});
   $('#t-unread').textContent=t.unread?t.unread+' 位顧客在等回覆':'客服都回完了，太棒了';
   var a=arrived();$('#t-trans').textContent=a?a+' 張已到店，等顧客取貨':'都在路上';
   var ln=lowNames();$('#t-low').textContent=ln.length?ln.join('、')+' 快賣完了':'庫存都夠';
@@ -68,7 +71,7 @@ function newOrder(){
   var tl=$$('.tile');if(!RM)gsap.fromTo(tl,{y:0},{y:-14,duration:.18,yoyo:true,repeat:1,stagger:.05,ease:'power2.out'});
   fillMeta();fillStats(true);buildGarlandTexts();
   toast.innerHTML='<small>新訂單 #'+o.id+'</small>'+o.cname+'　<b>+NT$ '+fmtN(o.total)+'</b>';
-  gsap.timeline().fromTo(toast,{opacity:0,y:30,scale:.8},{opacity:1,y:0,scale:1,duration:.6,ease:'elastic.out(1,.45)'}).to(toast,{opacity:0,y:20,duration:.4},'+=2.2');
+  gsap.timeline().fromTo(toast,{opacity:0,y:30,scale:.8},{opacity:1,y:0,scale:1,duration:.6,ease:EL('elastic.out(1,.45)')}).to(toast,{opacity:0,y:20,duration:.4},'+=2.2');
 }
 setInterval(function(){if(scrollY<innerHeight*1.2&&live<3&&!document.hidden)newOrder()},5200);
 
@@ -89,7 +92,7 @@ var heroHam=$('#heroHam'),vh=innerHeight;
 gsap.set('.bal',{scale:0});
 if(!RM){
   var tl=gsap.timeline({scrollTrigger:{trigger:'#heroWrap',start:'top top',end:'+=2100',pin:'#hero',scrub:.7,anticipatePin:1}});
-  tl.fromTo('.bal',{scale:0},{scale:1,duration:.16,ease:'elastic.out(1,.5)',stagger:.025,immediateRender:false},0)
+  tl.fromTo('.bal',{scale:0},{scale:1,duration:.16,ease:EL('elastic.out(1,.5)'),stagger:.025,immediateRender:false},0)
     .fromTo('#hamwrap',{y:0},{y:-vh*1.55,duration:.82,ease:'power2.in',immediateRender:false},.1)
     .fromTo('#heroCenter',{y:0},{y:-vh*.95,duration:.7,ease:'power2.in',immediateRender:false},.22)
     .to('#heroCenter',{opacity:0,duration:.14},.74)
@@ -112,6 +115,15 @@ gsap.ticker.add(function(){
     var dx=Math.max(-1,Math.min(1,(C.mouse.x-(r.left+r.width/2))/260)),dy=Math.max(-1,Math.min(1,(C.mouse.y-(r.top+r.height/2))/260));
     $$('i',f).forEach(function(e){e.style.translate=(dx*4)+'px '+(dy*4)+'px'})});
 });
+function calmIntro(delay){
+  gsap.set('#hl span,.bignum>*,.kick,.meta,.btns>*,#cue',{opacity:0,y:18});
+  gsap.timeline({delay:delay}).to('.kick',{opacity:1,y:0,duration:1,ease:'power2.out'},0)
+   .to('#hl span',{opacity:1,y:0,duration:1.1,ease:'power2.out',stagger:.05},.15)
+   .to('.bignum>*',{opacity:1,y:0,duration:1.1,ease:'power2.out',stagger:.06},.5)
+   .add(function(){setRevenue(revenue)},.8)
+   .to('.meta,.btns>*',{opacity:1,y:0,duration:1,ease:'power2.out',stagger:.1},1)
+   .to('#cue',{opacity:1,y:0,duration:.8},1.6);
+}
 function intro(delay){
   var letters=$$('#hl span'),tiles=$$('.tile'),coin=$('.coin'),ham=$('#hamwrap');
   var hr=heroHam.getBoundingClientRect(),mx=hr.left+hr.width*.5,my=hr.top+hr.height*.62;
@@ -122,60 +134,62 @@ function intro(delay){
   var rest=stk.map(function(s){var b=s.getBoundingClientRect();return [b.left+b.width/2-(+gsap.getProperty(s,'x')),b.top+b.height/2-(+gsap.getProperty(s,'y'))]});
   stk.forEach(function(s,i){gsap.set(s,{scale:0,x:mx-rest[i][0],y:my-rest[i][1]})});
   var t=gsap.timeline({delay:delay});
-  t.to('.nav',{y:0,duration:1,ease:'bounce.out'},0)
-   .to('.bl',{scale:1,duration:1.6,ease:'elastic.out(1,.5)',stagger:.14},.1)
-   .to('.cloud',{y:0,opacity:1,duration:1.3,ease:'bounce.out',stagger:.15},.25)
-   .to('.kick',{scale:1,duration:.7,ease:'back.out(3)'},.5)
-   .to(letters,{y:0,rotation:0,duration:1.15,ease:'bounce.out',stagger:.07},.6)
-   .fromTo(letters,{scaleY:1.4,scaleX:.8},{scaleY:1,scaleX:1,duration:1.3,ease:'elastic.out(1,.32)',stagger:.07},.9)
-   .to(coin,{scale:1,duration:.9,ease:'elastic.out(1,.4)'},1.2)
-   .to(tiles,{y:0,duration:1.05,ease:'bounce.out',stagger:.11},1.1)
-   .fromTo(tiles,{scaleY:1.25,scaleX:.86},{scaleY:1,scaleX:1,duration:1.2,ease:'elastic.out(1,.3)',stagger:.11,transformOrigin:'50% 100%'},1.4)
+  t.to('.nav',{y:0,duration:1,ease:EL('bounce.out')},0)
+   .to('.bl',{scale:1,duration:1.6,ease:EL('elastic.out(1,.5)'),stagger:.14},.1)
+   .to('.cloud',{y:0,opacity:1,duration:1.3,ease:EL('bounce.out'),stagger:.15},.25)
+   .to('.kick',{scale:1,duration:.7,ease:EL('back.out(3)')},.5)
+   .to(letters,{y:0,rotation:0,duration:1.15,ease:EL('bounce.out'),stagger:.07},.6)
+   .fromTo(letters,{scaleY:1.4,scaleX:.8},{scaleY:1,scaleX:1,duration:1.3,ease:EL('elastic.out(1,.32)'),stagger:.07},.9)
+   .to(coin,{scale:1,duration:.9,ease:EL('elastic.out(1,.4)')},1.2)
+   .to(tiles,{y:0,duration:1.05,ease:EL('bounce.out'),stagger:.11},1.1)
+   .fromTo(tiles,{scaleY:1.25,scaleX:.86},{scaleY:1,scaleX:1,duration:1.2,ease:EL('elastic.out(1,.3)'),stagger:.11,transformOrigin:'50% 100%'},1.4)
    .add(function(){setRevenue(revenue)},2.0)
-   .to(ham,{y:0,duration:1.4,ease:'elastic.out(1,.4)'},1.8);
+   .to(ham,{y:0,duration:1.4,ease:EL('elastic.out(1,.4)')},1.8);
   stk.forEach(function(s,i){
     var d=2.45+i*.13,r=+s.dataset.r;
-    t.to(s,{scale:1,duration:.35,ease:'back.out(3)'},d)
+    t.to(s,{scale:1,duration:.35,ease:EL('back.out(3)')},d)
      .to(s,{x:0,duration:1.15,ease:'power1.out'},d)
      .fromTo(s,{rotation:r+(i%2?-300:300)},{rotation:r,duration:1.15,ease:'power2.out'},d)
-     .to(s,{keyframes:[{y:Math.min(mx*0+(my-rest[i][1]),0)-300,duration:.55,ease:'power2.out'},{y:0,duration:.62,ease:'bounce.out'}]},d);
+     .to(s,{keyframes:[{y:Math.min(mx*0+(my-rest[i][1]),0)-300,duration:.55,ease:'power2.out'},{y:0,duration:.62,ease:EL('bounce.out')}]},d);
   });
-  t.to('.meta,.btns>*',{scale:1,opacity:1,duration:.8,ease:'elastic.out(1,.5)',stagger:.12},2.6)
+  t.to('.meta,.btns>*',{scale:1,opacity:1,duration:.8,ease:EL('elastic.out(1,.5)'),stagger:.12},2.6)
    .to('#cue',{opacity:1,duration:.5},3.4);
 }
-if(RM){gsap.set('.stk',{scale:1})}else intro(C.rollEntering?(C.rollOutDur||.7)+.05:0.2);
+if(RM){gsap.set('.stk',{scale:1})}else if(CALM)calmIntro(.2);else intro(C.rollEntering?(C.rollOutDur||.7)+.05:0.2);
 
 /* ---------- 區塊進場：由下往上彈跳升起（果凍） ---------- */
 function jelly(els,trigger,start,stag){
   if(RM)return;
+  if(CALM){gsap.set(els,{y:36,opacity:0});
+    ScrollTrigger.create({trigger:trigger,start:start||'top 82%',once:true,onEnter:function(){gsap.to(els,{y:0,opacity:1,duration:1.1,ease:'power2.out',stagger:stag==null?.08:stag})}});return}
   gsap.set(els,{y:180,opacity:0,scaleX:.82,scaleY:1.3,transformOrigin:'50% 100%'});
   ScrollTrigger.create({trigger:trigger,start:start||'top 82%',once:true,onEnter:function(){
-    gsap.to(els,{y:0,opacity:1,scaleX:1,scaleY:1,duration:1.4,ease:'elastic.out(1,.42)',stagger:stag==null?.1:stag})}});
+    gsap.to(els,{y:0,opacity:1,scaleX:1,scaleY:1,duration:1.4,ease:EL('elastic.out(1,.42)'),stagger:stag==null?.1:stag})}});
 }
 $$('.scal').forEach(function(s){
   if(RM)return;gsap.set(s,{scaleY:0});
-  ScrollTrigger.create({trigger:s.parentNode,start:'top 95%',once:true,onEnter:function(){gsap.to(s,{scaleY:1,duration:1.2,ease:'elastic.out(1,.4)'})}});
+  ScrollTrigger.create({trigger:s.parentNode,start:'top 95%',once:true,onEnter:function(){gsap.to(s,{scaleY:1,duration:1.2,ease:EL('elastic.out(1,.4)')})}});
 });
 jelly($$('.sec-top>*'),'#stats','top 80%');
 jelly($$('#stats .cell'),'.grid4','top 85%',.12);
-$$('#stats .cell').forEach(function(c,i){gsap.set(c,{rotation:[-2.5,1.8,-1.4,2.4][i]})});
+if(!CALM)$$('#stats .cell').forEach(function(c,i){gsap.set(c,{rotation:[-2.5,1.8,-1.4,2.4][i]})});
 $$('.cell .no').forEach(function(n,i){
   var o={v:0};if(RM){n.textContent=n.dataset.n;n.dataset.shown=1;return}
   ScrollTrigger.create({trigger:'.grid4',start:'top 80%',once:true,onEnter:function(){var t=+n.dataset.n;n.dataset.shown=1;
     gsap.to(o,{v:t,duration:1.5,delay:.3+i*.12,ease:'power3.out',onUpdate:function(){n.textContent=Math.round(o.v)}});
-    gsap.fromTo(n,{scale:.6},{scale:1,duration:1.2,delay:.3+i*.12,ease:'elastic.out(1,.4)'})}});
+    gsap.fromTo(n,{scale:.6},{scale:1,duration:1.2,delay:.3+i*.12,ease:EL('elastic.out(1,.4)')})}});
 });
 if(!RM)$$('.cell').forEach(function(c){
   c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;
     gsap.to(c,{rotationY:px*10,rotationX:-py*8,y:-8,transformPerspective:1000,duration:.4,ease:'power2.out'})});
-  c.addEventListener('pointerleave',function(){gsap.to(c,{rotationX:0,rotationY:0,y:0,duration:.9,ease:'elastic.out(1,.4)'})});
+  c.addEventListener('pointerleave',function(){gsap.to(c,{rotationX:0,rotationY:0,y:0,duration:.9,ease:EL('elastic.out(1,.4)')})});
   c.addEventListener('pointerdown',function(){gsap.to(c,{scale:.94,duration:.12})});
-  c.addEventListener('pointerup',function(){gsap.to(c,{scale:1,duration:.6,ease:'elastic.out(1,.35)'})});
+  c.addEventListener('pointerup',function(){gsap.to(c,{scale:1,duration:.6,ease:EL('elastic.out(1,.35)')})});
 });
 
 /* ---------- 旗幟串（取代跑馬燈）：隨捲動速度擺盪 ---------- */
 var gl=$('#gl'),flags=[],FC=['#FF8DAA','#FFD45E','#7BDDB5','#86C8FF','#FFB48A'];
-var WORDS={fresh:[['新鮮','直送'],['今日','現採'],['好吃','推薦']],beauty:[['溫和','保養'],['新品','上架'],['送','小樣']],fashion:[['本週','新品'],['舒適','好穿'],['退換','無憂']],alley:[['每晚','上新'],['街頭','選貨'],['出清','5 折']]};
+var WORDS={fresh:[['新鮮','直送'],['今日','現採'],['好吃','推薦']],beauty:[['溫和','保養'],['新品','上架'],['送','小樣']],fashion:[['本週','新品'],['舒適','好穿'],['退換','無憂']],alley:[['每晚','上新'],['街頭','選貨'],['出清','5 折']],atelier:[['少量','上架'],['專屬','修改'],['預約','試穿']]};
 var GT=[];
 function buildGarlandTexts(){
   var w=WORDS[T.shopKey()],D=T.D();
@@ -244,10 +258,10 @@ function completeMission(){
     var r=el.getBoundingClientRect();C.burst(r.left+r.width/2,r.top+r.height*.5,220);
     btn.textContent='✓ 完成';btn.classList.add('done');$('.st',el).textContent='✓ 已完成';$('.tx p',el).textContent='已完成・今天';
     gsap.fromTo(el,{scale:1},{scale:1.06,duration:.2,yoyo:true,repeat:1,ease:'power2.out'});
-    gsap.fromTo(rn,{scale:.5},{scale:1,duration:.9,ease:'elastic.out(1,.3)'});
+    gsap.fromTo(rn,{scale:.5},{scale:1,duration:.9,ease:EL('elastic.out(1,.3)')});
     var nx=CARDS[4].el;nx.classList.remove('lock');$('.st',nx).textContent='進行中';$('.tx p',nx).textContent='解鎖了！去發第一張折價券';
     var b2=$('.go',nx);b2.textContent='開始';b2.classList.remove('done');
-    gsap.fromTo(nx,{y:50,scaleY:.9},{y:0,scaleY:1,duration:1.2,ease:'elastic.out(1,.4)'});
+    gsap.fromTo(nx,{y:50,scaleY:.9},{y:0,scaleY:1,duration:1.2,ease:EL('elastic.out(1,.4)')});
     gsap.to(msc,{scrollLeft:Math.max(0,nx.offsetLeft-300),duration:1.1,ease:'power3.inOut',delay:.5});
     var L=mHam();if(L)C.jump(L,'破百了！太強了！');
   }});
@@ -266,19 +280,19 @@ function buildWall(animate){
     var d=document.createElement('div');d.className='tile2';d.dataset.cat=p.cat;d.setAttribute('data-cur','看看');d.style.setProperty('--k',RCC[Math.max(0,D.cats.indexOf(p.cat))%4]);
     if(!p.img&&p.art)d.style.background=(p.art.c==='#FFFFFF'?'#BFD9EF':C.shade(p.art.c,.6));
     d.innerHTML='<img src="'+T.pimg(p)+'" alt="'+p.name+'"><span class="rk">'+(i+1)+'</span><div class="cap">'+p.name+'<small>近 30 天賣出 '+p.sold30+' 件</small></div>';
-    gsap.set(d,{rotation:R(-1.8,1.8)});cols[i%4].appendChild(d);
+    if(!CALM)gsap.set(d,{rotation:R(-1.8,1.8)});cols[i%4].appendChild(d);
     if(filt!=='all'&&p.cat!==filt)d.classList.add('off');
-    if(!RM){
-      d.addEventListener('pointerenter',function(){gsap.to(d,{rotation:0,scale:1.04,y:-6,duration:.5,ease:'elastic.out(1,.4)'})});
-      d.addEventListener('pointerleave',function(){gsap.to(d,{rotation:R(-1.8,1.8),scale:1,y:0,duration:.6,ease:'elastic.out(1,.4)'})});
+    if(!RM&&!CALM){
+      d.addEventListener('pointerenter',function(){gsap.to(d,{rotation:0,scale:1.04,y:-6,duration:.5,ease:EL('elastic.out(1,.4)')})});
+      d.addEventListener('pointerleave',function(){gsap.to(d,{rotation:R(-1.8,1.8),scale:1,y:0,duration:.6,ease:EL('elastic.out(1,.4)')})});
     }
   });
-  if(animate&&!RM)gsap.fromTo($$('.tile2'),{scale:.3,opacity:0},{scale:1,opacity:1,duration:1,ease:'elastic.out(1,.45)',stagger:{each:.05,from:'random'}});
+  if(animate&&!RM)gsap.fromTo($$('.tile2'),{scale:.3,opacity:0},{scale:1,opacity:1,duration:1,ease:EL('elastic.out(1,.45)'),stagger:{each:.05,from:'random'}});
 }
 buildWall(false);
 if(!RM){
-  var tiles2=$$('.tile2');gsap.set(tiles2,{scale:.2,opacity:0});
-  ScrollTrigger.create({trigger:'#wall',start:'top 85%',once:true,onEnter:function(){gsap.to($$('.tile2'),{scale:1,opacity:1,duration:1.2,ease:'elastic.out(1,.45)',stagger:{each:.07,from:'random'}})}});
+  var tiles2=$$('.tile2');gsap.set(tiles2,{scale:CALM?.97:.2,opacity:0});
+  ScrollTrigger.create({trigger:'#wall',start:'top 85%',once:true,onEnter:function(){gsap.to($$('.tile2'),{scale:1,opacity:1,duration:1.2,ease:EL('elastic.out(1,.45)'),stagger:{each:.07,from:'random'}})}});
   if(SC===1)cols.forEach(function(c,i){gsap.fromTo(c,{y:i%2?90:-30},{y:i%2?-60:50,ease:'none',scrollTrigger:{trigger:'#wallSec',start:'top bottom',end:'bottom top',scrub:true}})});
   jelly($$('.wh>*'),'#wallSec','top 80%',.1);
 }
@@ -291,21 +305,21 @@ $('#pills').addEventListener('click',function(e){var b=e.target.closest('button'
 document.addEventListener('shopchange',function(){
   revenue=T.revenue(7);orders=T.report(7).ord;filt='all';live=0;
   buildBig(revenue);setRevenue(revenue,true);
-  if(!RM)gsap.fromTo($$('.tile'),{y:-60},{y:0,duration:1,ease:'bounce.out',stagger:.08});
+  if(!RM)gsap.fromTo($$('.tile'),{y:-60},{y:0,duration:1,ease:EL('bounce.out'),stagger:.08});
   fillMeta();fillStats(true);heroSrc();buildGarlandTexts();missionImgs();buildWall(true);
-  if(!RM)gsap.fromTo(stk,{scale:.4},{scale:1,duration:.8,ease:'elastic.out(1,.45)',stagger:.06});
+  if(!RM)gsap.fromTo(stk,{scale:.4},{scale:1,duration:.8,ease:EL('elastic.out(1,.45)'),stagger:.06});
 });
 /* ---------- 換品牌（按鈕） ---------- */
 $('#themes').addEventListener('click',function(e){var b=e.target.closest('.sw');if(!b)return;
   C.setTheme(b.dataset.theme);
   var r=b.getBoundingClientRect();C.burst(r.left+r.width/2,r.top+40,70);
   var L=C.hams.filter(function(l){return l.el.parentNode.classList.contains('trio')&&l.k==='lili'})[0];if(L)C.jump(L,'換好囉！');
-  if(!RM)gsap.fromTo(b.firstElementChild,{scale:.6},{scale:1,duration:.9,ease:'elastic.out(1,.35)'});
+  if(!RM)gsap.fromTo(b.firstElementChild,{scale:.6},{scale:1,duration:.9,ease:EL('elastic.out(1,.35)')});
 });
 if(!RM){
   jelly($$('.cta h2,.cta .sub,.themes .sw,.cta .btn'),'#cta','top 78%',.1);
   var trio=$$('.trio>div');gsap.set(trio,{y:340});
-  ScrollTrigger.create({trigger:'#cta',start:'top 40%',once:true,onEnter:function(){gsap.to(trio,{y:0,duration:1.4,ease:'elastic.out(1,.4)',stagger:.18});
+  ScrollTrigger.create({trigger:'#cta',start:'top 40%',once:true,onEnter:function(){gsap.to(trio,{y:0,duration:1.4,ease:EL('elastic.out(1,.4)'),stagger:.18});
     trio.forEach(function(t,i){gsap.to(t,{y:-14,duration:1.2+i*.2,yoyo:true,repeat:-1,ease:'sine.inOut',delay:1.6})})}});
 }
 })();

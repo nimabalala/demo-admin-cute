@@ -13,6 +13,10 @@ var THEMES={
   t02:{key:'t02',name:'夜巷 街頭',sub:'黑白街頭選貨・雜誌感',sw:['#111111','#FFFFFF','#E5302A'],css:'css/themes/t02.css',
         fonts:'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;0,800;0,900;1,900&family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@400;700;900&display=swap',
         mascot:false,motion:{speed:1.35},home:{street:true},shop:'alley',
+        assets:{looks:['img/lookbook/look1.webp','img/lookbook/look2.webp','img/lookbook/look3.webp','img/lookbook/look4.webp','img/lookbook/look5.webp','img/lookbook/look6.webp']}},
+  t03:{key:'t03',name:'質感精品',sub:'深裁 · 留白編輯感',sw:['#E8DFD2','#241C14','#C9A36A'],css:'css/themes/t03.css',
+        fonts:'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap',
+        mascot:false,motion:{speed:1,calm:true,curtain:true},home:{luxury:true},shop:'atelier',
         assets:{looks:['img/lookbook/look1.webp','img/lookbook/look2.webp','img/lookbook/look3.webp','img/lookbook/look4.webp','img/lookbook/look5.webp','img/lookbook/look6.webp']}}
 };
 var KEY='tx-skin-v1',DEF='cute',ls=null;try{ls=window.localStorage}catch(e){}
@@ -45,7 +49,9 @@ document.addEventListener('DOMContentLoaded',function(){mountBar();
   if(!T.mascot)document.querySelectorAll('[data-ham]').forEach(function(e){e.setAttribute('aria-hidden','true')});
 });
 /* 首頁街頭首屏：只有 t02 有。要在 home.js 之前插入，ScrollTrigger 的位置才算得對。 */
-TH.mountHome=function(){var host=document.getElementById('skinTop');if(!host||!T.home.street)return;
+TH.mountHome=function(){var host=document.getElementById('skinTop');if(!host)return;
+  if(T.home.luxury)return mountLuxury(host);
+  if(!T.home.street)return;
   var L=T.assets.looks,MQ='年終出清 全館最低 5 折 ✦ 滿 NT$1,500 免運 ✦ 本週新品每晚 21:00 上架 ✦ 示範商店・資料皆為虛構 ✦ ';
   var tiles=[['本月新品','THIS MONTH','shop.html#/list?sort=new',L[0]],['聯名鞋款','COLLAB','shop.html#/list',L[2]],['潮流配件','ACCESSORIES','shop.html#/list',L[4]],['零碼清倉','LAST CALL','shop.html#/list?sale=1',L[5]]];
   host.innerHTML='<section class="st-wrap" id="street" aria-label="巷尾選物 首屏">'+
@@ -63,6 +69,23 @@ TH.mountHome=function(){var host=document.getElementById('skinTop');if(!host||!T
    '<div class="st-note">↓ 下面是店長每天看的後台總覽（前台浮誇，後台簡潔）</div></section>';
   startFx();
 };
+
+/* 首頁精品首屏：只有 t03 有。滿版模特照慢慢縮放＋深色薄紗＋超大宋體店名＋一排編輯選品。 */
+function mountLuxury(host){var L=T.assets.looks;
+  var picks=[['大衣','THE COAT','shop.html#/list',L[1]],['針織','KNITWEAR','shop.html#/list',L[2]],['西裝','TAILORING','shop.html#/list',L[3]],['長裙','THE SKIRT','shop.html#/list',L[5]]];
+  host.innerHTML='<section class="lx-wrap" id="atelier" aria-label="深裁 ATELIER PROFOND 首屏">'+
+   '<div class="lx-hero"><i class="lx-line" aria-hidden="true"></i><div class="lx-photo"><img src="'+L[0]+'" alt="" aria-hidden="true"></div><div class="lx-veil"></div>'+
+    '<div class="lx-in">'+
+     '<p class="lx-kick lx-f"><span>N° 03 · MAISON DE DÉMONSTRATION</span><i></i><span>示範店</span></p>'+
+     '<h1 class="lx-logo lx-f" aria-label="深裁 ATELIER PROFOND"><span class="half l" aria-hidden="true"><span class="zh">深</span><span class="en">ATELIER</span></span><span class="half r" aria-hidden="true"><span class="zh">裁</span><span class="en">PROFOND</span></span></h1>'+
+     '<div class="lx-foot"><div class="lx-f"><p class="lx-tag">為少而精的衣櫃而作<small>Pour une garde-robe choisie.</small></p>'+
+      '<div class="lx-go"><a class="lx-btn" data-go="shop.html" data-cur="商店">看示範商店</a><a class="lx-btn ghost" data-go="app.html#/orders" data-cur="後台">進入後台</a></div></div>'+
+      '<div class="lx-side lx-f"><b>Automne — Hiver</b>示範後台｜棠序問策股份有限公司建置</div></div>'+
+    '</div><div class="lx-scroll" aria-hidden="true"></div></div>'+
+   '<div class="lx-ed"><div class="lx-ed-h"><p class="lx-no">N° 03 — AUTOMNE / HIVER</p><h2>本季編輯選品</h2><p class="lx-ed-sub">少一點，但每一件都經得起時間。</p></div>'+
+    '<div class="lx-row">'+picks.map(function(t,i){return '<a class="lx-pick" data-go="'+t[2]+'" data-cur="看看"><span class="lx-ph"><img src="'+t[3]+'" alt="'+t[0]+'" loading="lazy"></span><small>0'+(i+1)+'</small><b>'+t[0]+'</b><em>'+t[1]+'</em></a>'}).join('')+'</div></div>'+
+   '<div class="lx-note"><i></i><p>往下是店長每天看的後台總覽</p><span>前台講究氣氛，後台只留重點</span></div></section>';
+}
 function startFx(){var cv=document.getElementById('stfx');if(!cv)return;var x=cv.getContext('2d'),W,H,t0=performance.now();
   function rs(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight}rs();addEventListener('resize',rs);
   var shards=[];for(var i=0;i<26;i++)shards.push({x:Math.random(),y:Math.random(),s:8+Math.random()*34,v:.02+Math.random()*.06,r:Math.random()*6.28,vr:(Math.random()-.5)*.6});

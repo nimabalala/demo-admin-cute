@@ -6,7 +6,7 @@ var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){retu
 var EYES={"lili":{"l":[33.67,40.19],"r":[66.33,40.16],"d":7.2},"tiaotiao":{"l":[39.53,45.05],"r":[60.9,45.05],"d":4.8},"xiaosha":{"l":[32.91,40.46],"r":[66.74,40.43],"d":6.6}};
 if(RM)document.documentElement.classList.add('rm');
 var C=window.CUTE={RM:RM,mouse:{x:innerWidth/2,y:innerHeight/2},$:$,$$:$$,hams:[]};
-var LOGOS={alley:'<path d="M5 20L12 4l7 16"/><path d="M8.2 13.5h7.6"/>',leaf:'<path d="M12 20v-8"/><path d="M12 13c-4 0-6-2-6-6 4 0 6 2 6 6z"/><path d="M12 15c0-3 2-5 6-5 0 3-2 5-6 5z"/>',rose:'<circle cx="12" cy="11" r="3.2"/><path d="M12 7.8C10 5 7 5.5 6.5 8.5c-.4 2.6 1.6 3.7 3 3.5M12 14.2c-2 2.8-5 2.3-5.5-.7M16 12c2.4-.5 3-3.4.6-4.6M12 14.2V21M12 18c2-.2 3.5-1 4.5-2.5"/>',hanger:'<path d="M12 8.5V7a2 2 0 1 1 2-2"/><path d="M12 8.5L3.5 15.2c-.9.7-.4 2.3.8 2.3h15.4c1.2 0 1.7-1.6.8-2.3z"/>'};
+var LOGOS={atelier:'<path d="M12 3.5l5.5 8.5-5.5 8.5-5.5-8.5z"/><path d="M12 3.5v17"/>',alley:'<path d="M5 20L12 4l7 16"/><path d="M8.2 13.5h7.6"/>',leaf:'<path d="M12 20v-8"/><path d="M12 13c-4 0-6-2-6-6 4 0 6 2 6 6z"/><path d="M12 15c0-3 2-5 6-5 0 3-2 5-6 5z"/>',rose:'<circle cx="12" cy="11" r="3.2"/><path d="M12 7.8C10 5 7 5.5 6.5 8.5c-.4 2.6 1.6 3.7 3 3.5M12 14.2c-2 2.8-5 2.3-5.5-.7M16 12c2.4-.5 3-3.4.6-4.6M12 14.2V21M12 18c2-.2 3.5-1 4.5-2.5"/>',hanger:'<path d="M12 8.5V7a2 2 0 1 1 2-2"/><path d="M12 8.5L3.5 15.2c-.9.7-.4 2.3.8 2.3h15.4c1.2 0 1.7-1.6.8-2.3z"/>'};
 C.logo=function(k){return '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">'+(LOGOS[k]||LOGOS.leaf)+'</svg>'};
 function shade(c,f){c=c.replace('#','');var a=[0,2,4].map(function(i){return parseInt(c.substr(i,2),16)}).map(function(v){return Math.max(0,Math.min(255,Math.round(f<0?v*(1+f):v+(255-v)*f)))});return '#'+a.map(function(v){return ('0'+v.toString(16)).slice(-2)}).join('')}
 C.shade=shade;
@@ -105,6 +105,9 @@ var roll=document.createElement('div');roll.id='roll';
 roll.innerHTML='<div class="rug"></div><div class="tube"></div><div class="ham" data-ham="lili"></div>';
 document.body.appendChild(roll);
 var rug=$('.rug',roll),tube=$('.tube',roll),rh=$('.ham',roll);C.initHam(rh);
+/* T03 質感精品：不推地毯。中間一條麥金細線，左右兩扇絲綿幕由中間往兩側拉開（離開時由兩側合上）。 */
+var CURT=!!(window.THEME&&THEME.cfg&&THEME.cfg.motion&&THEME.cfg.motion.curtain),cvl,cvr,seam;
+if(CURT){roll.classList.add('curtain');roll.insertAdjacentHTML('beforeend','<div class="cv l"></div><div class="cv r"></div><i class="seam"></i>');cvl=$('.cv.l',roll);cvr=$('.cv.r',roll);seam=$('.seam',roll)}
 var W=function(){return innerWidth};
 function place(X,mode){
   gsap.set(tube,{x:X});
@@ -142,6 +145,10 @@ C.go=function(url){
   if(C._going)return;C._going=true;
   try{sessionStorage.setItem('roll','1')}catch(e){}
   roll.style.visibility='visible';
+  if(CURT){var gone=false,leave=function(){if(gone)return;gone=true;location.href=url};
+    gsap.set(cvl,{xPercent:-100});gsap.set(cvr,{xPercent:100});gsap.set(seam,{scaleY:0,opacity:1});
+    gsap.timeline({onComplete:leave}).to([cvl,cvr],{xPercent:0,duration:.75,ease:'power3.inOut'},0).to(seam,{scaleY:1,duration:.45,ease:'power2.out'},.4);
+    setTimeout(leave,1600);return}
   var coverX=W(),o={X:-260},nav=false;
   place(o.X,'in');
   var goNow=function(){if(nav)return;nav=true;location.href=url};
@@ -151,7 +158,17 @@ if(window.THEME&&THEME.cfg&&THEME.cfg.motion&&THEME.cfg.motion.speed&&window.gsa
 var cameFrom=false;try{cameFrom=sessionStorage.getItem('roll')==='1';sessionStorage.removeItem('roll')}catch(e){}
 C.rollEntering=cameFrom&&!RM;
 C.rollOutDur=0;
-if(cameFrom&&!RM){
+if(cameFrom&&!RM&&CURT){
+  roll.style.visibility='visible';C.rollOutDur=1.05;
+  gsap.set([cvl,cvr],{xPercent:0});gsap.set(seam,{scaleY:1,opacity:1});
+  requestAnimationFrame(function(){
+    document.documentElement.classList.remove('roll-hold');
+    gsap.timeline({onComplete:function(){roll.style.visibility='hidden'}})
+      .to(seam,{scaleY:0,opacity:0,duration:.35,ease:'power2.in'},0)
+      .to(cvl,{xPercent:-100,duration:1.05,ease:'power3.inOut'},.15)
+      .to(cvr,{xPercent:100,duration:1.05,ease:'power3.inOut'},.15);
+  });
+}else if(cameFrom&&!RM){
   roll.style.visibility='visible';
   var coverX=W(),endX=coverX*2+80,o2={X:coverX};
   place(o2.X,'in');

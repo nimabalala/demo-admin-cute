@@ -20,18 +20,19 @@ function load(){try{var j=localStorage.getItem(KEY);if(j){S=JSON.parse(j);if(S&&
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){console.warn('[store] 存檔失敗（可能是瀏覽器關閉了儲存）',e)}}
 load();
 T.save=save;
-/* 主題綁店：T02 夜巷固定用「巷尾選物」（alley）。鎖住時不改 S.shop，切回 cute 就回到原本那家店。 */
+/* 主題綁店：T02 夜巷固定用「巷尾選物」（alley），T03 質感精品固定用「深裁」（atelier）。鎖住時不改 S.shop，切回 cute 就回到原本那家店。 */
 var LOCK=(window.THEME&&THEME.cfg&&THEME.cfg.shop&&RAW[THEME.cfg.shop])?THEME.cfg.shop:null;
 T.locked=function(){return LOCK};
 T.shopKey=function(){return LOCK||S.shop};
-T.setShop=function(k){if(LOCK)return;if(RAW[k]&&k!=='alley'){S.shop=k;save()}};
+var BOUND={alley:1,atelier:1};/* 只屬於某個主題的店，不出現在一般的換品牌選單 */
+T.setShop=function(k){if(LOCK)return;if(RAW[k]&&!BOUND[k]){S.shop=k;save()}};
 /* 服飾店（穿搭輪盤外掛可用）：北風衣櫥、巷尾選物 */
-T.isApparel=function(k){k=k||T.shopKey();return k==='fashion'||k==='alley'};
+T.isApparel=function(k){k=k||T.shopKey();return k==='fashion'||k==='alley'||k==='atelier'};
 T.D=function(k){k=k||T.shopKey();if(!S.shops[k]){S.shops[k]=realize(RAW[k]);save()}var d=S.shops[k];T.ensureExtras(d);return d};
 T.reload=function(){load()};
 T.reset=function(){try{localStorage.removeItem(KEY);localStorage.removeItem(SEQ);localStorage.removeItem('tx-cart-v1');localStorage.removeItem('tx-member-v1');sessionStorage.removeItem('theme')}catch(e){}S={ver:1,shop:S.shop,shops:{}};save()};
-T.shops=function(){return Object.keys(RAW).filter(function(k){return LOCK?k===LOCK:k!=='alley'}).map(function(k){return {key:k,name:RAW[k].name,acc:RAW[k].acc}})};
-T.THEMES={fresh:{acc:'#4BD1A0',d:'#2BA57A',soft:'#D3F5E7'},beauty:{acc:'#FF7AA5',d:'#D9507D',soft:'#FFDCE8'},fashion:{acc:'#FFC93F',d:'#D99C14',soft:'#FFF0BF'},alley:{acc:'#E5302A',d:'#B51F1A',soft:'#EFEFEF'}};
+T.shops=function(){return Object.keys(RAW).filter(function(k){return LOCK?k===LOCK:!BOUND[k]}).map(function(k){return {key:k,name:RAW[k].name,acc:RAW[k].acc}})};
+T.THEMES={fresh:{acc:'#4BD1A0',d:'#2BA57A',soft:'#D3F5E7'},beauty:{acc:'#FF7AA5',d:'#D9507D',soft:'#FFDCE8'},fashion:{acc:'#FFC93F',d:'#D99C14',soft:'#FFF0BF'},alley:{acc:'#E5302A',d:'#B51F1A',soft:'#EFEFEF'},atelier:{acc:'#6B4F3A',d:'#4A3626',soft:'#EFE8DD'}};
 /* ---------- 小工具 ---------- */
 T.money=function(n){n=Math.round(+n||0);return 'NT$ '+n.toLocaleString('en-US')};
 T.num=function(n){return Math.round(+n||0).toLocaleString('en-US')};
