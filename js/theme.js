@@ -15,7 +15,7 @@ var THEMES={
         mascot:false,motion:{speed:1.35},home:{street:true},shop:'alley',
         assets:{looks:['img/lookbook/look1.webp','img/lookbook/look2.webp','img/lookbook/look3.webp','img/lookbook/look4.webp','img/lookbook/look5.webp','img/lookbook/look6.webp']}},
   t03:{key:'t03',name:'質感精品',sub:'深裁 · 留白編輯感',sw:['#E8DFD2','#241C14','#C9A36A'],css:'css/themes/t03.css',
-        fonts:'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap',
+        fonts:'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+TC:wght@200;300;400;500&family=Noto+Sans+TC:wght@300;400;500;700&display=swap',
         mascot:false,motion:{speed:1,calm:true,curtain:true},home:{luxury:true},shop:'atelier',
         assets:{looks:['img/lookbook/look1.webp','img/lookbook/look2.webp','img/lookbook/look3.webp','img/lookbook/look4.webp','img/lookbook/look5.webp','img/lookbook/look6.webp']}}
 };
