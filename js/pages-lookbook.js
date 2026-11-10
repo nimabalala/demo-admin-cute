@@ -27,9 +27,9 @@ route(/^\/shop\/lookbook$/,'shop',function(){var lb=LB.get(),D=TX.D(),fash=TX.is
   var rows=lb.looks.map(function(l,i){var res=l.items.map(LB.res),lk=res.filter(function(r){return r.linked}).length,pins=l.items.filter(function(it){return it.x!=null&&it.x!==''}).length,vis=!l.hide&&i<show&&lb.looks.slice(0,i).filter(function(x){return !x.hide}).length<show;
     var vc=lb.looks.filter(function(x,k){return !x.hide&&k<=i}).length,on=!l.hide&&vc<=show;
     var stt=l.hide?'<span class="st mut">已隱藏</span>':on?'<span class="st ok">前台顯示中</span>':'<span class="st warn">超過「顯示幾套」</span>';
-    return '<tr><td data-l="模特兒"><span class="lbth"><img src="'+h(l.img)+'" alt="" loading="lazy"></span></td><td data-l="穿搭"><b>'+h(l.title)+'</b><small>'+h(l.sub||'')+(l.demo?'・示範資料':'')+'</small></td><td data-l="單品">'+l.items.length+' 件<small>'+lk+' 件已連到商品・'+pins+' 個熱點</small></td><td data-l="前台">'+stt+'</td><td><div class="mini"><button class="act g" type="button" data-a="lbmv" data-id="'+h(l.id)+'" data-d="-1" aria-label="上移"'+(i?'':' disabled')+'>↑</button><button class="act g" type="button" data-a="lbmv" data-id="'+h(l.id)+'" data-d="1" aria-label="下移"'+(i<lb.looks.length-1?'':' disabled')+'>↓</button><a class="act" href="#/shop/lookbook/edit/'+h(l.id)+'">編輯</a><button class="act g" type="button" data-a="lbhide" data-id="'+h(l.id)+'">'+(l.hide?'顯示':'隱藏')+'</button><button class="act d" type="button" data-a="lbdel" data-id="'+h(l.id)+'">刪除</button></div></td></tr>'}).join('');
+    return '<tr><td data-l="模特兒"><span class="lbth"><img src="'+h(l.img)+'" alt="" loading="lazy"></span></td><td data-l="穿搭"><b>'+h(l.title)+'</b><small>'+h(l.sub||'')+(l.demo?'・示範資料':'')+'</small></td><td data-l="單品">'+l.items.length+' 件<small>'+lk+' 件已連到商品・'+pins+' 個熱點</small></td><td data-l="前台">'+stt+'</td><td class="ops" data-l="操作"><div class="mini ops"><button class="act g" type="button" data-a="lbmv" data-id="'+h(l.id)+'" data-d="-1" aria-label="上移"'+(i?'':' disabled')+'>↑</button><button class="act g" type="button" data-a="lbmv" data-id="'+h(l.id)+'" data-d="1" aria-label="下移"'+(i<lb.looks.length-1?'':' disabled')+'>↓</button><a class="act" href="#/shop/lookbook/edit/'+h(l.id)+'">編輯</a><button class="act g" type="button" data-a="lbhide" data-id="'+h(l.id)+'">'+(l.hide?'顯示':'隱藏')+'</button><button class="act d" type="button" data-a="lbdel" data-id="'+h(l.id)+'">刪除</button></div></td></tr>'}).join('');
   var tools='<div class="board lbtool"><div><b>示範資料</b><p>一鍵匯入 6 套穿搭、18 件單品；'+(TX.shopKey()==='alley'?'單品直接連到「巷尾選物」現有的商品，只補上店裡沒有的 3 件。':'單品會變成「北風衣櫥」的商品（沒有的會補上）。')+'刪除只會移除示範穿搭和它補上的商品。</p></div><div class="acts"><button class="btn sm w" type="button" data-a="lbimport">一鍵匯入示範資料</button><button class="btn sm w" type="button" data-a="lbdemodel"'+(demoN?'':' disabled')+'>一鍵刪除示範資料</button></div></div>';
-  var body=plug('list')+tools+'<div class="board">'+(lb.looks.length?'<div class="tblw"><table class="tbl cards"><thead><tr><th>模特兒</th><th>穿搭</th><th>單品</th><th>前台狀態</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':
+  var body=plug('list')+tools+'<div class="board">'+(lb.looks.length?'<div class="tblw"><table class="tbl cards"><thead><tr><th>模特兒</th><th>穿搭</th><th>單品</th><th>前台狀態</th><th>操作</th></tr></thead><tbody>'+rows+'</tbody></table></div>':
     '<div class="empty"><b>還沒有穿搭</b>'+(fash?'按上面「一鍵匯入示範資料」，或「＋ 新增穿搭」自己做一套。':'示範穿搭是服飾款，請先換到「北風衣櫥」。<br><button class="btn sm" type="button" data-a="lbtofashion" style="margin-top:14px">換到北風衣櫥</button>')+'</div>')+'</div>'+
     '<div class="note">'+U.icon.info+'<div>排在前面的穿搭會先顯示；「設定」可以調整前台一次顯示幾套。改完存檔，商店頁面（<a class="lnk" data-go="shop.html#/lookbook">模特兒穿搭輪盤頁</a>）馬上更新。</div></div>';
   return {html:A.page('shop','模特兒穿搭輪盤','網店',right,body,'/shop/lookbook'),mount:function(){A.pet&&A.pet('穿搭輪盤是我們自己做的！')}}});
@@ -112,7 +112,13 @@ A.route(/^\/settings\/plugins(?:\?.*)?$/,'settings',function(){
     '<div class="plgctl"><div class="plglic"><span class="st '+(LICL[st]||LICL.none)[1]+'">授權'+(LICL[st]||LICL.none)[0]+'</span><div><b>'+licTx+'</b>'+(st==='active'?'<small>授權碼 '+h(LB.mask(lb.lic.key))+'</small>':'')+'<a class="lnk" href="#/shop/lookbook/license">授權與更新</a></div></div>'+sw+'</div>'+
     (on?'':'<p class="plgnote">'+(fash?'打開後，6 套示範穿搭會自動準備好，不用再按匯入。':'示範穿搭是服飾款：打開時會自動帶你到「北風衣櫥」，並把 6 套穿搭準備好。')+'</p>')+done+'</section>';
   var more='<section class="plgmore"><div><b>想要別的功能？</b><p>我們也接客製外掛與網站功能。告訴我們你的店需要什麼，我們幫你做成可以開關的外掛。</p></div><a class="btn pk sm" data-line="plugins-more">LINE 問棠序</a></section>';
-  var body='<div class="note plgintro">'+U.icon.info+'<div>這裡是<b>棠序自製外掛</b>的清單。外掛裝好之後，店長可以自己決定要不要開；打開或關閉，商店頁面馬上跟著變。</div></div>'+card+more;
+  var ai=TX.aiReply(),aion=!!ai.on;
+  var AISVG='<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 14h22a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6H22l-8 6v-6h-4a6 6 0 0 1-6-6v-8a6 6 0 0 1 6-6z" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/><circle cx="18" cy="24" r="2.2" fill="currentColor"/><circle cx="25" cy="24" r="2.2" fill="currentColor"/><circle cx="32" cy="24" r="2.2" fill="currentColor"/></svg>';
+  var aisw='<div class="plgswrap"><button type="button" class="plgsw'+(aion?' on':'')+'" role="switch" aria-checked="'+aion+'" aria-label="AI 自動回覆外掛開關" data-a="aitoggle"><span class="trk"><i class="knob"></i><b>'+(aion?'已開啟':'已關閉')+'</b></span></button></div>';
+  var aidone=aion?'<div class="plgdone"><h3>外掛已安裝並開啟</h3><p>客服訊息可以切到「AI 自動回覆」。預設仍是手動回覆。示範不會真的自動回客人。</p><div class="acts"><a class="btn pk" href="#/settings/plugins/ai-reply">設定資料包與語癖</a><a class="btn w" href="#/customers/inbox">去客服訊息</a></div></div>':'';
+  var aicard='<section class="plgcard ai'+(aion?' on':'')+'" aria-label="AI 自動回覆"><div class="plgtop"><div class="pi ai">'+AISVG+'</div><div class="pm"><h2>AI 自動回覆 <span class="ver">示範</span><span class="diy">棠序自製外掛</span></h2><p class="by">作者：棠序問策股份有限公司</p><p class="d">客服回覆先預設手動。打開這個外掛後，可以請 AI 先寫草稿。你可以導入客戶的資料包、語癖，以及這家店的資料庫。</p><ul class="plgul"><li>資料包（店家要 AI 記得的品牌資料與常見問答）</li><li>語癖（說話習慣：這家店回客人時的口呼和用字）</li><li>資料庫（這家店的顧客、訂單、商品記錄）</li></ul></div></div>'+
+    '<div class="plgctl"><div class="plglic"><span class="st '+(aion?'ok':'mut')+'">'+(aion?'已開啟':'已安裝・預設關閉')+'</span><div><b>示範外掛，裝在這個後台裡，預設是關掉的。</b><small>打開後也不會自動改成 AI 回覆，要你自己在客服訊息切換。</small>'+(aion?'<a class="lnk" href="#/settings/plugins/ai-reply">外掛設定</a>':'')+'</div></div>'+aisw+'</div>'+aidone+'</section>';
+  var body='<div class="note plgintro">'+U.icon.info+'<div>這裡是<b>棠序自製外掛</b>的清單。外掛裝好之後，店長可以自己決定要不要開；打開或關閉，相關畫面馬上跟著變。</div></div>'+card+aicard+more;
   return {html:A.page('settings','外掛','設定','',body,'/settings/plugins'),mount:function(){A.pet&&A.pet(on?'外掛開著呢，去商店頁面看看吧！':'把大開關按下去，看看商店頁面會發生什麼事！')}}});
 function turnOn(t){var sw=!TX.isApparel();A.confetti(t,100);
   if(sw){C.setTheme('fashion');if(C.chromeMark)C.chromeMark()}
@@ -121,6 +127,31 @@ function turnOn(t){var sw=!TX.isApparel();A.confetti(t,100);
   A.pet&&A.pet('開啟囉！商店頁面現在有穿搭輪盤了');A.refresh()}
 A.act.plgtoggle=function(t){if(LB.on()){LB.setOn(0);ui.just=null;U.toast('外掛已關閉','商店頁面的穿搭輪盤和選單已經收起來（穿搭資料保留，再打開就回來）');A.pet&&A.pet('外掛關掉了，前台的輪盤也收起來囉');A.refresh();return}turnOn(t)};
 A.act.plgon=function(t){turnOn(t)};
+A.act.aitoggle=function(){var a=TX.aiReply(),on=!a.on;TX.aiReplySetOn(on);
+  if(on){U.toast('已開啟 AI 自動回覆','客服訊息仍預設手動回覆。示範不會真的自動回客人。');A.pet&&A.pet('打開囉，去客服訊息看看吧！')}
+  else{U.toast('已關閉 AI 自動回覆','客服訊息已回到手動回覆');A.pet&&A.pet('關掉了，回覆還是手動的')}
+  A.refresh()};
+/* ================= AI 自動回覆設定 ================= */
+A.route(/^\/settings\/plugins\/ai-reply$/,'settings',function(){
+  var a=TX.aiReply(),D=TX.D(),nc=D.customers.length,no=D.orders.length,np=D.products.length;
+  var packs=a.packs.length?'<ul class="packlist">'+a.packs.map(function(f,i){return '<li><span>'+h(f.name)+'<small style="display:block;color:var(--mut)">示範已記下檔名・'+(f.size?Math.round(f.size/1024)+' KB・':'')+'不會送到外面</small></span><button class="act d" type="button" data-a="aipackdel" data-n="'+i+'">移除</button></li>'}).join('')+'</ul>':'<p class="hint">還沒有匯入檔案。選檔後只會留在這個瀏覽器。</p>';
+  var chips=['親切','簡短','不用吉祥話'].map(function(c){return '<button type="button" class="'+(a.chips.indexOf(c)>-1?'on':'')+'" data-a="aichip" data-c="'+h(c)+'">'+h(c)+'</button>'}).join('');
+  var tg=function(k,label,n){return '<div class="sw-row"><div>'+label+'<small>目前示範資料有 '+n+' 筆</small></div>'+U.tg(!!a[k],'data-a="aidbtg" data-k="'+k+'" aria-label="'+h(label)+'"')+'</div>'};
+  var body='<div class="note">'+U.icon.info+'<div>這是<b>示範設定</b>。檔案與文字只存在這個瀏覽器，不會真的自動回客人。客服訊息的回覆方式仍預設「手動回覆」。</div></div>'+
+    '<div class="panel"><h2>1. 資料包</h2><p class="hint">資料包（店家要 AI 記得的品牌資料與常見問答）。可上傳檔案，或把常見問答貼在下面。</p><label class="fld"><span>上傳資料包（示範，檔案不會外送）</span><input type="file" data-i="aipack" accept=".txt,.md,.pdf,.doc,.docx,.csv"></label>'+packs+
+    '<label class="fld" style="margin-top:12px"><span>常見問答（可貼上）</span><textarea data-i="aifaq" rows="5" placeholder="例如：運費怎麼算？滿 NT$1,500 免運。">'+h(a.faq||'')+'</textarea></label></div>'+
+    '<div class="panel"><h2>2. 語癖</h2><p class="hint">語癖（說話習慣：這家店回客人時的口呼和用字）。可點下面的風格，也可自己寫例子。</p><div class="chips2 tonechips" role="group" aria-label="語氣風格">'+chips+'</div><label class="fld"><span>語氣與例句</span><textarea data-i="aitone" rows="4" placeholder="例如：稱呼客人用「你」；回覆先講結論，再補細節。">'+h(a.tone||'')+'</textarea></label></div>'+
+    '<div class="panel"><h2>3. 客戶資料庫</h2><p class="hint">資料庫（這家店的顧客、訂單、商品記錄）。開啟後，AI 撰稿時會參考這個示範後台裡已有的資料。沒有外部資料庫。</p>'+
+    tg('useCustomers','使用顧客名單',nc)+tg('useOrders','使用訂單',no)+tg('useProducts','使用商品',np)+'</div>'+
+    '<div class="acts"><a class="btn w sm" href="#/settings/plugins">回外掛清單</a><a class="btn sm" href="#/customers/inbox">去客服訊息</a></div>';
+  return A.page('settings','AI 自動回覆設定','設定','',body,'/settings/plugins')});
+A.inp.aipack=function(t){var f=t.files&&t.files[0],a=TX.aiReply();if(!f)return;a.packs.push({name:f.name,size:f.size||0,at:Date.now()});TX.save();U.toast('已匯入「'+f.name+'」','示範只記下檔名，檔案留在這個瀏覽器');t.value='';A.refresh()};
+A.act.aipackdel=function(t){TX.aiReply().packs.splice(+t.dataset.n,1);TX.save();U.toast('已移除');A.refresh()};
+A.inp.aifaq=function(t){TX.aiReply().faq=t.value;TX.save()};
+A.inp.aitone=function(t){TX.aiReply().tone=t.value;TX.save()};
+A.act.aichip=function(t){var a=TX.aiReply(),c=t.dataset.c,i=a.chips.indexOf(c);if(i>-1)a.chips.splice(i,1);else a.chips.push(c);TX.save();A.refresh()};
+A.act.aidbtg=function(t){var a=TX.aiReply(),k=t.dataset.k;a[k]=a[k]?0:1;TX.save();A.refresh()};
+
 /* ================= 設定 ================= */
 route(/^\/shop\/lookbook\/settings$/,'shop',function(){var lb=LB.get(),s=lb.set,cur=String(s.accent||'#4B2E22');
   var sw='<div class="swatches" role="group" aria-label="主題色">'+SWC.map(function(c){return '<button type="button" data-a="lbacc" data-c="'+c[0]+'" style="background:'+c[0]+'" class="'+(cur.toLowerCase()===c[0].toLowerCase()?'on':'')+'" aria-label="'+c[1]+'" title="'+c[1]+'"></button>'}).join('')+'<input type="color" value="'+h(cur)+'" data-i="lbacc" aria-label="自選顏色"></div>';

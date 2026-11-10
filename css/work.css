@@ -33,7 +33,7 @@ main{max-width:1280px;margin:0 auto;padding:10px 30px 150px}
 .cb{width:26px;height:26px;border-radius:9px;border:3px solid #E4CDAA;background:#fff;display:grid;place-items:center;transition:background .2s,border-color .2s,transform .3s cubic-bezier(.3,1.8,.5,1)}
 .cb svg{width:14px;height:14px;stroke:var(--ink);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.2);transition:.3s cubic-bezier(.3,1.8,.5,1)}
 .cb.on{background:var(--acc);border-color:var(--acc);transform:scale(1.08)}.cb.on svg{opacity:1;transform:none}
-.act{height:36px;padding:0 17px;border-radius:999px;background:var(--acc);color:var(--ink);font-weight:900;font-size:13.5px;box-shadow:0 4px 0 var(--acc-d);transition:box-shadow .15s,background .4s;position:relative;top:0}
+.act{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;height:36px;padding:0 17px;border-radius:999px;background:var(--acc);color:var(--ink);font-weight:900;font-size:13.5px;line-height:1;white-space:nowrap;vertical-align:middle;text-decoration:none;box-shadow:0 4px 0 var(--acc-d);transition:box-shadow .15s,background .4s,top .15s;position:relative;top:0}
 .act:hover{top:-2px}.act:active{top:4px;box-shadow:0 0 0 var(--acc-d)}
 .act.g{background:var(--cream2);box-shadow:0 4px 0 #E8CFAE}
 .batch{position:fixed;left:50%;bottom:30px;z-index:60;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 26px;border-radius:999px;background:var(--ink);color:#fff;font-weight:900;box-shadow:0 8px 0 #2A170F}

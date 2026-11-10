@@ -165,6 +165,8 @@ T.ensureExtras=function(D){D=D||T.D();if(!D.pointLog)D.pointLog=[];if(!D.specPre
   if(!S.tracking)S.tracking={meta:{on:false,id:'',name:'Meta Pixel（追蹤碼：記錄訪客在網站做了什麼，給廣告平台優化用）'},ga4:{on:false,id:'',name:'Google Analytics 4（分析工具：看訪客從哪來、看了哪些頁）'},gads:{on:false,id:'',name:'Google Ads（廣告轉換追蹤）'},tiktok:{on:false,id:'',name:'TikTok Pixel（追蹤碼）'},line:{on:false,id:'',name:'LINE Tag（追蹤碼）'},x:{on:false,id:'',name:'X Pixel（追蹤碼）'},pinterest:{on:false,id:'',name:'Pinterest Tag（追蹤碼）'}};
   if(!S.ecpayApp)S.ecpayApp={step:0,status:'idle',form:{shopName:'',taxId:'',ownerName:'',ownerId:'',bankName:'',bankAccount:'',bankBranch:'',phone:'',email:'',addr:'',remark:'BVG'},docs:{idFront:0,idBack:0,passbook:0,company:0},log:[]};
   if(!S.me)S.me={name:(S.accounts&&S.accounts[0]&&S.accounts[0].name)||'示範店長',mail:(S.accounts&&S.accounts[0]&&S.accounts[0].mail)||'manager@example.com',role:'管理員',passSet:false,passHint:''};
+  if(!S.aiReply)S.aiReply=T.aiReplyDefaults();
+  else{var def=T.aiReplyDefaults();Object.keys(def).forEach(function(k){if(S.aiReply[k]==null)S.aiReply[k]=def[k]});if(!S.aiReply.on)S.aiReply.mode='manual'}
   return D};
 T.reportDetail=function(days){var R=T.report(days),D=T.D(),seed=(T.shopKey()||'x').length*17+days;
   function rnd(n){seed=(seed*1103515245+12345)&0x7fffffff;return seed%n}
@@ -185,6 +187,22 @@ T.setDemoPass=function(cur,nw){var S=T.D().settings;T.ensureExtras();
   if(!nw||nw.length<8)return {ok:false,msg:'新密碼至少 8 個字'};
   if(!/[A-Za-z]/.test(nw)||!/[0-9]/.test(nw))return {ok:false,msg:'請同時包含英文與數字'};
   S.me.passSet=true;S.me.passHint='已設定（示範不會真的存密碼）';T.save();return {ok:true}};
+
+/* AI 自動回覆外掛（示範）：預設關閉；回覆方式預設永遠是手動。關掉外掛會回到手動。不會真的自動寄出。 */
+T.aiReplyDefaults=function(){return {on:0,mode:'manual',packs:[],faq:'',tone:'',chips:[],useCustomers:1,useOrders:1,useProducts:1}};
+T.aiReply=function(){T.ensureExtras();return T.D().settings.aiReply};
+T.aiReplySetOn=function(v){var a=T.aiReply();a.on=v?1:0;if(!v)a.mode='manual';T.save();return a};
+T.aiReplySetMode=function(mode){var a=T.aiReply();if(mode==='ai'&&!a.on)return {ok:false,needPlugin:true};a.mode=mode==='ai'?'ai':'manual';T.save();return {ok:true,mode:a.mode}};
+T.aiDraft=function(th){var a=T.aiReply(),c=th&&th.cid?T.customer(th.cid):null,name=(c&&c.name)||(th&&th.cname)||'這位顧客';
+  var last=th&&th.msgs?th.msgs.filter(function(m){return m.f!=='s'}).pop():null;
+  var kind=a.chips||[],short=kind.indexOf('簡短')>-1,warm=kind.indexOf('親切')>-1,noLucky=kind.indexOf('不用吉祥話')>-1;
+  var greet=noLucky?'':(warm?'你好呀，':'您好，');
+  var s=greet+name+'，已收到你的訊息。';
+  if(last&&last.t)s+='關於「'+String(last.t).slice(0,24)+(last.t.length>24?'…':'')+'」，我們會再幫你確認。';
+  if(a.useOrders&&th&&th.orderNo)s+='訂單 '+th.orderNo+' 已幫你對過店內紀錄。';
+  if(short)s=greet+'已收到，我們會盡快幫你處理。';
+  if(a.faq&&a.faq.trim())s+='（已參考你匯入的常見問答）';
+  return s};
 
 T.custStats=function(c){var os=T.D().orders.filter(function(o){return o.cid===c.id&&T.isSales(o)});return {n:os.length,spent:os.reduce(function(a,o){return a+o.total},0)}};
 /* ---------- 報表 ---------- */

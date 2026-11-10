@@ -134,3 +134,10 @@ input[type=range]{width:100%;accent-color:var(--acc-d)}
  .plgoff{grid-template-columns:1fr;padding:24px 20px;gap:14px}.plgoff .pi{width:70px;height:70px}.plgmore{flex-direction:column;align-items:flex-start}
  .plgdone .acts .btn.lg{width:100%;justify-content:center}}
 @media (prefers-reduced-motion:reduce){.plghint{animation:none}.plgdone.fresh{animation:none}.plgsw .knob,.plgsw .trk{transition:none}}
+
+/* AI 自動回覆外掛（與穿搭輪盤同一套卡片語彙，圖示磚用粉色區分） */
+.plgtop .pi.ai{background:var(--pink);box-shadow:0 6px 0 #E0668A;color:var(--ink)}
+.plgcard.ai.on{box-shadow:0 10px 0 #F7C4D4}
+.packlist{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
+.packlist li{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--cream);border-radius:16px;padding:10px 14px;font-weight:700;font-size:13.5px}
+.tonechips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}

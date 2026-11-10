@@ -28,7 +28,7 @@ html.sk-t02 .btn.w{background:#fff;color:#111}
 html.sk-t02 .btn.w:hover{background:#111;color:#fff}
 html.sk-t02 .btn.pk{background:var(--red);border-color:var(--red);color:#fff}
 html.sk-t02 .btn.pk:hover{background:#111;border-color:#111}
-html.sk-t02 .act{color:#fff;top:0!important}html.sk-t02 .act.g{background:#EAEAEA;color:#111}
+html.sk-t02 .act{color:#fff;top:0!important;display:inline-flex;align-items:center;justify-content:center;line-height:1;text-decoration:none}html.sk-t02 .act.g{background:#EAEAEA;color:#111}html.sk-t02 .act.d{color:#111}
 html.sk-t02 .tag,html.sk-t02 .chip{border:1px solid #111;background:#fff}
 html.sk-t02 .tag i{background:var(--red)}
 /* 游標：白色小方塊，用「差異」混色，在黑白上都看得到 */
