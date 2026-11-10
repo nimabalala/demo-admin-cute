@@ -14,8 +14,8 @@ var THEMES={
         fonts:'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;0,800;0,900;1,900&family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@400;700;900&display=swap',
         mascot:false,motion:{speed:1.35},home:{street:true},shop:'alley',
         assets:{looks:['img/lookbook/look1.webp','img/lookbook/look2.webp','img/lookbook/look3.webp','img/lookbook/look4.webp','img/lookbook/look5.webp','img/lookbook/look6.webp']}},
-  t03:{key:'t03',name:'質感精品',sub:'深裁 · 留白編輯感',sw:['#E8DFD2','#241C14','#C9A36A'],css:'css/themes/t03.css',
-        fonts:'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+TC:wght@200;300;400;500&family=Noto+Sans+TC:wght@300;400;500;700&display=swap',
+  t03:{key:'t03',name:'質感精品',sub:'深裁 · 留白編輯感',sw:['#E8DFD2','#241C14','#C9A36A'],css:'css/themes/t03.css?v=20261110-f3',
+        fonts:'https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500&family=Noto+Sans+TC:wght@300;400;500;700&display=swap',
         mascot:false,motion:{speed:1,calm:true,curtain:true},home:{luxury:true},shop:'atelier',
         assets:{looks:['img/lookbook/look1.webp','img/lookbook/look2.webp','img/lookbook/look3.webp','img/lookbook/look4.webp','img/lookbook/look5.webp','img/lookbook/look6.webp']}}
 };
@@ -77,7 +77,7 @@ function mountLuxury(host){var L=T.assets.looks;
    '<div class="lx-hero"><i class="lx-line" aria-hidden="true"></i><div class="lx-photo"><img src="'+L[0]+'" alt="" aria-hidden="true"></div><div class="lx-veil"></div>'+
     '<div class="lx-in">'+
      '<p class="lx-kick lx-f"><span>N° 03 · MAISON DE DÉMONSTRATION</span><i></i><span>示範店</span></p>'+
-     '<h1 class="lx-logo lx-f" aria-label="深裁 ATELIER PROFOND"><span class="half l" aria-hidden="true"><span class="zh">深</span><span class="en">ATELIER</span></span><span class="half r" aria-hidden="true"><span class="zh">裁</span><span class="en">PROFOND</span></span></h1>'+
+     '<h1 class="lx-logo lx-f" aria-label="深裁 ATELIER PROFOND"><span class="half l" aria-hidden="true"><span class="zh">深</span><span class="en">Atelier</span></span><span class="half r" aria-hidden="true"><span class="zh">裁</span><span class="en">Profond</span></span></h1>'+
      '<div class="lx-foot"><div class="lx-f"><p class="lx-tag">為少而精的衣櫃而作<small>Pour une garde-robe choisie.</small></p>'+
       '<div class="lx-go"><a class="lx-btn" data-go="shop.html" data-cur="商店">看示範商店</a><a class="lx-btn ghost" data-go="app.html#/orders" data-cur="後台">進入後台</a></div></div>'+
       '<div class="lx-side lx-f"><b>Automne — Hiver</b>示範後台｜棠序問策股份有限公司建置</div></div>'+
