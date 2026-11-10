@@ -143,7 +143,7 @@ function intro(delay){
   t.to('.meta,.btns>*',{scale:1,opacity:1,duration:.8,ease:'elastic.out(1,.5)',stagger:.12},2.6)
    .to('#cue',{opacity:1,duration:.5},3.4);
 }
-if(RM){gsap.set('.stk',{scale:1})}else intro(C.rollEntering?1.5:0.2);
+if(RM){gsap.set('.stk',{scale:1})}else intro(C.rollEntering?(C.rollOutDur||.7)+.05:0.2);
 
 /* ---------- 區塊進場：由下往上彈跳升起（果凍） ---------- */
 function jelly(els,trigger,start,stag){

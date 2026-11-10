@@ -1,6 +1,6 @@
-@font-face{font-family:"GenSen";src:url("../fonts/GenSen-M.woff2") format("woff2");font-weight:300 600}
-@font-face{font-family:"GenSen";src:url("../fonts/GenSen-H.woff2") format("woff2");font-weight:700 900}
-@font-face{font-family:"Fredoka";src:url("../fonts/Fredoka-VF.ttf");font-weight:300 700;font-stretch:75% 125%}
+@font-face{font-family:"GenSen";src:url("../fonts/GenSen-M.woff2") format("woff2");font-weight:300 600;font-display:swap}
+@font-face{font-family:"GenSen";src:url("../fonts/GenSen-H.woff2") format("woff2");font-weight:700 900;font-display:swap}
+@font-face{font-family:"Fredoka";src:url("../fonts/Fredoka-VF.ttf");font-weight:300 700;font-stretch:75% 125%;font-display:swap}
 :root{
   --cream:#FFF4E2;--cream2:#FFE9C8;--ink:#4B2E22;--mut:#8B6A58;--line:#F2DDC0;--white:#fff;
   --pink:#FF8DAA;--rose:#FF5E7E;--mint:#7BDDB5;--butter:#FFD45E;--sky:#86C8FF;--peach:#FFB48A;
@@ -44,7 +44,12 @@ b,strong,h1,h2,h3{font-weight:900}
 .ham .say{position:absolute;left:50%;bottom:96%;transform:translateX(-50%) scale(0);transform-origin:50% 100%;background:#fff;color:var(--ink);font-weight:900;font-size:15px;padding:9px 16px;border-radius:18px;white-space:nowrap;box-shadow:0 4px 0 var(--shadow);z-index:3}
 .ham .say:after{content:"";position:absolute;left:50%;bottom:-6px;width:13px;height:13px;background:#fff;transform:translateX(-50%) rotate(45deg);border-radius:0 0 4px 0}
 .star{position:fixed;width:20px;height:20px;z-index:9000;pointer-events:none;background:var(--butter);clip-path:polygon(50% 0,62% 36%,100% 38%,70% 60%,80% 100%,50% 76%,20% 100%,30% 60%,0 38%,38% 36%)}
-/* 轉場：栗栗推著捲成一捲的地毯，由左滾到右 */
+/* 轉場：栗栗推著捲成一捲的地毯，由左滾到右。
+   html.roll-hold：下一頁在 JS 跑起來前先用同色蓋住，避免空白停頓。 */
+html.roll-hold{background:var(--acc,#4BD1A0)}
+html.roll-hold::before{content:"";position:fixed;inset:0;z-index:10000;background:var(--acc,#4BD1A0);pointer-events:none}
+html.sk-t02.roll-hold,html.sk-t02.roll-hold::before{background:#111}
+@media (prefers-reduced-motion:reduce){html.roll-hold::before{display:none}}
 #roll{position:fixed;inset:0;z-index:9500;pointer-events:none;overflow:hidden;visibility:hidden}
 #roll .rug{position:absolute;left:0;top:0;width:100%;height:100%;background:radial-gradient(circle at 20px 20px,rgba(255,255,255,.55) 0 7px,transparent 8px) 0 0/40px 40px,var(--acc);will-change:transform}
 #roll .tube{position:absolute;left:-110px;top:-4vh;width:220px;height:108vh;border-radius:110px;background:repeating-linear-gradient(55deg,var(--cream) 0 26px,var(--acc) 26px 52px);will-change:transform;box-shadow:0 0 0 6px rgba(255,255,255,.0)}

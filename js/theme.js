@@ -24,6 +24,8 @@ root.classList.add('sk-'+k);root.setAttribute('data-skin',k);
 if(T.fonts)document.write('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="'+T.fonts+'">');
 if(T.css)document.write('<link rel="stylesheet" id="skincss" href="'+T.css+'">');
 var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* 跨頁轉場：在 body／common.js 之前先蓋住畫面，下一頁才不會閃空白。 */
+try{if(!RM&&sessionStorage.getItem('roll')==='1')root.classList.add('roll-hold')}catch(e){}
 var TH=window.THEME={key:k,cfg:T,list:THEMES,RM:RM,
   set:function(n){if(!THEMES[n])return;try{ls.setItem(KEY,n)}catch(e){}
     var u=location.href.replace(/([?&])theme=[\w-]+&?/,'$1').replace(/[?&]$/,'').replace(/[?&]#/,'#');location.replace(u);if(u===location.href)location.reload()},
