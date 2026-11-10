@@ -77,6 +77,7 @@ function pdpInner(p){var st=PD.st,d=D(),g=specsOf(p),hasV=g.length>0,vk=hasV?key
   var dis=stk<=0?' disabled':'';
   var buy='<div class="buy desk"><div class="qty" role="group" aria-label="數量"><button type="button" data-a="qm" aria-label="減少"'+(st.qty<=1?' disabled':'')+'>−</button><input type="number" min="1" max="'+max+'" value="'+st.qty+'" data-a="qin" aria-label="數量"><button type="button" data-a="qp" aria-label="增加"'+(st.qty>=max?' disabled':'')+'>＋</button></div><button class="btn lg" type="button" data-a="padd"'+dis+'>加入購物車</button><button class="btn pk lg" type="button" data-a="pnow"'+dis+'>直接結帳</button></div>';
   var info='<div class="info" id="pinfo"><span class="cat-l">'+h(p.cat||'商品')+'</span><h1>'+h(p.name)+'</h1><div>'+rt2+'</div><div class="big" id="pbig"><span class="price'+(pr<or?' sale':'')+'">'+TX.money(pr)+'</span>'+(pr<or?'<span class="orig">'+TX.money(or)+'</span>':'')+off+'</div>'+(p.preorder?'<p class="stockline"><i style="background:var(--butter)"></i>預購商品'+(p.shipDate?'，預計 '+h(p.shipDate)+' 出貨':'')+'</p>':'')+'<p class="desc">'+h(p.desc||'')+'</p>'+opts+stl+buy+'<div class="card" style="padding:16px 20px;border-radius:26px"><p style="font-size:13.5px">滿 '+TX.money(s.freeOver)+' 免運；未滿宅配 '+TX.money(s.homeFee)+'、超商 '+TX.money(s.cvsFee)+'。信用卡付款不加收手續費。</p></div></div>';
+  if(SH.skin&&SH.skin.pdpInner)return SH.skin.pdpInner({p:p,st:st,g:g,hasV:hasV,vk:vk,stk:stk,max:max,rt:rt,pr:pr,or:or,img:img,opts:opts,stl:stl,off:off,dis:dis,low:low,s:s});
   var bar='<div class="buybar"><div class="pp">'+TX.money(pr)+'<small>'+(hasV?h(TX.vlabel(vk)):'')+'</small></div><button class="btn w" type="button" data-a="padd"'+dis+'>加入購物車</button><button class="btn pk" type="button" data-a="pnow"'+dis+'>直接結帳</button></div>';
   return '<div class="pdp"><div class="gal">'+main+th+(p.ai?'<small class="aicap">商品圖：AI 輔助生成</small>':'')+'<small>示範：縮圖是同一張圖的不同裁切。</small></div>'+info+'</div>'+bar}
 SH.route('pdp',/^\/p\/([^/]+)$/,function(m){var id=decodeURIComponent(m[1]),p=TX.product(id);
@@ -84,6 +85,7 @@ SH.route('pdp',/^\/p\/([^/]+)$/,function(m){var id=decodeURIComponent(m[1]),p=TX
   var st=PD.st;if(!st||st.pid!==id)st=PD.st={pid:id,a:'',b:'',qty:1,img:0};defaults(p,st,specsOf(p));
   var rt=SH.rating(id),rel=TX.shopProducts().filter(function(x){return x.cat===p.cat&&x.id!==id}).slice(0,4);
   var s=D().settings,pays=[s.payCard&&'信用卡（綠界，不加收手續費）',s.payAtm&&'ATM 轉帳',s.payCvs&&'超商取貨付款',s.payCod&&'貨到付款'].filter(Boolean),lg=TX.shipOpts().map(function(x){return x.k});
+  if(SH.skin&&SH.skin.pdpPage)return SH.skin.pdpPage({p:p,id:id,rt:rt,rel:rel,pays:pays,lg:lg,s:s,inner:pdpInner(p)});
   var html=SH.crumbs([[p.cat||'全部商品','#/list'+(p.cat?'?cat='+encodeURIComponent(p.cat):'')],[p.name]])+'<div id="pdpmain">'+pdpInner(p)+'</div>'+
    '<section class="pg rvl" style="margin-top:44px"><div class="card"><h3>商品介紹</h3><p>'+h(p.desc||'店家還沒有填寫介紹。')+'</p></div></section>'+
    '<section class="pg rvl"><div class="card"><h3>顧客評價'+(rt.n?'（'+rt.n+'）':'')+'</h3>'+(rt.n?rt.list.map(function(r){return '<div class="rv"><div class="t"><span class="stars">'+SH.stars(r.stars)+'</span>'+h(r.who)+'<small style="color:var(--mut);font-weight:700">'+TX.ago(r.t)+'</small></div><p>'+h(r.text)+'</p>'+(r.reply?'<div class="rp"><b>店家回覆：</b>'+h(r.reply)+'</div>':'')+'</div>'}).join(''):'<p>還沒有人留下評價。</p>')+'</div></section>'+
@@ -94,7 +96,7 @@ function pdpPaint(focus){var p=TX.product(PD.st.pid);if(!p)return;var box=$('#pd
   $$('[data-ham]:not(.ham)',box).forEach(C.initHam);
   if(focus){var f=$('[data-a="'+focus.a+'"]'+(focus.g!=null?'[data-g="'+focus.g+'"][data-v="'+focus.v+'"]':''),box);f&&f.focus()}}
 SH.act.opt=function(t){var p=TX.product(PD.st.pid),g=specsOf(p),st=PD.st,gi=+t.dataset.g,v=t.dataset.v;if(gi===0){st.a=v;if(g[1]&&!avail(p,g,st.a,st.b)){var nb=g[1].opts.filter(function(b){return avail(p,g,v,b)})[0];if(nb)st.b=nb}}else st.b=v;
-  st.qty=1;pdpPaint({a:'opt',g:gi,v:v});if(!RM)gsap.fromTo('#pbig .price',{scale:1.25},{scale:1,duration:.7,ease:'elastic.out(1,.4)'})};
+  st.qty=1;pdpPaint({a:'opt',g:gi,v:v});if(!RM){if(SH.fx.price)SH.fx.price('#pbig .price');else gsap.fromTo('#pbig .price',{scale:1.25},{scale:1,duration:.7,ease:'elastic.out(1,.4)'})}};
 SH.act.pimg=function(t){PD.st.img=+t.dataset.i;pdpPaint({a:'pimg'})};
 SH.act.qm=function(){PD.st.qty=Math.max(1,PD.st.qty-1);pdpPaint({a:'qm'})};
 SH.act.qp=function(){PD.st.qty++;pdpPaint({a:'qp'})};

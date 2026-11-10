@@ -80,10 +80,10 @@ var cv=$('#confetti');
 if(cv){
   var cc=cv.getContext('2d'),parts=[],raf=0;
   var rs=function(){cv.width=innerWidth;cv.height=innerHeight};rs();addEventListener('resize',rs);
-  var COLS=['#FF8DAA','#FFD45E','#7BDDB5','#86C8FF','#FFB48A','#FF5E7E','#fff'];
+  var CF=(window.THEME&&THEME.cfg&&THEME.cfg.confetti)||null,COLS=CF?CF.cols:['#FF8DAA','#FFD45E','#7BDDB5','#86C8FF','#FFB48A','#FF5E7E','#fff'];
   C.burst=function(x,y,n){
     for(var i=0;i<n;i++){var a=Math.random()*Math.PI*2,s=6+Math.random()*13;
-      parts.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-9,w:9+Math.random()*12,r:Math.random()*6,vr:(Math.random()-.5)*.35,c:COLS[i%COLS.length],t:i%4,life:1})}
+      parts.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-9,w:9+Math.random()*12,r:Math.random()*6,vr:(Math.random()-.5)*.35,c:COLS[i%COLS.length],t:CF?CF.shapes[i%CF.shapes.length]:i%4,life:1})}
     if(!raf)loop()};
   var loop=function(){
     cc.clearRect(0,0,cv.width,cv.height);parts=parts.filter(function(p){return p.life>0&&p.y<cv.height+40});

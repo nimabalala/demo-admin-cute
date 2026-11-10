@@ -67,25 +67,28 @@ function foot(){var d=D(),pgs=d.pages.filter(function(p){return p.status==='發�
   C.applyTheme()}
 /* ---------- 動畫 ---------- */
 var io=null;
+/* 主題可換掉動畫手感（S.fx，目前只有 T03 用：平順淡入、絲幕換頁）；沒設定就是原本的果凍彈跳。 */
+S.fx={};
 function reveal(root){if(io){io.disconnect();io=null}var els=$$('.rvl',root);if(!els.length)return;
   if(RM||!window.IntersectionObserver){els.forEach(function(e){e.classList.remove('rvl')});return}
-  gsap.set(els,{opacity:0,y:60,scale:.94});
+  var FX=S.fx.reveal;
+  gsap.set(els,FX?FX.from:{opacity:0,y:60,scale:.94});
   io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io&&io.unobserve(e.target);var el=e.target,d=(el.parentNode?[].indexOf.call(el.parentNode.children,el)%4:0)*.07;
-    gsap.to(el,{opacity:1,y:0,scale:1,duration:1.1,ease:'elastic.out(1,.55)',delay:d,clearProps:'transform,opacity',onStart:function(){el.style.opacity=''}})})},{rootMargin:'0px 0px -5% 0px',threshold:.04});
+    gsap.to(el,{opacity:1,y:0,scale:1,duration:FX?FX.dur:1.1,ease:FX?FX.ease:'elastic.out(1,.55)',delay:FX?d*1.6:d,clearProps:'transform,opacity',onStart:function(){el.style.opacity=''}})})},{rootMargin:'0px 0px -5% 0px',threshold:.04});
   els.forEach(function(e){io.observe(e)});
   setTimeout(function(){els.forEach(function(el){if(getComputedStyle(el).opacity<1)gsap.to(el,{opacity:1,y:0,scale:1,duration:.5,clearProps:'transform,opacity'})})},6500)}
-S.drop=function(sel,root){if(RM)return;var els=$$(sel,root);if(els.length)gsap.from(els,{y:-170,opacity:0,duration:1.15,ease:'bounce.out',stagger:.11,clearProps:'transform,opacity'})};
-S.fly=function(img,from){var cb=$('#cartbtn');if(!cb||RM||!from)return;var r=cb.getBoundingClientRect(),f=document.createElement('img');f.className='fly';f.src=img;f.alt='';document.body.appendChild(f);
+S.drop=function(sel,root){if(RM)return;if(S.fx.drop)return S.fx.drop(sel,root);var els=$$(sel,root);if(els.length)gsap.from(els,{y:-170,opacity:0,duration:1.15,ease:'bounce.out',stagger:.11,clearProps:'transform,opacity'})};
+S.fly=function(img,from){var cb=$('#cartbtn');if(!cb||RM||!from)return;if(S.fx.fly)return S.fx.fly(img,from,cb,bump);var r=cb.getBoundingClientRect(),f=document.createElement('img');f.className='fly';f.src=img;f.alt='';document.body.appendChild(f);
   var sx=from.left+from.width/2-45,sy=from.top+from.height/2-45,ex=r.left+r.width/2-45,ey=r.top+r.height/2-45;
   gsap.set(f,{x:sx,y:sy});
   var tl=gsap.timeline({onComplete:function(){f.remove();bump()}});
   tl.to(f,{y:sy-120,duration:.28,ease:'power2.out'}).to(f,{x:ex,y:ey,scale:.18,rotation:360,duration:.62,ease:'power2.in'});
   gsap.to(f,{x:ex,duration:.9,ease:'power1.inOut'});
 };
-function bump(){var cb=$('#cartbtn');if(!cb)return;badge();if(RM)return;gsap.fromTo(cb,{scale:1.3,rotation:-8},{scale:1,rotation:0,duration:.8,ease:'elastic.out(1,.35)'});var r=cb.getBoundingClientRect();if(C.burst)C.burst(r.left+r.width/2,r.top+r.height/2,14)}
+function bump(){var cb=$('#cartbtn');if(!cb)return;badge();if(RM)return;if(S.fx.bump)return S.fx.bump(cb);gsap.fromTo(cb,{scale:1.3,rotation:-8},{scale:1,rotation:0,duration:.8,ease:'elastic.out(1,.35)'});var r=cb.getBoundingClientRect();if(C.burst)C.burst(r.left+r.width/2,r.top+r.height/2,14)}
 S.bump=bump;
 var sweeping=false;
-function sweepThen(fn){if(sweeping){fn();return}sweeping=true;var s=$('#sweep'),i=s.firstElementChild;s.style.visibility='visible';gsap.set(i,{xPercent:-100});
+function sweepThen(fn){if(S.fx.swap)return S.fx.swap(fn);if(sweeping){fn();return}sweeping=true;var s=$('#sweep'),i=s.firstElementChild;s.style.visibility='visible';gsap.set(i,{xPercent:-100});
   gsap.to(i,{xPercent:0,duration:.34,ease:'power2.in',onComplete:function(){fn();gsap.to(i,{xPercent:100,duration:.42,delay:.04,ease:'power2.out',onComplete:function(){s.style.visibility='hidden';sweeping=false}})}})}
 /* ---------- 路由與畫面 ---------- */
 var cur={name:'',raw:''},first=true,lastRaw=null;
@@ -141,6 +144,6 @@ S.start=function(){
   var hs=location.hash;lastRaw=raw();
   if(!hs){history.replaceState(null,'','#/')}
   render();hint();
-  if(!RM)gsap.from('.sf-bar',{y:-90,opacity:0,duration:1,ease:'bounce.out',delay:.05,clearProps:'transform,opacity'});
+  if(!RM)gsap.from('.sf-bar',S.fx.head||{y:-90,opacity:0,duration:1,ease:'bounce.out',delay:.05,clearProps:'transform,opacity'});
   document.dispatchEvent(new Event('shopready'))};
 })();
