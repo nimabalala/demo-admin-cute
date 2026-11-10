@@ -411,10 +411,10 @@ html.sk-t03 #sf .hero .kick{font-weight:400}
    中文：源雲明體月 GenWanMin2 TW（EL＝200–300 細明朝，R＝400–500 小字）；英文：Bodoni Moda（高反差 Didone，含斜體）。
    都是自帶 woff2 子集（fonts/t03/，SIL OFL）；缺字退回 Noto Serif TC。後台表格表單仍用 Noto Sans TC。
    ========================================================================== */
-@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-EL-t03.woff2?v=20261110-j1") format("woff2");font-weight:100 350;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-R-t03.woff2?v=20261110-j1") format("woff2");font-weight:351 900;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-j1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-j1") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-j1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-j1") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
+@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-EL-t03.woff2?v=20261110-k1") format("woff2");font-weight:100 350;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-R-t03.woff2?v=20261110-k1") format("woff2");font-weight:351 900;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-k1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-k1") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-k1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-k1") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
 html.sk-t03{--serif:"T03 GenWanMin","Noto Serif TC",serif;--latin:"T03 Bodoni","T03 GenWanMin","Noto Serif TC",serif;--disp:"T03 Bodoni","T03 GenWanMin","Noto Serif TC",serif}
 /* 首頁大數字改 Bodoni 等高數字；後台數字維持 Noto Serif TC 400 好讀 */
 html.sk-t03 .tile .strip i,html.sk-t03 .bignum .sep,html.sk-t03 .cell .no{font-family:"T03 Bodoni","Noto Serif TC",serif!important;font-weight:400!important;font-variant-numeric:lining-nums tabular-nums}
@@ -965,44 +965,27 @@ html.sk-t03 .lxp-th.lx-cfade img{animation:lx-cfade .8s cubic-bezier(.33,0,.2,1)
 html.sk-t03 .lxp-th.lx-cfade button:nth-child(2) img{animation-delay:.06s}
 html.sk-t03 .lxp-th.lx-cfade button:nth-child(3) img{animation-delay:.12s}
 @media (prefers-reduced-motion:reduce){html.sk-t03 .lx-cfade img{animation:none!important}}
-/* 穿搭輪盤：深裁的模特兒照是米色棚拍照（有背景），以型錄相片框呈現 */
-html.sk-t03 .lbx .mlb-portrait img[src*="img/atelier/look"]{object-fit:cover;background:#DCD2C4;outline:1px solid rgba(201,163,106,.55);outline-offset:-1px;box-shadow:0 24px 48px -28px rgba(20,14,8,.65)}
-html.sk-t03 .lbx .mlb-actor:has(img[src*="img/atelier/look"])::after{display:none}
-html.sk-t03 .lbx .mlb-actor.is-front:not(.is-open) .mlb-portrait:has(img[src*="img/atelier/look"]){filter:none}
 
-/* ===== 第七版 j1：首屏、品牌故事、後台精品首頁改用米色棚拍模特兒照（和穿搭輪盤同一批，img/atelier/fullN 9:16） =====
-   去背照換成「型錄相片」：深色舞台上一張米色棚拍照，細金框、柔和投影；照片在框內慢慢放大（不位移）。
-   換張過場：舊的整組淡出 → 新相片由下往上揭開（clip-path 1.5 秒 power3.inOut）＋照片慢慢顯色。 */
-@keyframes lx-zoom2{from{transform:scale(1)}to{transform:scale(1.06)}}
-/* 商店首屏 */
-html.sk-t03 .lxs-model{right:12%;top:auto;bottom:15%;height:76%;width:auto;aspect-ratio:9/16}
-html.sk-t03 .lxs-fr{position:absolute;inset:0;display:block;overflow:hidden;background:#DCD2C4;box-shadow:0 40px 80px -30px rgba(0,0,0,.75),0 0 0 1px rgba(201,163,106,.35)}
-html.sk-t03 .lxs-fr:after{content:"";position:absolute;inset:12px;border:1px solid rgba(201,163,106,.6);pointer-events:none}
-html.sk-t03 .lxs-model .lxs-fr img{position:absolute;left:0;top:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 40%;transform:none;transform-origin:50% 45%;filter:sepia(.06) saturate(.94) brightness(.95);animation:lx-zoom2 22s ease-in-out infinite alternate}
-html.sk-t03 .lxs-model:before{content:"";position:absolute;left:-14px;top:-14px;width:46px;height:46px;border-left:1px solid rgba(201,163,106,.7);border-top:1px solid rgba(201,163,106,.7);z-index:1}
-html.sk-t03 .lxs-model:after{content:"";position:absolute;right:-14px;bottom:-14px;width:46px;height:46px;border-right:1px solid rgba(201,163,106,.7);border-bottom:1px solid rgba(201,163,106,.7)}
-/* 品牌故事 */
-html.sk-t03 .lxs-mph{background:radial-gradient(ellipse 60% 70% at 50% 55%,#4A3A2B,rgba(42,33,24,0) 72%)}
-html.sk-t03 .lxs-mph img{left:50%;top:50%;bottom:auto;height:84%;width:auto;aspect-ratio:9/16;object-fit:cover;transform:translate(-50%,-50%);filter:sepia(.06) saturate(.94) brightness(.95);outline:1px solid rgba(201,163,106,.6);outline-offset:-12px;box-shadow:0 40px 80px -30px rgba(0,0,0,.75),0 0 0 1px rgba(201,163,106,.35);background:#DCD2C4}
-/* 後台精品首頁：首屏相片 */
-html.sk-t03 .lx-photo{top:15%;bottom:auto;height:78%;width:auto;aspect-ratio:9/16;overflow:hidden;background:#DCD2C4;box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 0 1px rgba(201,163,106,.35)}
-html.sk-t03 .lx-photo:after{content:"";position:absolute;inset:12px;border:1px solid rgba(201,163,106,.6);pointer-events:none;z-index:1}
-html.sk-t03 .lx-photo img{left:0;top:0;bottom:auto;width:100%;height:100%;object-fit:cover;object-position:50% 40%;transform:none;transform-origin:50% 45%;filter:sepia(.06) saturate(.94) brightness(.95);animation:lx-zoom2 22s ease-in-out infinite alternate}
-html.sk-t03 .lx-photo{animation:lx-frameup 1.6s cubic-bezier(.65,0,.35,1) both .15s}
-@keyframes lx-frameup{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
-/* 後台精品首頁：本季編輯選品（9:16 相片填滿，不再留左右空邊） */
-html.sk-t03 .lx-ph{aspect-ratio:9/16;background:#DCD2C4}
-html.sk-t03 .lx-ph img{left:0;top:0;bottom:auto;width:100%;height:100%;object-fit:cover;transform:none}
-html.sk-t03 .lx-pick:hover .lx-ph img{transform:scale(1.04)}
+/* ===== 第八版 k1：模特兒照全部改成棚拍人物去背（img/atelier/cutN，透明底），直接融入頁面背景 =====
+   不用相框、金框、照片卡片、半透明灰底；只在腳下留一道很淡的落地陰影。 */
+/* 商店首屏：沿用原本去背人像的位置，加極淡落地陰影 */
+/* 桌機：人物腳下對齊金色細線（像地平線），不再被頁碼與線壓到鞋子 */
+html.sk-t03 .lxs-model{bottom:66px;height:calc(100% - 118px)}
+html.sk-t03 .lxs-model:after{content:"";position:absolute;left:20%;right:20%;bottom:2.6%;height:18px;z-index:-1;background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,.32),rgba(0,0,0,0) 70%)}
+/* 品牌故事：人物站在柔光裡 */
+html.sk-t03 .lxs-mph:after{content:"";position:absolute;left:50%;bottom:4.2%;width:44%;height:18px;transform:translateX(-50%);background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,.3),rgba(0,0,0,0) 70%)}
+/* 後台精品首頁「本季編輯選品」：拿掉米色卡片與細金框，人物直接站在頁面米色上 */
+html.sk-t03 .lx-ph{aspect-ratio:2/4.3;background:none;overflow:visible}
+html.sk-t03 .lx-ph:after{inset:auto 24% 2.6% 24%;height:14px;border:0;background:radial-gradient(ellipse at 50% 50%,rgba(36,28,20,.2),rgba(36,28,20,0) 70%)}
+html.sk-t03 .lx-ph img{bottom:0;height:100%;z-index:1}
+/* 穿搭輪盤：兩側不做半透明，改用縮小＋降亮度（--mlb-b 由 shop-lookbook.js 依深度設定） */
+html.sk-t03 .lbx .mlb-portrait img[src*="img/atelier/"]{filter:brightness(var(--mlb-b,1))!important;transition:filter .3s linear}
+html.sk-t03 .lbx .mlb-actor::after{background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,.35),rgba(0,0,0,0) 70%)}
 @media (max-width:760px){
- html.sk-t03 .lxs-model{right:24px;bottom:auto;top:56px;height:37%;width:auto}
- html.sk-t03 .lxs-model:before,html.sk-t03 .lxs-model:after{width:30px;height:30px;left:-9px;top:-9px}
- html.sk-t03 .lxs-model:after{left:auto;top:auto;right:-9px;bottom:-9px}
- html.sk-t03 .lxs-fr:after{inset:8px}
- html.sk-t03 .lxs-mph{height:420px}
- html.sk-t03 .lxs-mph img{height:86%;outline-offset:-8px}
- html.sk-t03 .lx-photo{top:13%;height:auto;width:134px;aspect-ratio:2/5}/* 手機：直長裁切（人物在中間，左右背景裁掉），填滿店名下方的空間 */
- html.sk-t03 .lx-photo:after{inset:8px}
+ /* 手機首屏：人物放右側、整個人都看得到，不壓大標題 */
+ html.sk-t03 .lxs-model{right:-1%;top:34px;bottom:auto;height:58%;width:auto;aspect-ratio:.4}
+ /* 手機後台首頁：人物在店名兩字中間，下緣停在標語上方 */
+ html.sk-t03 .lx-photo{bottom:auto;top:11%;height:52%;width:auto;aspect-ratio:.4}
 }
-@media (prefers-reduced-motion:reduce){html.sk-t03 .lxs-model .lxs-fr img,html.sk-t03 .lx-photo img{animation:none}html.sk-t03 .lx-photo{animation:none;clip-path:none}}
-html.sk-t03.rm .lx-photo{animation:none;clip-path:none}html.sk-t03.rm .lx-photo img,html.sk-t03.rm .lxs-model .lxs-fr img{animation:none}
+/* 穿搭輪盤舞台上的小方塊裝飾在去背人物旁像雜點，深裁拿掉 */
+html.sk-t03 .lbx .st{display:none}
