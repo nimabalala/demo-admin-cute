@@ -26,7 +26,10 @@ T.art=function(k,c){c=c||'#FF8DAA';var white=(c.toUpperCase()==='#FFFFFF');var b
 T.artSrc=function(k,c){return 'data:image/svg+xml;utf8,'+encodeURIComponent(T.art(k,c))};
 /* 商品圖網址：有照片用照片，沒有就用插圖；規格有「顏色」時可帶顏色 */
 var COL={'白':'#FFFFFF','黑':'#4B4B55','粉':'#FF8DAA','杏':'#F2D3B0','焦糖':'#C98A4B','米':'#EADBC0'};
-T.pimg=function(p,variant){if(p.img)return p.img;if(p.art){var c=p.art.c;if(variant){var v=variant.split('|')[0];if(COL[v])c=COL[v]}return T.artSrc(p.art.k,c)}return T.artSrc('jar','#FFB48A')};
+/* 深裁：有選顏色時用該色棚拍照（data/atelier.js 的 cshots；商品主圖被後台換掉就不套用）。購物車、結帳、訂單、後台訂單都會吃到 */
+T.cshot=function(p,variant){if(!variant||!p||T.shopKey()!=='atelier')return '';var A=(window.TX_DATA||{}).atelier,m=A&&A.cshots&&A.cshots[p.id];if(!m||p.img!=='img/atelier/'+p.id+'.webp')return '';
+  var sp=p.specs||{},ks=(T.SPEC_KEYS||Object.keys(sp)).filter(function(k){return sp[k]&&sp[k].opts&&sp[k].opts.length}),ci=-1;ks.forEach(function(k,i){if(ci<0&&/色/.test(sp[k].name||''))ci=i});if(ci<0)return '';var c=m[String(variant).split('|')[ci]];return c?'img/atelier/'+p.id+'-'+c+'.webp':''};
+T.pimg=function(p,variant){if(p.img)return T.cshot(p,variant)||p.img;if(p.art){var c=p.art.c;if(variant){var v=variant.split('|')[0];if(COL[v])c=COL[v]}return T.artSrc(p.art.k,c)}return T.artSrc('jar','#FFB48A')};
 /* 新商品沒有照片時的預設插圖：依分類挑形狀 */
 T.defaultArt=function(shop,cat){var m={fresh:['jar','#7BDDB5'],beauty:['tube','#FF8DAA'],fashion:['tee','#FFD45E'],alley:['tee','#111111'],atelier:['tee','#6B4F3A']}[shop]||['jar','#FFB48A'];return {k:m[0],c:m[1]}};
 })();

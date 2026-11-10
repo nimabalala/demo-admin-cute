@@ -5,9 +5,9 @@ var TABS=['全部','待處理','已處理','運送中','已到店待取貨','已
 var LG=['7-11 超商取貨','全家 超商取貨','黑貓宅配','其他物流'];
 var ui=A.ui.orders={tab:'全部',q:'',lg:'',range:'',sel:{}};
 var sh=A.ui.ship={lg:'全部',q:'',range:'',pay:'',coded:'',showDone:true,sel:{},codes:{}};
-function vlab(it){return it.variant?'<small>'+h(it.variant.replace('|','／'))+'</small>':''}
+function vlab(it){return TX.lvar(it.variant)?'<small>'+h(it.variant.replace('|','／'))+'</small>':''}
 function thumb(o){var it=o.items[0],p=TX.product(it.pid)||{};return '<img class="thumb" src="'+h(TX.pimg(p,it.variant))+'" alt="" loading="lazy">'}
-function itemsCell(o){var it=o.items[0];return '<div class="pc">'+thumb(o)+'<div style="min-width:0"><b>'+h(it.name)+(it.qty>1?' ×'+it.qty:'')+'</b>'+(o.items.length>1?'<small>等共 '+o.items.length+' 項商品</small>':vlab(it))+'</div></div>'}
+function itemsCell(o){var it=o.items[0];return '<div class="pc">'+thumb(o)+'<div style="min-width:0"><b>'+h(TX.lname(it.name,it.variant))+(it.qty>1?' ×'+it.qty:'')+'</b>'+(o.items.length>1?'<small>等共 '+o.items.length+' 項商品</small>':vlab(it))+'</div></div>'}
 function idsSel(sel){return Object.keys(sel).filter(function(k){return sel[k]})}
 function inRange(o,r){if(!r)return true;var d=r==='today'?TX.dayStart():TX.dayStart(Date.now()-(r==='3d'?2:6)*864e5);return o.t>=d}
 function filt(o,s){if(s.lg&&s.lg!=='全部'&&o.logi!==s.lg)return false;if(!inRange(o,s.range))return false;
@@ -76,7 +76,7 @@ A.route(/^\/orders\/returns$/,'orders',function(){var D=TX.D(),l=D.orders.filter
   var rows=l.length?'<div class="tblw"><table class="tbl cards"><thead><tr><th>訂單編號</th><th>商品</th><th>顧客</th><th>原因</th><th>申請時間</th><th>處理狀態</th><th></th></tr></thead><tbody>'+l.map(function(o){var r=o.ret||{reason:'—',status:'已同意',t:o.t},pend=r.status==='申請中';return '<tr><td class="no" data-l="訂單編號"><a href="#/order/'+o.id+'" style="text-decoration:underline">'+o.id+'</a></td><td class="nl" data-l="商品">'+itemsCell(o)+'</td><td data-l="顧客">'+h(o.cname)+'</td><td data-l="原因">'+h(r.reason)+'</td><td data-l="申請時間">'+TX.fmt(r.t||o.t)+'</td><td data-l="狀態">'+'<span class="st '+(pend?'bad':r.status==='已婉拒'?'mut':'ok')+'">'+h(r.status)+'</span>'+'</td><td>'+(pend?'<div class="mini"><button class="act" data-a="rapprove" data-id="'+o.id+'" type="button">同意退款</button><button class="act g" data-a="rreject" data-id="'+o.id+'" type="button">婉拒</button></div>':'')+'</td></tr>'}).join('')+'</tbody></table></div>':'<div class="empty"><b>目前沒有退換貨申請</b>到「已完成」的訂單詳情，可以幫顧客建立一筆申請來試試。</div>';
   return A.page('orders','退換貨','訂單與出貨','',  '<div class="note">'+U.icon.info+'<div>同意退款時可以選擇<b>補回庫存的數量</b>：最多補到當初扣掉的數量，同一件不會重複補。補回的紀錄在「商品 → 庫存 → 回補紀錄」。</div></div><div class="board">'+rows+'</div>')});
 A.act.rapprove=function(t){var o=TX.order(t.dataset.id);
-  var m=U.modal('<h3>同意退款　'+o.id+'</h3><p class="sd">請輸入每項商品要補回庫存的數量（0 ＝ 不補回，例如商品已損壞）。</p>'+o.items.map(function(it,i){var mx=TX.restockMax(it);return '<label class="fld"><span>'+h(it.name)+(it.variant?'（'+h(it.variant.replace('|','／'))+'）':'')+'　已購 '+it.qty+' 件，最多可補 '+mx+' 件</span><input type="number" min="0" max="'+mx+'" value="'+mx+'" data-line-i="'+i+'" inputmode="numeric"></label>'}).join('')+'<div class="mf"><button class="btn w sm" data-close type="button">先不要</button><button class="btn sm" data-a="rdo" data-id="'+o.id+'" type="button">同意退款並補回庫存</button></div>',{label:'同意退款'})};
+  var m=U.modal('<h3>同意退款　'+o.id+'</h3><p class="sd">請輸入每項商品要補回庫存的數量（0 ＝ 不補回，例如商品已損壞）。</p>'+o.items.map(function(it,i){var mx=TX.restockMax(it);return '<label class="fld"><span>'+h(TX.lname(it.name,it.variant))+(TX.lvar(it.variant)?'（'+h(TX.lvar(it.variant))+'）':'')+'　已購 '+it.qty+' 件，最多可補 '+mx+' 件</span><input type="number" min="0" max="'+mx+'" value="'+mx+'" data-line-i="'+i+'" inputmode="numeric"></label>'}).join('')+'<div class="mf"><button class="btn w sm" data-close type="button">先不要</button><button class="btn sm" data-a="rdo" data-id="'+o.id+'" type="button">同意退款並補回庫存</button></div>',{label:'同意退款'})};
 A.act.rdo=function(t){var m=t.closest('.modal'),lines={};$$('[data-line-i]',m).forEach(function(i){lines[i.dataset.lineI]=Math.max(0,Math.floor(+i.value||0))});var r=TX.approveReturn(t.dataset.id,lines);U.closeModal();U.toast('已同意退款','補回庫存 '+r.n+' 件');A.pet('退款處理好囉');A.refresh()};
 A.act.rreject=function(t){U.confirm('婉拒這筆退換貨？','訂單會維持原狀，並留下紀錄。',function(){TX.rejectReturn(t.dataset.id);U.toast('已婉拒');A.refresh()},'婉拒')};
 /* ---------------- 出貨紀錄 ---------------- */
@@ -86,7 +86,7 @@ A.act.relog=function(){U.toast('示範：正式網站會重新產生出貨文件
 /* ---------------- 訂單詳情 ---------------- */
 A.route(/^\/order\/([^/]+)$/,'orders',function(m){var o=TX.order(decodeURIComponent(m[1])),D=TX.D();
   if(!o)return A.page('orders','找不到這筆訂單','訂單與出貨','','<div class="empty"><b>訂單不存在</b><a class="btn sm" href="#/orders">回訂單列表</a></div>','/orders');
-  var items=o.items.map(function(it){var p=TX.product(it.pid)||{};return '<div class="it"><img src="'+h(TX.pimg(p,it.variant))+'" alt=""><div><b>'+h(it.name)+'</b>'+vlab(it)+'<small>'+TX.money(it.price)+' × '+it.qty+(it.returned?'　已補回庫存 '+it.returned:'')+'</small></div><div class="q">'+TX.money(it.price*it.qty)+'</div></div>'}).join('');
+  var items=o.items.map(function(it){var p=TX.product(it.pid)||{};return '<div class="it"><img src="'+h(TX.pimg(p,it.variant))+'" alt=""><div><b>'+h(TX.lname(it.name,it.variant))+'</b>'+vlab(it)+'<small>'+TX.money(it.price)+' × '+it.qty+(it.returned?'　已補回庫存 '+it.returned:'')+'</small></div><div class="q">'+TX.money(it.price*it.qty)+'</div></div>'}).join('');
   var acts=[];
   if(o.status==='待處理'){if(o.logi!=='其他物流'&&!o.code)acts.push('<button class="btn sm" data-a="dtake" data-id="'+o.id+'" type="button">綠界取號</button>');acts.push('<button class="btn sm w" data-a="dproc" data-id="'+o.id+'" type="button">標記已處理</button>')}
   if(o.status==='待處理'||o.status==='已處理')acts.push('<button class="btn sm '+(o.status==='已處理'?'':'w')+'" data-a="dship" data-id="'+o.id+'" type="button">標記運送中</button>');

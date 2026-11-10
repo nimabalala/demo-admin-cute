@@ -131,7 +131,7 @@ window.addEventListener('pageshow',function(e){if(e.persisted){var rl=$('#roll')
 /* 加入購物車（商品卡的＋ 與商品頁共用）：數量檢查、飛入動畫、倉鼠說話 */
 S.addToCart=function(pid,vk,qty,srcEl){var res=TX.cartAdd(pid,vk,qty);if(!res.ok){U.toast(res.msg);return res}
   var p=TX.product(pid);if(srcEl)S.fly(TX.pimg(p,vk),srcEl.getBoundingClientRect());else bump();badge();
-  U.toast('已加進購物車',p.name+(vk?'（'+TX.vlabel(vk)+'）':'')+(res.msg?'・'+res.msg:''));S.say('加進去囉！');return res};
+  U.toast('已加進購物車',(TX.lvar(vk)||!vk?p.name+(vk?'（'+TX.vlabel(vk)+'）':''):TX.lname(p.name,vk))+(res.msg?'・'+res.msg:''));S.say('加進去囉！');return res};
 S.act.qadd=function(t,e){e.stopPropagation();var im=t.closest('.pc').querySelector('.im');S.addToCart(t.dataset.id,'',1,im)};
 /* ---------- 提示氣泡：在後台改，這裡馬上變 ---------- */
 function hint(){var ph=$('#pethint');var seen=false;try{seen=sessionStorage.getItem('sf-hint')==='1'}catch(e){}

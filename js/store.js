@@ -31,6 +31,7 @@ T.isApparel=function(k){k=k||T.shopKey();return k==='fashion'||k==='alley'||k===
 T.D=function(k){k=k||T.shopKey();if(!S.shops[k]){S.shops[k]=realize(RAW[k]);save()}
   /* 舊存檔升級：深裁（atelier）換成 img/atelier 棚拍照；只動這家店 */
   if(k==='atelier'&&(+S.shops[k].imgv||0)<3){S.shops[k]=JSON.parse(JSON.stringify(S.shops[k]).split('img/alley/a').join('img/atelier/a').split('img/lookbook/look').join('img/atelier/look'));S.shops[k].imgv=3;var AX=(window.TX_DATA||{}).atelier,lb=S.shops[k].lb;if(AX&&AX.lbXY&&lb&&lb.looks)lb.looks.forEach(function(l){var m=/^lbd(\d)$/.exec(l.key||''),q=m&&AX.lbXY[+m[1]-1];if(q&&l.img===AX.lookImgs[+m[1]-1])l.items.forEach(function(it,j){if(q[j]){it.x=q[j][0];it.y=q[j][1]}})});save()}/* 深裁：舊存檔換成棚拍商品照（v2）與棚拍模特兒照（v3） */
+  if(k==='atelier'&&(+S.shops[k].imgv||0)<4){var RN=((window.TX_DATA||{}).atelier||{}).rename||{},js=JSON.stringify(S.shops[k]);Object.keys(RN).forEach(function(o){js=js.split(o).join(RN[o])});S.shops[k]=JSON.parse(js);S.shops[k].imgv=4;save()}/* 深裁：舊存檔的商品名、訂單品名拿掉顏色字（v4） */
   var d=S.shops[k];T.ensureExtras(d);return d};
 T.reload=function(){load()};
 T.reset=function(){try{localStorage.removeItem(KEY);localStorage.removeItem(SEQ);localStorage.removeItem('tx-cart-v1');localStorage.removeItem('tx-member-v1');sessionStorage.removeItem('theme')}catch(e){}S={ver:1,shop:S.shop,shops:{}};save()};
@@ -231,6 +232,9 @@ var CART='tx-cart-v1',MEM='tx-member-v1';
 T.digits=function(s){return String(s||'').replace(/\D/g,'')};
 T.vkeys=function(p){return Object.keys(p.variants||{})};
 T.vlabel=function(vk){return vk?String(vk).replace('|','／'):''};
+/* 購物車、訂單的品名：深裁（atelier）顯示「品名／顏色／尺寸」，規格不再另列；其他店維持「品名」＋小字規格 */
+T.lname=function(name,vk){return T.shopKey()==='atelier'&&vk?name+'／'+T.vlabel(vk):name};
+T.lvar=function(vk){return T.shopKey()==='atelier'?'':T.vlabel(vk)};
 T.vOf=function(p,vk){return vk&&p.variants?p.variants[vk]:null};
 T.vprice=function(p,vk){var v=T.vOf(p,vk);if(v)return v.sale!==''&&v.sale!=null?+v.sale:+v.price;return T.price(p)};
 T.vorig=function(p,vk){var v=T.vOf(p,vk);return v?+v.price:+p.price};

@@ -12,7 +12,8 @@
 if(!(window.THEME&&THEME.key==='t03'))return;
 var C=window.CUTE,TX=window.TX,SH=window.SHOP,$=C.$,$$=C.$$,h=TX.esc,RM=C.RM,D=SH.D;
 document.documentElement.classList.add('lxs');
-var LOOK=['img/lookbook/look2.webp','img/lookbook/look1.webp','img/lookbook/look4.webp','img/lookbook/look6.webp','img/lookbook/look3.webp','img/lookbook/look5.webp'];
+/* 首屏與品牌故事：和穿搭輪盤同一批米色棚拍模特兒照（完整版 9:16），放在深色舞台上當型錄相片 */
+var LOOK=[2,1,4,6,3,5].map(function(i){return 'img/atelier/full'+i+'.webp'});
 var FR={'外套':'Manteaux','上衣':'Hauts','褲裙':'Pantalons & Jupes','鞋款':'Souliers'};
 var ROM=['I','II','III','IV','V','VI','VII','VIII'];
 function fr(c){return FR[c]||'Collection'}
@@ -69,7 +70,7 @@ function feat(p,i,cls){var r=TX.priceRange(p);return '<a class="lxs-f '+cls+' rv
 function home(){var d=D(),ps=TX.shopProducts(),s=d.settings,onSale=ps.filter(function(p){return TX.priceRange(p).sale});
   var sl=d.slides.length?d.slides:[{title:d.name,sub:d.slogan,link:'/products'}];
   var slides=sl.map(function(x,i){return '<div class="lxs-slide'+(i?'':' on')+'" data-i="'+i+'" aria-hidden="'+(i?'true':'false')+'">'+
-    '<div class="lxs-model"><img src="'+LOOK[i%LOOK.length]+'" alt="" '+(i?'loading="lazy"':'')+'></div>'+
+    '<div class="lxs-model"><span class="lxs-fr"><img src="'+LOOK[i%LOOK.length]+'" alt="" '+(i?'loading="lazy"':'')+'></span></div>'+
     '<div class="lxs-copy"><p class="lxs-kick"><span>N° '+two(i+1)+'</span><i></i><span>'+h(d.slogan||d.name)+'</span></p>'+
     '<h1>'+lines(x.title)+'</h1><p class="lxs-sub">'+h(x.sub)+'</p>'+
     '<div class="lxs-go"><a class="lx-btn" href="'+SH.slideLink(x.link)+'" data-cur="選購">立即選購</a><a class="lx-btn ghost" href="#/list?sale=1" data-cur="特價">看特價</a></div></div></div>'}).join('');
@@ -111,7 +112,8 @@ function home(){var d=D(),ps=TX.shopProducts(),s=d.settings,onSale=ps.filter(fun
     function enter(nw,first){if(RM)return;var t=gsap.timeline();
       t.fromTo($$('.ln>span',nw),{yPercent:105},{yPercent:0,duration:1.25,ease:'power3.out',stagger:.12},first?.35:.15)
        .fromTo($$('.lxs-kick,.lxs-sub,.lxs-go',nw),{opacity:0,y:14},{opacity:1,y:0,duration:1.1,ease:'power2.out',stagger:.1,clearProps:'transform,opacity'},first?.75:.5)
-       .fromTo($('.lxs-model img',nw),{opacity:0,xPercent:4},{opacity:1,xPercent:0,duration:1.6,ease:'power2.out'},0);
+       .fromTo($('.lxs-fr',nw),{clipPath:'inset(100% 0% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:1.5,ease:'power3.inOut',clearProps:'clipPath'},0)
+       .fromTo($('.lxs-fr img',nw),{opacity:.35},{opacity:1,duration:1.8,ease:'power2.out',clearProps:'opacity'},.2);/* 型錄相片由下往上揭開，照片慢慢顯色 */
       if(first){t.fromTo($('.lxs-gl',root),{scaleX:0},{scaleX:1,duration:1.6,ease:'power2.inOut'},.2).fromTo($('.lxs-word',root),{opacity:0},{opacity:1,duration:2.4,ease:'power1.out'},.2).fromTo($$('.lxs-ctl,.lxs-season',root),{opacity:0},{opacity:1,duration:1.2},1)}}
     hs.go=function(k){var el=$('#hero');if(!el)return;k=(k+n)%n;if(k===i)return;var old=$('.lxs-slide.on',el),nw=$('.lxs-slide[data-i="'+k+'"]',el);if(!nw)return;i=k;
       if(!RM)gsap.to($$('.lxs-copy,.lxs-model',old),{opacity:0,duration:.6,ease:'power1.in',clearProps:'opacity'});
@@ -133,7 +135,7 @@ function colOf(g,st){var g0=g&&g[0];return g0&&/色/.test(g0.name||'')?st.a:''}
 var PRE={};function preload(p,img){var m=cmap(p);if(!m||PRE[p.id])return;PRE[p.id]=1;Object.keys(m).forEach(function(k){(shots(img,m[k])||[]).slice(0,3).forEach(function(u){var i=new Image();i.src=u})})}
 var LASTC={pid:'',c:''};
 SH.skin.shots=shots;
-SH.skin.pdpInner=function(c){var p=c.p,st=c.st,img=c.img,s=c.s,col=colOf(c.g,st),m=cmap(p),cc=m&&col?m[col]||'':'',set=shots(img,cc);
+SH.skin.pdpInner=function(c){var p=c.p,st=c.st,img=TX.pimg(p)/* 主色圖當基準，換色由 cshots 決定 */,s=c.s,col=colOf(c.g,st),m=cmap(p),cc=m&&col?m[col]||'':'',set=shots(img,cc);
   /* 換顏色：主圖與小圖換成該色照片，並沉穩淡入（同一商品、顏色變了才淡入） */
   var fade=LASTC.pid===p.id&&LASTC.c!==col;LASTC={pid:p.id,c:col};if(set)preload(p,img);
   if(set){var lab=['正面','細節','另一面','包裝'];
