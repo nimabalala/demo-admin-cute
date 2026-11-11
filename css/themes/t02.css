@@ -193,3 +193,31 @@ html.sk-t02 .cell:hover .no,html.sk-t02 .cell:hover .lb,html.sk-t02 .cell:hover 
 html.sk-t02 .gl *{color:#111}
 /* T02 綁定示範店「巷尾選物」：換品牌（換示範店）的選單在這個主題不顯示 */
 html.sk-t02 .swwrap,html.sk-t02 .mnav .msw,html.sk-t02 .mnav p.mt:has(+.msw),html.sk-t02 #dbs,html.sk-t02 #themes,html.sk-t02 .shoppick{display:none!important}
+/* ===== 長文頁／聯絡我們：黑白直角 ===== */
+html.sk-t02 .doc,html.sk-t02 .ct{background:#fff;border:1px solid #111;padding:56px 56px 44px}
+html.sk-t02 .doc-kick{color:#111;letter-spacing:.18em;text-transform:uppercase;font-weight:800}
+html.sk-t02 .doc-kick i{background:#E5302A;opacity:1;height:3px;width:30px}
+html.sk-t02 .doc-hd h1,html.sk-t02 .ct-hd h1{font:800 clamp(34px,4.6vw,56px)/1.02 var(--disp);letter-spacing:-.02em}
+html.sk-t02 .doc-toc{background:#fff;border-top:3px solid #111;padding:14px 0 0}
+html.sk-t02 .doc-toch{margin-left:0;color:#111;font-weight:800;letter-spacing:.18em}
+html.sk-t02 .doc-toc a{padding:8px 0;border-bottom:1px solid #E2E2E2;font-weight:600}
+html.sk-t02 .doc-toc a:hover{background:none;color:#E5302A}
+html.sk-t02 .doc-tn{color:#111;font-weight:800}
+html.sk-t02 .doc-sec{border-top:1px solid #111;padding-top:18px}
+html.sk-t02 .doc-sec h2{font-weight:800}
+html.sk-t02 .doc-no{background:#111;color:#fff;height:28px;min-width:34px}
+html.sk-t02 .doc-sec p,html.sk-t02 .doc-sec li{font-weight:400}
+html.sk-t02 .doc-sec li::marker{color:#E5302A}
+html.sk-t02 .doc a,html.sk-t02 .agree-t a{color:#111;text-decoration-color:#E5302A;text-decoration-thickness:2px}
+html.sk-t02 .doc-note{border-top:1px solid #111}
+html.sk-t02 .ct-lead{color:#6B6B6B;font-weight:400}
+html.sk-t02 .ct-dl div{background:#fff;border-bottom:1px solid #111;padding:14px 0}
+html.sk-t02 .ct-dl dt{color:#111;letter-spacing:.08em}
+html.sk-t02 .ct-line .btn{background:#06C755;color:#fff}
+html.sk-t02 .ct-links a{background:#fff;border:1px solid #111}
+html.sk-t02 .ct-links a:hover{background:#111;color:#fff}
+html.sk-t02 .ct-form{background:#F2F2F2;border:0}
+html.sk-t02 .ct-form h2{font-weight:800}
+html.sk-t02 .ct-ok>i{background:#111;border-radius:50%!important}
+html.sk-t02 .fld.agree .agree-t{font-weight:500}
+@media (max-width:900px){html.sk-t02 .doc,html.sk-t02 .ct{padding:30px 20px 26px}}

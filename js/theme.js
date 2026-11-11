@@ -14,7 +14,7 @@ var THEMES={
         fonts:'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;0,800;0,900;1,900&family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@400;700;900&display=swap',
         mascot:false,motion:{speed:1.35},home:{street:true},shop:'alley',
         assets:{looks:['img/lookbook/look1.webp','img/lookbook/look2.webp','img/lookbook/look3.webp','img/lookbook/look4.webp','img/lookbook/look5.webp','img/lookbook/look6.webp']}},
-  t03:{key:'t03',name:'質感精品',sub:'深裁 · 留白編輯感',sw:['#E8DFD2','#241C14','#C9A36A'],css:'css/themes/t03.css?v=20261110-k1',
+  t03:{key:'t03',name:'質感精品',sub:'深裁 · 留白編輯感',sw:['#E8DFD2','#241C14','#C9A36A'],css:'css/themes/t03.css?v=20261111-l1',
         fonts:'https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500&family=Noto+Sans+TC:wght@300;400;500;700&display=swap',
         mascot:false,motion:{speed:1,calm:true,curtain:true},home:{luxury:true},shop:'atelier',
         /* 慶祝撒花：麥金、乳白、可可青銅的細長金箔與小圓點（不用星星、愛心） */

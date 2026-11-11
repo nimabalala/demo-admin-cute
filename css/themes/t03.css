@@ -411,10 +411,10 @@ html.sk-t03 #sf .hero .kick{font-weight:400}
    中文：源雲明體月 GenWanMin2 TW（EL＝200–300 細明朝，R＝400–500 小字）；英文：Bodoni Moda（高反差 Didone，含斜體）。
    都是自帶 woff2 子集（fonts/t03/，SIL OFL）；缺字退回 Noto Serif TC。後台表格表單仍用 Noto Sans TC。
    ========================================================================== */
-@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-EL-t03.woff2?v=20261110-k1") format("woff2");font-weight:100 350;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-R-t03.woff2?v=20261110-k1") format("woff2");font-weight:351 900;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-k1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-t03.woff2?v=20261110-k1") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-k1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261110-k1") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
+@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-EL-t03.woff2?v=20261111-l1") format("woff2");font-weight:100 350;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-R-t03.woff2?v=20261111-l1") format("woff2");font-weight:351 900;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-t03.woff2?v=20261111-l1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-t03.woff2?v=20261111-l1") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261111-l1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261111-l1") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
 html.sk-t03{--serif:"T03 GenWanMin","Noto Serif TC",serif;--latin:"T03 Bodoni","T03 GenWanMin","Noto Serif TC",serif;--disp:"T03 Bodoni","T03 GenWanMin","Noto Serif TC",serif}
 /* 首頁大數字改 Bodoni 等高數字；後台數字維持 Noto Serif TC 400 好讀 */
 html.sk-t03 .tile .strip i,html.sk-t03 .bignum .sep,html.sk-t03 .cell .no{font-family:"T03 Bodoni","Noto Serif TC",serif!important;font-weight:400!important;font-variant-numeric:lining-nums tabular-nums}
@@ -989,3 +989,78 @@ html.sk-t03 .lbx .mlb-actor::after{background:radial-gradient(ellipse at 50% 50%
 }
 /* 穿搭輪盤舞台上的小方塊裝飾在去背人物旁像雜點，深裁拿掉 */
 html.sk-t03 .lbx .st{display:none}
+/* ===== l1：長文頁（精品編輯風）＋ 聯絡我們（精品版）＋ 結帳同意 ===== */
+html.sk-t03 .doc{background:var(--milk);border-radius:0;padding:72px 64px 52px;border-top:1px solid rgba(201,163,106,.6)}
+html.sk-t03 .doc-kick{font:400 11.5px/1 var(--latin);letter-spacing:.42em;text-transform:uppercase;color:var(--bronze);margin-bottom:22px}
+html.sk-t03 .doc-kick span:first-child{font-family:var(--serif);letter-spacing:.36em}
+html.sk-t03 .doc-kick i{width:44px;height:1px;background:var(--gilt);opacity:1;border-radius:0}
+html.sk-t03 .doc-hd{border-bottom:1px solid rgba(36,28,20,.16);padding-bottom:30px;margin-bottom:44px;max-width:none}
+html.sk-t03 .doc-hd h1,html.sk-t03 .ct-hd h1{font:400 clamp(34px,4.2vw,54px)/1.2 var(--serif);letter-spacing:.12em;margin-bottom:14px;color:var(--wood)}
+html.sk-t03 .doc-meta{font:italic 400 15px/1.4 var(--latin);letter-spacing:.06em;color:var(--sub);margin-bottom:20px}
+html.sk-t03 .doc-intro{max-width:37em}
+html.sk-t03 .doc-intro p{font:400 16.5px/2 var(--serif);color:var(--wood);letter-spacing:.04em}
+html.sk-t03 .doc-lay{grid-template-columns:220px minmax(0,37em);gap:64px}
+html.sk-t03 .doc-toc{background:none;border-radius:0;padding:0;border-top:1px solid var(--wood);top:110px}
+html.sk-t03 .doc-toch{margin:16px 0 10px;font:400 11px/1 var(--latin);letter-spacing:.42em;color:var(--bronze)}
+html.sk-t03 .doc-toch::after{content:" · Index";font-family:var(--latin);letter-spacing:.2em}
+html.sk-t03 .doc-toc a{border-radius:0;padding:9px 0;border-bottom:1px solid rgba(36,28,20,.1);font:400 13.5px/1.5 var(--serif);letter-spacing:.06em;color:var(--wood);transition:color .3s,padding .3s}
+html.sk-t03 .doc-toc a:hover{background:none;color:var(--bronze);padding-left:6px}
+html.sk-t03 .doc-tn{font:italic 400 13px/1.6 var(--latin);color:var(--gilt);min-width:22px}
+html.sk-t03 .doc-sec{padding:0 0 30px;margin-bottom:30px;border-bottom:1px solid rgba(36,28,20,.12)}
+html.sk-t03 .doc-sec:last-of-type{border-bottom:0}
+html.sk-t03 .doc-sec h2{display:block;font:400 23px/1.5 var(--serif);letter-spacing:.1em;color:var(--wood);margin-bottom:16px}
+html.sk-t03 .doc-no{display:block;background:none;border-radius:0;height:auto;min-width:0;padding:0;margin-bottom:8px;transform:none;font:400 12px/1 var(--latin);letter-spacing:.32em;color:var(--bronze)}
+html.sk-t03 .doc-no::before{content:"N° "}
+html.sk-t03 .doc-no::after{content:"";display:inline-block;vertical-align:middle;width:28px;height:1px;background:var(--gilt);margin-left:12px}
+html.sk-t03 .doc-sec p,html.sk-t03 .doc-sec li{font:400 16px/2 var(--body);letter-spacing:.03em;color:#3A2F25}
+html.sk-t03 .doc-sec ul{list-style:none;padding-left:0}
+html.sk-t03 .doc-sec ul li{position:relative;padding-left:22px}
+html.sk-t03 .doc-sec ul li::before{content:"";position:absolute;left:2px;top:.95em;width:10px;height:1px;background:var(--gilt)}
+html.sk-t03 .doc-sec ol{padding-left:1.6em}
+html.sk-t03 .doc-sec ol li::marker{font:italic 400 15px var(--latin);color:var(--bronze)}
+html.sk-t03 .doc a,html.sk-t03 .agree-t a{color:var(--bronze);font-weight:400;text-decoration:underline;text-decoration-color:rgba(201,163,106,.8);text-decoration-thickness:1px;text-underline-offset:4px}
+html.sk-t03 .doc-toc a{text-decoration:none}
+html.sk-t03 .doc-note{border-top:1px solid rgba(36,28,20,.16);font:400 12.5px/1.8 var(--body);letter-spacing:.06em;color:var(--sub);padding-top:18px}
+html.sk-t03 .doc-help{font:400 13.5px/1.8 var(--serif);letter-spacing:.08em;color:var(--sub)}
+/* 聯絡我們：左深色資訊欄＋右米白表單 */
+html.sk-t03 .ct{background:none;border-radius:0;padding:0;overflow:visible}
+html.sk-t03 .ct-hd{text-align:center;max-width:none;margin:30px 0 44px}
+html.sk-t03 .ct-hd .doc-kick{justify-content:center}
+html.sk-t03 .ct-lead{font:400 15.5px/2 var(--serif);letter-spacing:.1em;color:var(--sub)}
+html.sk-t03 .ct-lay{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:0;border:1px solid rgba(36,28,20,.14)}
+html.sk-t03 .ct-info{background:var(--night);color:var(--milk);padding:56px 48px}
+html.sk-t03 .ct-dl{gap:0;margin-bottom:34px}
+html.sk-t03 .ct-dl div{display:block;background:none;border-radius:0;padding:18px 0;border-bottom:1px solid rgba(201,163,106,.28)}
+html.sk-t03 .ct-dl div:first-child{border-top:1px solid rgba(201,163,106,.28)}
+html.sk-t03 .ct-dl dt{font:400 11.5px/1 var(--serif);letter-spacing:.36em;color:var(--gilt);margin-bottom:10px}
+html.sk-t03 .ct-dl dd{font:400 16px/1.7 var(--serif);letter-spacing:.06em;color:var(--milk)}
+html.sk-t03 .ct-dl a{color:var(--milk)}
+html.sk-t03 .ct-line .btn{background:none;color:var(--milk);border:1px solid var(--gilt);border-radius:0;letter-spacing:.2em;font-weight:400}
+html.sk-t03 .ct-line .btn:hover{background:var(--gilt);color:var(--night)}
+html.sk-t03 .ct-line small{color:rgba(243,237,227,.66);font-weight:400;letter-spacing:.06em}
+html.sk-t03 .ct-links b{font:400 12.5px/1.6 var(--serif);letter-spacing:.2em;color:var(--gilt)}
+html.sk-t03 .ct-links a{background:none;border-radius:0;padding:4px 0;margin-right:18px;border-bottom:1px solid rgba(243,237,227,.4);font:400 14px/1.6 var(--serif);letter-spacing:.1em;color:var(--milk)}
+html.sk-t03 .ct-links a:hover{background:none;color:var(--gilt);border-color:var(--gilt)}
+html.sk-t03 .ct-form{background:var(--milk);border-radius:0;padding:56px 52px 48px}
+html.sk-t03 .ct-form h2{font:400 26px/1.4 var(--serif);letter-spacing:.14em;margin-bottom:6px}
+html.sk-t03 .ct-demo{font:italic 400 13.5px/1.6 var(--body);font-style:normal;letter-spacing:.04em;color:var(--sub);margin-bottom:26px}
+html.sk-t03 .ct-form .fld span{font:400 12px/1 var(--serif);letter-spacing:.24em;color:var(--bronze)}
+html.sk-t03 .ct-form .fld input,html.sk-t03 .ct-form .fld select,html.sk-t03 .ct-form .fld textarea{background:transparent;border:0;border-bottom:1px solid rgba(36,28,20,.3);border-radius:0;padding:10px 2px;font:400 15.5px var(--body)}
+html.sk-t03 .ct-form .fld textarea{border:1px solid rgba(36,28,20,.3);padding:12px}
+html.sk-t03 .ct-form .fld input:focus,html.sk-t03 .ct-form .fld select:focus,html.sk-t03 .ct-form .fld textarea:focus{border-color:var(--bronze);background:transparent}
+html.sk-t03 .ct-ok>i{background:none;border:1px solid var(--gilt);color:var(--bronze);font:400 26px/1 var(--latin)}
+html.sk-t03 .ct-ok h2{font:400 24px/1.5 var(--serif);letter-spacing:.12em}
+html.sk-t03 .ct-ok p{font-weight:400;letter-spacing:.04em}
+html.sk-t03 .fld.agree .agree-t{font:400 13.5px/1.7 var(--body);letter-spacing:.04em;color:var(--wood)}
+html.sk-t03 .fld.agree .agree-in input{accent-color:var(--bronze)}
+html.sk-t03 .fld.agree.bad .agree-in{outline-color:#B98977}
+@media (max-width:900px){
+  html.sk-t03 .doc{padding:44px 22px 34px}
+  html.sk-t03 .doc-lay{grid-template-columns:minmax(0,1fr);gap:30px}
+  html.sk-t03 .doc-hd{margin-bottom:30px}
+  html.sk-t03 .doc-hd h1,html.sk-t03 .ct-hd h1{letter-spacing:.08em}
+  html.sk-t03 .ct-hd{margin:14px 0 28px}
+  html.sk-t03 .ct-lay{grid-template-columns:minmax(0,1fr)}
+  html.sk-t03 .ct-info{padding:38px 24px}
+  html.sk-t03 .ct-form{padding:38px 22px 32px}
+}

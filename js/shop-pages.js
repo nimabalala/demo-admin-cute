@@ -130,7 +130,7 @@ SH.act.cin=function(t){TX.cartSet(+t.dataset.i,t.value);SH.badge();SH.refresh()}
 SH.act.cdel=function(t){TX.cartSet(+t.dataset.i,0);SH.badge();SH.refresh()};
 /* ======================= 結帳 ======================= */
 var STORES={'7-11 超商取貨':['台北內湖','台北信義','新北板橋','台中西屯'],'全家 超商取貨':['台北松山','桃園中壢','台中北屯','高雄左營']};
-function formState(){var f=SH.st.form,m=TX.member();if(!f){f=SH.st.form={name:m?m.name:'',phone:m?m.phone:'',email:m?m.email||'':'',logi:'',store:'',addr:'',pay:'',note:''}}
+function formState(){var f=SH.st.form,m=TX.member();if(!f){f=SH.st.form={name:m?m.name:'',phone:m?m.phone:'',email:m?m.email||'':'',logi:'',store:'',addr:'',pay:'',note:'',agree:false}}
   var opts=TX.shipOpts();if(!opts.some(function(o){return o.k===f.logi}))f.logi=opts[0]?opts[0].k:'';
   var pays=TX.payOpts(f.logi);if(!pays.some(function(o){return o.k===f.pay}))f.pay=pays[0]?pays[0].k:'';
   var ss=STORES[f.logi]||[];if(ss.length&&ss.indexOf(f.store)<0)f.store='';return f}
@@ -147,12 +147,13 @@ SH.route('checkout',/^\/checkout$/,function(){var lines=TX.cartLines();if(!lines
    '<div class="card"><h3 class="fh"><i>2</i>取貨方式</h3>'+lg+dest+'</div>'+
    '<div class="card"><h3 class="fh"><i>3</i>付款方式</h3>'+py+'<p style="font-size:13px;margin-top:-4px">信用卡付款不加收手續費，也不會因為金額大小被拒絕。這裡是示範，不會真的刷卡。</p></div>'+
    '<div class="card"><h3 class="fh"><i>4</i>備註（選填）</h3><label class="fld" style="margin:0"><textarea data-i="f" data-f="note" placeholder="例如：請放管理室" aria-label="備註">'+h(f.note)+'</textarea></label></div></div>'+
-   '<aside class="sum"><h3>你的訂單</h3>'+mini+'<div style="margin-top:8px">'+cs.free+couponBox(q)+cs.rows+'</div><div class="r t"><span>應付金額</span><b class="num">'+TX.money(q.total)+'</b></div><button class="btn lg" type="button" data-a="place"'+(can?'':' disabled')+' data-cur="下單">送出訂單（示範）</button><p class="note">按下去會在「後台訂單」多一筆，並自動扣庫存。</p></aside></div>';
+   '<aside class="sum"><h3>你的訂單</h3>'+mini+'<div style="margin-top:8px">'+cs.free+couponBox(q)+cs.rows+'</div><div class="r t"><span>應付金額</span><b class="num">'+TX.money(q.total)+'</b></div><div class="fld agree" data-f="agree"><label class="agree-in"><input type="checkbox" data-i="agree"'+(f.agree?' checked':'')+'><span class="agree-t">我已閱讀並同意<a href="#/page/terms">服務條款</a>與<a href="#/page/privacy">隱私權政策</a></span></label><em class="er">請先勾選同意，才能送出訂單</em></div><button class="btn lg" type="button" data-a="place"'+(can?'':' disabled')+' data-cur="下單">送出訂單（示範）</button><p class="note">按下去會在「後台訂單」多一筆，並自動扣庫存。</p></aside></div>';
   return {html:html,admin:'app.html#/orders'}});
 SH.act.rlogi=function(t){var f=formState();f.logi=t.dataset.v;SH.refresh()};
 SH.act.rpay=function(t){var f=formState();f.pay=t.dataset.v;SH.refresh()};
 document.addEventListener('input',function(e){var t=e.target;if(t.getAttribute&&t.getAttribute('data-i')==='f'){var f=SH.st.form;if(f){f[t.dataset.f]=t.value;var w=t.closest('.fld');w&&w.classList.remove('bad')}}});
 document.addEventListener('change',function(e){var t=e.target;if(!t.getAttribute)return;var a=t.getAttribute('data-a');
+  if(t.getAttribute('data-i')==='agree'){formState().agree=t.checked;var wa=t.closest('.fld');wa&&wa.classList.remove('bad');return}
   if(t.tagName==='SELECT'&&t.getAttribute('data-i')==='f'){SH.st.form[t.dataset.f]=t.value;var w=t.closest('.fld');w&&w.classList.remove('bad');return}
   if(a&&(t.tagName==='SELECT'||t.type==='number')&&SH.act[a]){SH.act[a](t,e)}});
 SH.act.place=function(t){var f=formState(),er={};
@@ -160,6 +161,7 @@ SH.act.place=function(t){var f=formState(),er={};
   if(!/^09\d{8}$/.test(TX.digits(f.phone)))er.phone=1;
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.trim()))er.email=1;
   if(STORES[f.logi]){if(!f.store)er.store=1}else if((f.addr||'').trim().length<6)er.addr=1;
+  if(!f.agree)er.agree=1;
   var keys=Object.keys(er);$$('.fld').forEach(function(w){w.classList.toggle('bad',!!er[w.dataset.f])});
   if(keys.length){var el=$('.fld.bad');el&&el.scrollIntoView({block:'center',behavior:RM?'auto':'smooth'});var inp=el&&$('input,select',el);inp&&inp.focus({preventScroll:true});U.toast('還有欄位要補一下','紅色框框的地方請再確認');return}
   var dest=STORES[f.logi]?'示範門市 '+f.store:f.addr.trim();
@@ -200,8 +202,66 @@ SH.act.logout=function(){TX.memberSet(null);SH.refresh()};
 SH.act.ocancel=function(t){U.confirm('取消這筆訂單？','商品庫存會自動補回，後台訂單也會變成「已取消」。',function(){TX.cancel(t.dataset.id);U.toast('訂單已取消');SH.refresh()},'取消訂單',true)};
 SH.act.oreturn=function(t){U.confirm('申請退貨？','店家會在後台「退換貨」看到你的申請。',function(){TX.requestReturn(t.dataset.id,'顧客在商店頁面申請退貨');U.toast('已送出退貨申請','店家會在後台處理');SH.refresh()},'送出申請')};
 /* ======================= 說明頁 ======================= */
+/* ======================= 長文頁（隱私權政策、服務條款、退換貨政策…） =======================
+   內文是純文字：「## 」小標（自動產生目錄錨點）、「- 」項目、「1. 」步驟、「※ 」頁尾小字、空行分段。
+   {店名} {信箱} {電話} {地址} 換成這家店的資料（後台「設定」改了就跟著變）。 */
+SH.fillStore=function(t,d){var st=d.store||{};return String(t==null?'':t).split('{店名}').join(d.name||'').split('{信箱}').join(st.email||'').split('{電話}').join(st.phone||'').split('{地址}').join(st.addr||'')};
+var DOCLINK={'退換貨政策':'returns','服務條款':'terms','隱私權政策':'privacy'},DOCEN={privacy:'Privacy Policy',terms:'Terms of Service',returns:'Returns & Exchanges',shipping:'Shipping',faq:'FAQ',about:'About'};
+function two(n){return (n<10?'0':'')+n}
+function inl(t,d){var x=h(SH.fillStore(t,d)),em=(d.store||{}).email;if(em)x=x.split(h(em)).join('<a href="mailto:'+h(em)+'">'+h(em)+'</a>');
+  return x.replace(/《(退換貨政策|服務條款|隱私權政策)》/g,function(m0,n){return '<a href="#/page/'+DOCLINK[n]+'">《'+n+'》</a>'})}
+SH.isDoc=function(body){return /^## /m.test(body||'')};
+SH.docHtml=function(pg,d){var intro=[],secs=[],notes=[],cur=null,list=null;
+  function push(html){(cur?cur.c:intro).push(html)}
+  String(pg.body||'').split('\n').forEach(function(raw){var l=raw.trim(),m;
+    if(!l){list=null;return}
+    if(/^## /.test(l)){list=null;var tt=l.slice(3).trim().replace(/^[一二三四五六七八九十]+、\s*/,'');cur={t:tt,c:[]};secs.push(cur);return}
+    if(/^※/.test(l)){list=null;notes.push(l.replace(/^※\s*/,''));return}
+    if((m=/^-\s+(.*)$/.exec(l))||(m=/^\d+\.\s+(.*)$/.exec(l))){var tag=/^-/.test(l)?'ul':'ol';if(!list||list.tag!==tag){list={tag:tag,items:[]};push(list)}list.items.push(m[1]);return}
+    list=null;push('<p>'+inl(l,d)+'</p>')});
+  function out(arr){return arr.map(function(x){return typeof x==='string'?x:'<'+x.tag+' class="doc-'+x.tag+'">'+x.items.map(function(it){return '<li>'+inl(it,d)+'</li>'}).join('')+'</'+x.tag+'>'}).join('')}
+  var toc=secs.length?'<nav class="doc-toc" aria-label="本頁目錄"><b class="doc-toch">目錄</b><ol>'+secs.map(function(x,i){return '<li><a href="#/page/'+h(pg.slug)+'" data-a="docgo" data-to="doc-s'+(i+1)+'"><span class="doc-tn">'+two(i+1)+'</span><span>'+h(x.t)+'</span></a></li>'}).join('')+'</ol></nav>':'';
+  return '<article class="doc doc-'+h(pg.slug)+'">'+
+    '<header class="doc-hd"><p class="doc-kick"><span>購物說明</span><i aria-hidden="true"></i><span lang="en">'+h(DOCEN[pg.slug]||'Information')+'</span></p><h1>'+h(pg.title)+'</h1><p class="doc-meta">'+h(d.name||'')+(pg.updated?'・最後更新 '+h(pg.updated):'')+'</p>'+(intro.length?'<div class="doc-intro">'+out(intro)+'</div>':'')+'</header>'+
+    '<div class="doc-lay'+(toc?'':' notoc')+'">'+toc+'<div class="doc-bd">'+secs.map(function(x,i){return '<section class="doc-sec" id="doc-s'+(i+1)+'"><h2 tabindex="-1"><span class="doc-no">'+two(i+1)+'</span><span class="doc-tt">'+h(x.t)+'</span></h2>'+out(x.c)+'</section>'}).join('')+
+    notes.map(function(n){return '<p class="doc-note">'+inl(n,d)+'</p>'}).join('')+
+    '<p class="doc-help">還有問題嗎？<a href="#/page/contact">聯絡客服</a>・<a href="#/page/faq">常見問題</a></p></div></div></article>'};
+SH.act.docgo=function(t){var el=document.getElementById(t.dataset.to);if(!el)return;var hd=document.querySelector('.sf-head'),off=(hd?hd.getBoundingClientRect().bottom:0)+18;
+  window.scrollTo({top:Math.max(0,el.getBoundingClientRect().top+window.scrollY-off),behavior:RM?'auto':'smooth'});var h2=el.querySelector('h2');h2&&h2.focus({preventScroll:true})};
+/* ======================= 聯絡我們 ======================= */
+var HOURS='週一至週五 10:00–18:00（國定假日休息）';
+function ctHtml(d){var st=d.store||{},hrs=st.hours||HOURS;
+  function cf(key,label,input,req,er){return '<label class="fld" data-f="'+key+'"><span>'+label+(req?' <i>*</i>':'<small class="opt">選填</small>')+'</span>'+input+'<em class="er">'+(er||'')+'</em></label>'}
+  return '<section class="ct">'+
+   '<header class="ct-hd"><p class="doc-kick"><span>客服中心</span><i aria-hidden="true"></i><span lang="en">Contact</span></p><h1>聯絡我們</h1><p class="ct-lead">訂單、商品、退換貨，有任何問題都可以問我們。通常 1 個工作天內回覆。</p></header>'+
+   '<div class="ct-lay"><div class="ct-info">'+
+    '<dl class="ct-dl"><div><dt>客服信箱</dt><dd><a href="mailto:'+h(st.email||'')+'">'+h(st.email||'')+'</a></dd></div><div><dt>客服電話</dt><dd><a href="tel:'+h(String(st.phone||'').replace(/[^\d+]/g,''))+'">'+h(st.phone||'')+'</a></dd></div><div><dt>地址</dt><dd>'+h(st.addr||'')+'</dd></div><div><dt>營業時間</dt><dd>'+h(hrs)+'</dd></div></dl>'+
+    '<div class="ct-line"><a class="btn" data-line="shop-contact">'+SH.LINE+'加入 LINE 官方帳號</a><small>用 LINE 傳訊息給客服，營業時間內回覆。</small></div>'+
+    '<div class="ct-links"><b>先看看這些，也許馬上有答案</b><a href="#/page/faq">常見問題</a><a href="#/page/shipping">運送說明</a><a href="#/page/returns">退換貨政策</a><a href="#/member">訂單查詢</a></div>'+
+    SH.ham('lili','','ct-ham')+
+   '</div>'+
+   '<form class="ct-form" id="ctform" novalidate aria-label="聯絡表單"><h2>寫信給我們</h2><p class="ct-demo">示範表單：送出後只會在畫面上顯示成功，不會真的寄出。</p>'+
+    '<div class="ct-g2">'+cf('name','姓名','<input data-c="name" autocomplete="name" placeholder="王小明">',1,'請填寫姓名')+cf('email','Email','<input data-c="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com">',1,'Email 格式不正確')+'</div>'+
+    '<div class="ct-g2">'+cf('phone','手機','<input data-c="phone" inputmode="tel" autocomplete="tel" placeholder="0912-345-678">',0,'手機格式不正確（10 碼）')+cf('topic','問題類型','<select data-c="topic"><option value="">請選擇</option><option>訂單與出貨</option><option>商品問題</option><option>退換貨</option><option>會員與帳號</option><option>其他</option></select>',1,'請選一個問題類型')+'</div>'+
+    cf('order','訂單編號','<input data-c="order" placeholder="例如 T1050">',0,'')+
+    cf('msg','想問的事','<textarea data-c="msg" rows="5" placeholder="請描述你的問題，至少 10 個字"></textarea>',1,'請至少寫 10 個字')+
+    '<div class="fld agree" data-f="ctagree"><label class="agree-in"><input type="checkbox" data-c="agree"><span class="agree-t">我同意依<a href="#/page/privacy">隱私權政策</a>處理我的聯絡資料</span></label><em class="er">請先勾選同意</em></div>'+
+    '<button class="btn lg" type="submit" data-cur="送出">送出（示範）</button></form>'+
+   '</div></section>'}
+function ctVal(f){function v(k){var e=$('[data-c="'+k+'"]',f);return e?(e.type==='checkbox'?e.checked:e.value.trim()):''}var er={};
+  if(v('name').length<2)er.name=1;if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email')))er.email=1;if(v('phone')&&!/^09\d{8}$/.test(v('phone').replace(/\D/g,'')))er.phone=1;
+  if(!v('topic'))er.topic=1;if(v('msg').length<10)er.msg=1;if(!v('agree'))er.ctagree=1;return {er:er,name:v('name'),email:v('email'),topic:v('topic')}}
+document.addEventListener('submit',function(e){var f=e.target;if(!f||f.id!=='ctform')return;e.preventDefault();var r=ctVal(f),ks=Object.keys(r.er);
+  $$('.fld',f).forEach(function(w){w.classList.toggle('bad',!!r.er[w.dataset.f])});
+  if(ks.length){var b=$('.fld.bad',f);b&&b.scrollIntoView({block:'center',behavior:RM?'auto':'smooth'});var inp=b&&$('input,select,textarea',b);inp&&inp.focus({preventScroll:true});U.toast('還有欄位要補一下','紅色框框的地方請再確認');return}
+  f.innerHTML='<div class="ct-ok" role="status" tabindex="-1"><i aria-hidden="true">✓</i><h2>已收到你的訊息（示範）</h2><p>'+h(r.name)+'，謝謝你的來信。我們會寄到 <b>'+h(r.email)+'</b>，通常 1 個工作天內回覆。</p><p class="ct-demo">這是示範表單，訊息不會真的寄出。</p><button class="btn w" type="button" data-a="ctagain">再寫一則</button></div>';
+  var ok=$('.ct-ok',f);ok&&ok.focus({preventScroll:true});if(window.gsap&&!RM)gsap.from(ok,{opacity:0,y:16,duration:.7,ease:'power2.out',clearProps:'transform,opacity'});if(SH.say)SH.say('收到囉！')});
+document.addEventListener('input',function(e){var t=e.target;if(t&&t.getAttribute&&t.getAttribute('data-c')){var w=t.closest('.fld');w&&w.classList.remove('bad')}});
+document.addEventListener('change',function(e){var t=e.target;if(t&&t.getAttribute&&t.getAttribute('data-c')){var w=t.closest('.fld');w&&w.classList.remove('bad')}});
+SH.act.ctagain=function(){SH.refresh()};
 SH.route('page',/^\/page\/([^/]+)$/,function(m){var d=D(),slug=decodeURIComponent(m[1]),pg=d.pages.filter(function(p){return p.slug===slug&&p.status==='發布'})[0];
-  if(slug==='contact')return {html:SH.crumbs([['聯絡客服']])+'<section class="about"><div><h2>聯絡客服</h2><p>有問題都可以問我們。\n信箱：'+h(d.store.email)+'\n電話：'+h(d.store.phone)+'\n地址：'+h(d.store.addr)+'</p><a class="btn" data-line="shop-contact">'+SH.LINE+'想要這樣的商店？LINE 問棠序</a></div>'+SH.ham('lili','','')+'</section>',admin:'app.html#/customers/inbox'};
+  if(slug==='contact')return {html:SH.crumbs([['聯絡我們']])+ctHtml(d),admin:'app.html#/customers/inbox'};
   if(!pg)return {html:SH.crumbs([['找不到頁面']])+SH.empty('找不到這一頁','這一頁可能還沒發布。（後台「網店→頁面」可以發布）','<a class="btn" href="#/">回商店首頁</a>')};
-  return {html:SH.crumbs([[pg.title]])+'<section class="about"><div><h2>'+h(pg.title)+'</h2><p>'+h(pg.body)+'</p><a class="btn w" href="#/list">去逛商品</a></div>'+SH.ham('tiaotiao','','')+'</section>',admin:'app.html#/shop/pages'}});
+  if(SH.isDoc(pg.body))return {html:SH.crumbs([[pg.title]])+SH.docHtml(pg,d),admin:'app.html#/shop/pages'};
+  return {html:SH.crumbs([[pg.title]])+'<section class="about"><div><h2>'+h(pg.title)+'</h2><p>'+h(SH.fillStore(pg.body,d))+'</p><a class="btn w" href="#/list">去逛商品</a></div>'+SH.ham('tiaotiao','','')+'</section>',admin:'app.html#/shop/pages'}});
 })();
