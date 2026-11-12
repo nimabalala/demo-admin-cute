@@ -501,3 +501,34 @@ h2.sec-t a.more{font-size:14px;margin-left:auto;background:#fff;border-radius:99
   .ct-form{padding:22px 18px}
 }
 @media (max-width:560px){.ct-g2{grid-template-columns:1fr}.ct-dl div{grid-template-columns:74px 1fr;padding:12px 14px}.doc-sec h2{font-size:20px}}
+
+/* ===== 第 7 輪修正（2026-11-12） ===== */
+/* A1：手機選單裡要有搜尋框（只藏頁首那一個） */
+@media (max-width:760px){
+ .sf-search{display:none}
+ .sf-drawer .sf-search{display:flex;width:100%;height:46px;margin-bottom:14px}
+ .sf-drawer .sf-search input{font-size:16px}
+ .sf-drawer .mi.adm{display:flex}
+}
+.sf-drawer .mi.adm{display:none}
+/* B5：手機示範列：店名縮成「…」，「重設示範資料」完整顯示 */
+@media (max-width:760px){
+ .demo-bar{gap:6px;padding:0 8px}
+ .demo-bar .db1{display:block;flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .demo-bar .db1 i{display:inline-block;vertical-align:middle;margin-right:6px}
+ .demo-bar .skin-sw,.demo-bar .db3{flex:none}
+ .demo-bar .db3{padding:0 8px;font-size:11px}
+}
+/* C2：手機的「回後台」縮成小按鈕；「去後台改這個商品」改放在選單裡 */
+@media (max-width:760px){
+ .backadmin{height:40px;padding:0 12px 0 8px;font-size:13px;left:10px;bottom:10px;gap:2px;opacity:.94}
+ .backadmin svg{width:18px;height:18px}
+ .editadmin{display:none!important}
+ body.pdp-on .backadmin{bottom:84px}
+ body.shop #foot{padding-bottom:72px}
+}
+/* C4：商品頁、購物車、結帳不顯示「在後台改」提示泡泡（避免蓋住按鈕） */
+body.pdp-on .pethint .bub{display:none}
+.sf-drawer .mt.adm{display:none}
+@media (max-width:760px){.sf-drawer .mt.adm{display:block}.sf-drawer .mi.adm[hidden]{display:none}}
+@media (max-width:760px){.sf-drawer .mi.adm{display:flex}.sf-drawer .mi.adm[hidden]{display:none}}

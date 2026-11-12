@@ -411,10 +411,10 @@ html.sk-t03 #sf .hero .kick{font-weight:400}
    中文：源雲明體月 GenWanMin2 TW（EL＝200–300 細明朝，R＝400–500 小字）；英文：Bodoni Moda（高反差 Didone，含斜體）。
    都是自帶 woff2 子集（fonts/t03/，SIL OFL）；缺字退回 Noto Serif TC。後台表格表單仍用 Noto Sans TC。
    ========================================================================== */
-@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-EL-t03.woff2?v=20261111-l1") format("woff2");font-weight:100 350;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-R-t03.woff2?v=20261111-l1") format("woff2");font-weight:351 900;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-t03.woff2?v=20261111-l1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-t03.woff2?v=20261111-l1") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
-@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261111-l1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261111-l1") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
+@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-EL-t03.woff2?v=20261112-m1") format("woff2");font-weight:100 350;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 GenWanMin";src:url("../../fonts/t03/GenWanMin2TW-R-t03.woff2?v=20261112-m1") format("woff2");font-weight:351 900;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-t03.woff2?v=20261112-m1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-t03.woff2?v=20261112-m1") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
+@font-face{font-family:"T03 Bodoni";src:url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261112-m1") format("woff2-variations"),url("../../fonts/t03/BodoniModa-Italic-t03.woff2?v=20261112-m1") format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
 html.sk-t03{--serif:"T03 GenWanMin","Noto Serif TC",serif;--latin:"T03 Bodoni","T03 GenWanMin","Noto Serif TC",serif;--disp:"T03 Bodoni","T03 GenWanMin","Noto Serif TC",serif}
 /* 首頁大數字改 Bodoni 等高數字；後台數字維持 Noto Serif TC 400 好讀 */
 html.sk-t03 .tile .strip i,html.sk-t03 .bignum .sep,html.sk-t03 .cell .no{font-family:"T03 Bodoni","Noto Serif TC",serif!important;font-weight:400!important;font-variant-numeric:lining-nums tabular-nums}
@@ -1064,3 +1064,8 @@ html.sk-t03 .fld.agree.bad .agree-in{outline-color:#B98977}
   html.sk-t03 .ct-info{padding:38px 24px}
   html.sk-t03 .ct-form{padding:38px 22px 32px}
 }
+
+/* ===== 第 7 輪修正 ===== */
+/* B3：深色區塊裡的「去逛商品」改成米白底深字 */
+html.sk-t03 .about .btn.w{background:var(--milk)!important;color:var(--wood)!important;border:1px solid var(--milk)!important}
+html.sk-t03 .about .btn.w:hover{background:transparent!important;color:var(--milk)!important}

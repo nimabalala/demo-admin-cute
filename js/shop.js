@@ -28,8 +28,8 @@ S.grid=function(list,cols){var hot=S.hotSet();return '<div class="pgrid">'+list.
 S.empty=function(title,body,btn){return '<div class="empty">'+S.ham('xiaosha','width:140px;margin:0 auto 4px')+'<b>'+h(title)+'</b>'+h(body||'')+(btn||'')+'</div>'};
 S.crumbs=function(arr){return '<nav class="crumbs" aria-label="路徑"><a href="#/">首頁</a>'+arr.map(function(a){return '<i>›</i>'+(a[1]?'<a href="'+a[1]+'">'+h(a[0])+'</a>':'<span>'+h(a[0])+'</span>')}).join('')+'</nav>'};
 S.route=function(name,re,fn){S.routes.push({name:name,re:re,fn:fn})};
-S.admin=function(h2){var b=$('#backadmin');if(b)b.setAttribute('data-go',h2)};
-S.editLink=function(href,label){var e=$('#editadmin');if(!e)return;if(href){e.hidden=false;e.setAttribute('data-go',href);var sp=e.querySelector('span');if(sp)sp.textContent=label||'去後台改這個商品'}else e.hidden=true};
+S.admin=function(h2){var b=$('#backadmin');if(b)b.setAttribute('data-go',h2);var m=$('#mback');if(m)m.setAttribute('data-go',h2)};
+S.editLink=function(href,label){var e=$('#editadmin'),m=$('#medit');if(!e)return;if(href){e.hidden=false;e.setAttribute('data-go',href);var sp=e.querySelector('span');if(sp)sp.textContent=label||'去後台改這個商品';if(m){m.hidden=false;m.setAttribute('data-go',href);m.textContent=label||'去後台改這個商品'}}else{e.hidden=true;if(m)m.hidden=true}};
 S.toast=function(t,s){U.toast(t,s)};
 /* 讓右下角的栗栗說話（倉鼠在畫面上才會說） */
 S.say=function(text){var el=$('#pethint .pet');var L=C.hams.filter(function(x){return x.el===el})[0];if(L&&L.el.offsetParent)C.jump(L,text)};
@@ -49,7 +49,7 @@ function head(){var d=D(),cur=location.hash||'#/';
    '<a class="ibtn cart" href="#/cart" id="cartbtn" data-cur="購物車" aria-label="購物車">'+IC.bag+'<span class="lb">購物車</span><span class="bd" id="cartn" data-n="0"></span></a>'+
    '<button class="ibtn sf-burger" id="sfb" type="button" aria-label="開啟選單" aria-expanded="false">'+IC.menu+'</button></div>';
   var dr=$('#drawer');if(!dr){dr=document.createElement('div');dr.id='drawer';dr.className='sf-drawer';document.body.appendChild(dr)}
-  dr.innerHTML='<div class="in"><form class="sf-search" id="sq2" role="search"><input type="search" name="q" placeholder="搜尋商品" aria-label="搜尋商品"><button aria-label="搜尋">'+IC.search+'</button></form><p class="mt">選單</p>'+d.menu.map(function(m){return '<a class="mi" href="'+S.menuLink(m)+'">'+h(m)+'</a>'}).join('')+'<a class="mi" href="#/cart">購物車</a><a class="mi" href="#/member">訂單查詢</a><p class="mt">逛別家店</p><div class="shoppick">'+shopPick()+'</div></div>';
+  dr.innerHTML='<div class="in"><form class="sf-search" id="sq2" role="search"><input type="search" name="q" placeholder="搜尋商品" aria-label="搜尋商品"><button aria-label="搜尋">'+IC.search+'</button></form><p class="mt">選單</p>'+d.menu.map(function(m){return '<a class="mi" href="'+S.menuLink(m)+'">'+h(m)+'</a>'}).join('')+'<a class="mi" href="#/cart">購物車</a><a class="mi" href="#/member">訂單查詢</a><p class="mt adm">示範後台</p><a class="mi adm" id="mback" href="app.html" data-go="'+h(($('#backadmin')||{getAttribute:function(){return 'app.html#/orders'}}).getAttribute('data-go'))+'">回後台</a><a class="mi adm" id="medit" href="app.html" data-go="app.html#/products" hidden>去後台改這個商品</a><p class="mt">逛別家店</p><div class="shoppick">'+shopPick()+'</div></div>';
   C.applyTheme();document.title='商店頁面｜'+d.name+'｜示範後台・棠序問策股份有限公司建置';
   $('#dbs').innerHTML=shopPick();badge()}
 function badge(){var n=TX.cartCount(),b=$('#cartn');if(b){b.textContent=n;b.setAttribute('data-n',n)}}
@@ -97,7 +97,7 @@ function initHams(root){C.hams=C.hams.filter(function(L){return document.body.co
 function render(opts){opts=opts||{};var f=resolve(),main=$('#sf');if(!f){location.replace('#/');return}
   var name=f.r.name,sy=window.scrollY;
   var swap=function(){var res=f.r.fn(f.m,f.H,{first:first})||{};main.innerHTML=typeof res==='string'?res:res.html;
-    document.body.classList.toggle('pdp-on',name==='pdp');document.body.classList.toggle('lb-on',name==='lookbook');document.body.classList.remove('lb-sheet');var ph=$('#pethint');if(ph)ph.classList.toggle('quiet',name==='cart'||name==='checkout'||name==='lookbook');S.admin(res.admin||'app.html#/shop');S.editLink(res.edit||null,res.editLabel);
+    document.body.classList.toggle('pdp-on',name==='pdp');document.body.classList.toggle('lb-on',name==='lookbook');document.body.classList.remove('lb-sheet');var ph=$('#pethint');if(ph)ph.classList.toggle('quiet',name==='cart'||name==='checkout'||name==='lookbook'||name==='pdp');S.admin(res.admin||'app.html#/shop');S.editLink(res.edit||null,res.editLabel);
     head();foot();marquee();initHams(document.body);document.title='商店頁面｜'+D().name+'｜示範後台・棠序問策股份有限公司建置';
     if(opts.keep||(name==='list'&&cur.name==='list'))window.scrollTo(0,sy);else window.scrollTo(0,0);
     if(res.mount)res.mount(main,f.m,f.H);

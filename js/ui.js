@@ -38,3 +38,15 @@ U.icon={search:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stro
 /* 圖片縮小後再存（避免 localStorage 爆掉） */
 U.shrink=function(file,max,cb){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.72))};im.onerror=function(){cb(null)};im.src=r.result};r.onerror=function(){cb(null)};r.readAsDataURL(file)};
 })();
+/* C3（第 7 輪）：檔案上傳欄改成中文按鈕「選擇檔案」與檔名，不顯示瀏覽器預設的英文 Choose File */
+(function(){
+'use strict';
+function fx(i){if(i.hasAttribute('data-fx')||i.hidden)return;i.setAttribute('data-fx','1');i.classList.add('fx-in');
+  var w=document.createElement('span');w.className='fpick';w.setAttribute('aria-hidden','true');w.innerHTML='<b>選擇檔案</b><em>還沒選檔案</em>';i.insertAdjacentElement('afterend',w);
+  w.addEventListener('click',function(e){if(!i.closest('label')){e.preventDefault();i.click()}})}
+function scan(r){(r||document).querySelectorAll&&(r||document).querySelectorAll('input[type=file]:not([data-fx])').forEach(fx)}
+document.addEventListener('change',function(e){var i=e.target;if(!i||i.type!=='file')return;var w=i.nextElementSibling;if(!w||!w.classList.contains('fpick'))return;
+  var n=i.files&&i.files.length?(i.files.length>1?i.files.length+' 個檔案':i.files[0].name):'還沒選檔案';w.querySelector('em').textContent=n;w.classList.toggle('has',!!(i.files&&i.files.length))},true);
+if(document.readyState!=='loading')scan();else document.addEventListener('DOMContentLoaded',function(){scan()});
+new MutationObserver(function(){scan()}).observe(document.documentElement,{childList:true,subtree:true});
+})();

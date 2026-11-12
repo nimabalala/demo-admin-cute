@@ -221,3 +221,17 @@ html.sk-t02 .ct-form h2{font-weight:800}
 html.sk-t02 .ct-ok>i{background:#111;border-radius:50%!important}
 html.sk-t02 .fld.agree .agree-t{font-weight:500}
 @media (max-width:900px){html.sk-t02 .doc,html.sk-t02 .ct{padding:30px 20px 26px}}
+
+/* ===== 第 7 輪修正 ===== */
+/* B1：「省 20%」紅底白字 */
+html.sk-t02 .info .big .off{background:var(--red);color:#fff;box-shadow:none}
+/* B2：頁尾署名在黑底上用白字 */
+html.sk-t02 #foot .copy b{color:#fff}
+/* B4：手機商品頁底部按鈕不被切掉 */
+@media (max-width:760px){
+ html.sk-t02 .buybar{gap:8px;padding:10px 10px 12px}
+ html.sk-t02 .buybar .btn{min-width:0;padding:0 8px;font-size:14px;letter-spacing:0;white-space:nowrap}
+ html.sk-t02 .buybar .pp{flex:0 1 auto;min-width:0;font-size:19px}
+}
+/* B6：沒有倉鼠時，穿搭輪盤下方說明改成一欄全寬 */
+html.sk-t02 .lb-cta{grid-template-columns:minmax(0,1fr)}
