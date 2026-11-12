@@ -1023,7 +1023,7 @@ html.sk-t03 .doc-toc a{text-decoration:none}
 html.sk-t03 .doc-note{border-top:1px solid rgba(36,28,20,.16);font:400 12.5px/1.8 var(--body);letter-spacing:.06em;color:var(--sub);padding-top:18px}
 html.sk-t03 .doc-help{font:400 13.5px/1.8 var(--serif);letter-spacing:.08em;color:var(--sub)}
 /* 聯絡我們：左深色資訊欄＋右米白表單 */
-html.sk-t03 .ct{background:none;border-radius:0;padding:0;overflow:visible}
+html.sk-t03 section.ct{background:none;border-radius:0;padding:0;overflow:visible}
 html.sk-t03 .ct-hd{text-align:center;max-width:none;margin:30px 0 44px}
 html.sk-t03 .ct-hd .doc-kick{justify-content:center}
 html.sk-t03 .ct-lead{font:400 15.5px/2 var(--serif);letter-spacing:.1em;color:var(--sub)}

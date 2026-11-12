@@ -194,7 +194,7 @@ html.sk-t02 .gl *{color:#111}
 /* T02 綁定示範店「巷尾選物」：換品牌（換示範店）的選單在這個主題不顯示 */
 html.sk-t02 .swwrap,html.sk-t02 .mnav .msw,html.sk-t02 .mnav p.mt:has(+.msw),html.sk-t02 #dbs,html.sk-t02 #themes,html.sk-t02 .shoppick{display:none!important}
 /* ===== 長文頁／聯絡我們：黑白直角 ===== */
-html.sk-t02 .doc,html.sk-t02 .ct{background:#fff;border:1px solid #111;padding:56px 56px 44px}
+html.sk-t02 .doc,html.sk-t02 section.ct{background:#fff;border:1px solid #111;padding:56px 56px 44px}
 html.sk-t02 .doc-kick{color:#111;letter-spacing:.18em;text-transform:uppercase;font-weight:800}
 html.sk-t02 .doc-kick i{background:#E5302A;opacity:1;height:3px;width:30px}
 html.sk-t02 .doc-hd h1,html.sk-t02 .ct-hd h1{font:800 clamp(34px,4.6vw,56px)/1.02 var(--disp);letter-spacing:-.02em}
@@ -220,7 +220,7 @@ html.sk-t02 .ct-form{background:#F2F2F2;border:0}
 html.sk-t02 .ct-form h2{font-weight:800}
 html.sk-t02 .ct-ok>i{background:#111;border-radius:50%!important}
 html.sk-t02 .fld.agree .agree-t{font-weight:500}
-@media (max-width:900px){html.sk-t02 .doc,html.sk-t02 .ct{padding:30px 20px 26px}}
+@media (max-width:900px){html.sk-t02 .doc,html.sk-t02 section.ct{padding:30px 20px 26px}}
 
 /* ===== 第 7 輪修正 ===== */
 /* B1：「省 20%」紅底白字 */
